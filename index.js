@@ -123,14 +123,14 @@ function renderLeaderboard(data) {
 
   const top = [...data]
     .sort((a, b) => a.ESG_Score - b.ESG_Score)
-    .slice(0, 5);
+    .slice(0, 8);
 
   wrap.innerHTML = top.map((d, i) => `
     <div class="lb-row">
       <div class="lb-rank">${i + 1}</div>
       <div class="lb-company">
         <div class="name">${d.Company}</div>
-        <div class="meta">${d.Sector} · ${d.Ticker}</div>
+        <div class="meta">${d.Sector}</div>
       </div>
       <div class="lb-score">
         <div class="value">${fmtPct(d.ESG_Score)}</div>
@@ -140,66 +140,23 @@ function renderLeaderboard(data) {
   `).join("");
 }
 
-function renderSectorChart(data) {
-  const sectors = buildSectorAverages(data);
-
-  Plotly.newPlot("overviewSectorChart", [
+function renderDistributionChart(data) {
+  Plotly.newPlot("overviewDistributionChart", [
     {
-      type: "bar",
-      x: sectors.map(s => s.sector),
-      y: sectors.map(s => s.avgESG),
-      text: sectors.map(s => fmt(s.avgESG)),
-      textposition: "outside",
-      cliponaxis: false,
-      marker: { color: "#2e8b57" },
-      hovertemplate: "<b>%{x}</b><br>Average ESG score: %{y:.3f}<extra></extra>"
-    }
-  ], {
-    paper_bgcolor: "rgba(0,0,0,0)",
-    plot_bgcolor: "rgba(0,0,0,0)",
-    margin: { l: 50, r: 20, t: 10, b: 20 },
-    yaxis: { title: "Average ESG Score" },
-    xaxis: {
-      showticklabels: false,
-      showgrid: false,
-      zeroline: false
-    }
-  }, {
-    responsive: true,
-    displayModeBar: false
-  });
-}
-
-function renderScatterChart(data) {
-  Plotly.newPlot("overviewScatterChart", [
-    {
-      type: "scatter",
-      mode: "markers",
-      x: data.map(d => d.Environment_Score),
-      y: data.map(d => d.Social_Score),
-      text: data.map(d => `${d.Company}<br>${d.Sector}`),
+      type: "histogram",
+      x: data.map(d => d.ESG_Score),
+      nbinsx: 10,
       marker: {
-        size: 11,
-        color: data.map(d => d.ESG_Score),
-        colorscale: [
-          [0, "#dcecdf"],
-          [0.5, "#9fd0b0"],
-          [1, "#2e8b57"]
-        ],
-        line: {
-          color: "rgba(23,27,36,0.18)",
-          width: 1
-        },
-        showscale: false
+        color: "#2e8b57"
       },
-      hovertemplate: "<b>%{text}</b><br>Environment: %{x:.3f}<br>Social: %{y:.3f}<extra></extra>"
+      hovertemplate: "ESG score bin: %{x:.3f}<br>Count: %{y}<extra></extra>"
     }
   ], {
     paper_bgcolor: "rgba(0,0,0,0)",
     plot_bgcolor: "rgba(0,0,0,0)",
     margin: { l: 50, r: 20, t: 10, b: 40 },
-    xaxis: { title: "Environment Score" },
-    yaxis: { title: "Social Score" }
+    xaxis: { title: "Composite ESG Score" },
+    yaxis: { title: "Number of Companies" }
   }, {
     responsive: true,
     displayModeBar: false
@@ -216,8 +173,7 @@ function initOverviewPage() {
   renderOverviewStats(cappedData);
   renderBreakdownStack(cappedData);
   renderLeaderboard(cappedData);
-  renderSectorChart(cappedData);
-  renderScatterChart(cappedData);
+  renderDistributionChart(cappedData);
 }
 
 document.addEventListener("DOMContentLoaded", initOverviewPage);
