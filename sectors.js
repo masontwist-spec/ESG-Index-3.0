@@ -16,6 +16,10 @@ function fmt(num) {
   return Number(num).toFixed(3);
 }
 
+function fmtPct(num) {
+  return (Number(num) * 100).toFixed(1) + '%';
+}
+
 function buildSectorData(data) {
   const grouped = {};
 
@@ -27,27 +31,28 @@ function buildSectorData(data) {
 
   const sectors = Object.entries(grouped).map(([sector, companies]) => {
     const sortedCompanies = [...companies].sort(
-      (a, b) => a.Environment_Score - b.Environment_Score
+      (a, b) => a.ESG_Score - b.ESG_Score
     );
 
-    const scores = sortedCompanies.map(c => c.Environment_Score);
+    const esgScores = sortedCompanies.map(c => c.ESG_Score);
+    const environmentScores = sortedCompanies.map(c => c.Environment_Score);
+    const socialScores = sortedCompanies.map(c => c.Social_Score);
 
     return {
       sector,
       count: companies.length,
-      avgScore: mean(scores),
-      medianScore: median(scores),
-      range: Math.max(...scores) - Math.min(...scores),
+      avgESG: mean(esgScores),
+      avgEnvironment: mean(environmentScores),
+      avgSocial: mean(socialScores),
+      medianESG: median(esgScores),
+      range: Math.max(...esgScores) - Math.min(...esgScores),
       bestCompany: sortedCompanies[0].Company,
       worstCompany: sortedCompanies[sortedCompanies.length - 1].Company,
-      avgClimateTargets: mean(companies.map(c => c.Climate_Targets)),
-      avgInvestmentTransition: mean(companies.map(c => c.Investment_Transition)),
-      avgClimateReporting: mean(companies.map(c => c.Climate_Reporting)),
-      companyScores: scores
+      companyESGScores: esgScores
     };
   });
 
-  return sectors.sort((a, b) => a.avgScore - b.avgScore).map((s, i) => ({
+  return sectors.sort((a, b) => a.avgESG - b.avgESG).map((s, i) => ({
     ...s,
     rank: i + 1
   }));
@@ -66,12 +71,12 @@ function renderStats(sectors) {
     <div class="card stat-card sector-stat-card">
       <div class="stat-label">Best Sector</div>
       <div class="stat-value sector-stat-value">${best.sector}</div>
-      <div class="stat-note">Avg score: ${fmt(best.avgScore)}</div>
+      <div class="stat-note">Avg ESG: ${fmt(best.avgESG)}</div>
     </div>
     <div class="card stat-card sector-stat-card">
       <div class="stat-label">Worst Sector</div>
       <div class="stat-value sector-stat-value">${worst.sector}</div>
-      <div class="stat-note">Avg score: ${fmt(worst.avgScore)}</div>
+      <div class="stat-note">Avg ESG: ${fmt(worst.avgESG)}</div>
     </div>
     <div class="card stat-card sector-stat-card">
       <div class="stat-label">Widest Spread</div>
@@ -95,8 +100,10 @@ function renderTable(sectors) {
       <td style="padding:12px;">${sector.rank}</td>
       <td style="padding:12px;">${sector.sector}</td>
       <td style="padding:12px;">${sector.count}</td>
-      <td style="padding:12px;">${fmt(sector.avgScore)}</td>
-      <td style="padding:12px;">${fmt(sector.medianScore)}</td>
+      <td style="padding:12px;">${fmt(sector.avgESG)}</td>
+      <td style="padding:12px;">${fmt(sector.avgEnvironment)}</td>
+      <td style="padding:12px;">${fmt(sector.avgSocial)}</td>
+      <td style="padding:12px;">${fmt(sector.medianESG)}</td>
       <td style="padding:12px;">${sector.bestCompany}</td>
       <td style="padding:12px;">${sector.worstCompany}</td>
       <td style="padding:12px;">${fmt(sector.range)}</td>
@@ -109,21 +116,21 @@ function renderBarChart(sectors) {
     {
       type: "bar",
       orientation: "h",
-      x: sectors.map(s => s.avgScore),
+      x: sectors.map(s => s.avgESG),
       y: sectors.map(s => s.sector),
-      text: sectors.map(s => fmt(s.avgScore)),
+      text: sectors.map(s => fmt(s.avgESG)),
       textposition: "outside",
       cliponaxis: false,
       marker: {
-  color: "#2e8b57"
-},
-      hovertemplate: "<b>%{y}</b><br>Average score: %{x:.3f}<extra></extra>"
+        color: "#2e8b57"
+      },
+      hovertemplate: "<b>%{y}</b><br>Average ESG score: %{x:.3f}<extra></extra>"
     }
   ], {
     paper_bgcolor: "rgba(0,0,0,0)",
     plot_bgcolor: "rgba(0,0,0,0)",
     margin: { l: 180, r: 40, t: 10, b: 40 },
-    xaxis: { title: "Average Environment Score" },
+    xaxis: { title: "Average ESG Score" },
     yaxis: { automargin: true }
   }, {
     responsive: true,
@@ -135,16 +142,16 @@ function renderBoxPlot(sectors) {
   const traces = sectors.map(s => ({
     type: "box",
     name: s.sector,
-    y: s.companyScores,
+    y: s.companyESGScores,
     boxpoints: "outliers",
-    hovertemplate: "<b>" + s.sector + "</b><br>Score: %{y:.3f}<extra></extra>"
+    hovertemplate: "<b>" + s.sector + "</b><br>ESG Score: %{y:.3f}<extra></extra>"
   }));
 
   Plotly.newPlot("sectorBoxPlot", traces, {
     paper_bgcolor: "rgba(0,0,0,0)",
     plot_bgcolor: "rgba(0,0,0,0)",
     margin: { l: 60, r: 30, t: 10, b: 110 },
-    yaxis: { title: "Company Environment Score" },
+    yaxis: { title: "Company ESG Score" },
     xaxis: { tickangle: -30 }
   }, {
     responsive: true,
@@ -152,33 +159,58 @@ function renderBoxPlot(sectors) {
   });
 }
 
-function renderStackedChart(sectors) {
-  Plotly.newPlot("sectorStackedChart", [
+function renderGroupedChart(sectors) {
+  Plotly.newPlot("sectorGroupedChart", [
     {
       type: "bar",
-      name: "Climate Targets",
+      name: "Environment",
       x: sectors.map(s => s.sector),
-      y: sectors.map(s => s.avgClimateTargets)
+      y: sectors.map(s => s.avgEnvironment),
+      marker: { color: "#2e8b57" }
     },
     {
       type: "bar",
-      name: "Investment & Transition",
+      name: "Social",
       x: sectors.map(s => s.sector),
-      y: sectors.map(s => s.avgInvestmentTransition)
-    },
-    {
-      type: "bar",
-      name: "Climate Reporting",
-      x: sectors.map(s => s.sector),
-      y: sectors.map(s => s.avgClimateReporting)
+      y: sectors.map(s => s.avgSocial),
+      marker: { color: "#4867c9" }
     }
   ], {
-    barmode: "stack",
+    barmode: "group",
     paper_bgcolor: "rgba(0,0,0,0)",
     plot_bgcolor: "rgba(0,0,0,0)",
     margin: { l: 60, r: 30, t: 10, b: 110 },
-    yaxis: { title: "Average Component Score" },
+    yaxis: { title: "Average Domain Score" },
     xaxis: { tickangle: -30 }
+  }, {
+    responsive: true,
+    displayModeBar: false
+  });
+}
+
+function renderHeatmap(sectors) {
+  Plotly.newPlot("sectorHeatmap", [
+    {
+      type: "heatmap",
+      x: sectors.map(s => s.sector),
+      y: ["Environment", "Social"],
+      z: [
+        sectors.map(s => Number(s.avgEnvironment.toFixed(3))),
+        sectors.map(s => Number(s.avgSocial.toFixed(3)))
+      ],
+      colorscale: [
+        [0, "#edf7ef"],
+        [0.5, "#dcecdf"],
+        [1, "#2f8b57"]
+      ],
+      hovertemplate: "<b>%{y}</b><br>%{x}<br>Average score: %{z:.3f}<extra></extra>"
+    }
+  ], {
+    paper_bgcolor: "rgba(0,0,0,0)",
+    plot_bgcolor: "rgba(0,0,0,0)",
+    margin: { l: 100, r: 30, t: 10, b: 110 },
+    xaxis: { tickangle: -30 },
+    yaxis: { automargin: true }
   }, {
     responsive: true,
     displayModeBar: false
@@ -186,17 +218,18 @@ function renderStackedChart(sectors) {
 }
 
 function initSectorsPage() {
-  if (!Array.isArray(RAW_DATA)) {
-    console.error("RAW_DATA is not available.");
+  if (!Array.isArray(cappedData)) {
+    console.error("cappedData is not available.");
     return;
   }
 
-  const sectors = buildSectorData(RAW_DATA);
+  const sectors = buildSectorData(cappedData);
   renderStats(sectors);
   renderTable(sectors);
   renderBarChart(sectors);
   renderBoxPlot(sectors);
-  renderStackedChart(sectors);
+  renderGroupedChart(sectors);
+  renderHeatmap(sectors);
 }
 
 document.addEventListener("DOMContentLoaded", initSectorsPage);
