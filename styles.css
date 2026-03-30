@@ -1436,26 +1436,68 @@ body.page-social .tier-pill {
   margin-top: 8px !important;
   line-height: 1.2 !important;
 }
-/* Centered interpretation widget on sectors page */
-.sector-interpretation-wrap {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
+/* =========================
+   SECTORS PAGE — STATS STRIP AS WIDGET
+========================= */
+
+.sector-stats-widget {
+  padding: 0;
+  overflow: hidden;
 }
 
-.sector-interpretation-widget {
-  width: min(780px, 100%);
-  padding: 14px 18px;
-  background: #fbfcfa;
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  box-shadow: var(--shadow);
-  color: var(--ink-soft);
-  font-size: 14px;
-  line-height: 1.5;
-  text-align: left;
+.sector-stats-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  background: transparent;
 }
 
-.sector-interpretation-widget strong {
-  color: var(--ink);
+.sector-stats-widget .stat {
+  padding: 24px 16px 20px;
+  text-align: center;
+  background: var(--surface);
+}
+
+.sector-stats-widget .stat + .stat {
+  border-left: 1px solid var(--line);
+}
+
+#sectorStatsGrid .stat-value {
+  font-size: 32px !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.01em !important;
+  font-weight: 400 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+}
+
+#sectorStatsGrid .stat-label {
+  font-size: 12px !important;
+  margin-top: 8px !important;
+  line-height: 1.2 !important;
+}
+
+@media (max-width: 980px) {
+  .sector-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sector-stats-widget .stat:nth-child(3),
+  .sector-stats-widget .stat:nth-child(4) {
+    border-top: 1px solid var(--line);
+  }
+
+  .sector-stats-widget .stat:nth-child(3) {
+    border-left: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .sector-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sector-stats-widget .stat + .stat {
+    border-left: none;
+    border-top: 1px solid var(--line);
+  }
 }
