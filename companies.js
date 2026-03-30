@@ -714,7 +714,11 @@ function renderTable(rows) {
 
   body.innerHTML = current.map(r => `
     <tr>
-      <td><div class="company-name">${r.Company}</div></td>
+      <td>
+  <div class="company-name">
+    <a href="profile.html?ticker=${encodeURIComponent(r.Ticker)}">${r.Company}</a>
+  </div>
+</td>
       <td><span class="ticker-badge">${r.Ticker}</span></td>
       <td><span class="sector-name">${r.Sector}</span></td>
       <td>${safeLink(r.Website, "Website")}</td>
