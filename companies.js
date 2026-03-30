@@ -86,3 +86,4 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('sectorFilter').addEventListener('change', renderTable);
   document.getElementById('tierFilter').addEventListener('change', renderTable);
 });
+``
