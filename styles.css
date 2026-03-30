@@ -1436,3 +1436,21 @@ body.page-social .tier-pill {
   margin-top: 8px !important;
   line-height: 1.2 !important;
 }
+/* Smaller centered interpretation widget for sectors page */
+.sector-interpretation-widget {
+  max-width: 780px;
+  margin: 10px auto 0 auto;
+  padding: 14px 18px;
+  background: #fbfcfa;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.sector-interpretation-widget strong {
+  color: var(--ink);
+}
