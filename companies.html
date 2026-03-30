@@ -4,25 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Companies | FTSE 100 ESG Exposure Index</title>
-  <link rel="stylesheet" href="styles.css" />
-  <script defer src="data.js"></script>
-  <script defer src="companies.js"></script>
+  styles.css
+  data.jsscript>
+  companies.jsscript>
 </head>
 <body>
   <header>
     <div class="wrap nav">
-      <a href="index.html" class="brand">
+      index.html
         <div class="brand-mark">↗</div>
         <div class="brand-name">FTSE 100 ESG Index</div>
       </a>
       <nav class="nav-links">
-        <a href="index.html">Overview</a>
-        <a href="sectors.html">Sectors</a>
-        <a href="rankings.html">Environment</a>
-        <a href="social.html">Social</a>
-        <a href="esg.html">ESG</a>
-        <a href="methodology.html">Methodology</a>
-        <a href="companies.html" class="active">Companies</a>
+        index.htmlOverview</a>
+        sectors.htmlSectors</a>
+        rankings.htmlEnvironment</a>
+        social.htmlSocial</a>
+        esg.htmlESG</a>
+        methodology.htmlMethodology</a>
+        companies.htmlCompanies</a>
       </nav>
     </div>
   </header>
@@ -33,14 +33,15 @@
         <div>
           <h1>Companies</h1>
           <p>
-            Directory view showing the current Environment score, Social score, and the public-facing ESG composite for each company.
+            Reference directory for FTSE 100 companies included in the index, with source links to company websites,
+            annual reports, sustainability / ESG reports, and reporting year where available.
           </p>
         </div>
       </div>
 
-      <div class="construction" style="margin-bottom: 18px;">
-        <strong>Governance treatment:</strong>
-        Governance-related indicators are embedded within the live Environment and Social modules rather than displayed as a standalone public-facing score.
+      <div class="construction" style="margin-bottom:18px;">
+        <strong>Directory note:</strong>
+        This page is intended as a source directory rather than a rankings table. Use the Environment, Social, and ESG pages for scored views.
       </div>
 
       <div class="toolbar">
@@ -48,13 +49,8 @@
         <select class="control" id="sectorFilter">
           <option value="">All sectors</option>
         </select>
-        <select class="control" id="tierFilter">
-          <option value="">All tiers</option>
-          <option value="best">Best</option>
-          <option value="good">Good</option>
-          <option value="moderate">Moderate</option>
-          <option value="poor">Poor</option>
-          <option value="wasteful">Wasteful</option>
+        <select class="control" id="yearFilter">
+          <option value="">All reporting years</option>
         </select>
       </div>
 
@@ -63,14 +59,13 @@
           <table>
             <thead>
               <tr>
-                <th data-sort="rank">#</th>
                 <th data-sort="Company">Company</th>
                 <th data-sort="Ticker">Ticker</th>
                 <th data-sort="Sector">Sector</th>
-                <th data-sort="Environment_Score">Environment</th>
-                <th data-sort="Social_Score">Social</th>
-                <th data-sort="ESG_Score">ESG Score</th>
-                <th data-sort="tier">Tier</th>
+                <th data-sort="Website">Website</th>
+                <th data-sort="Annual_Report_URL">Annual Report</th>
+                <th data-sort="Sustainability_Report_URL">Sustainability / ESG Report</th>
+                <th data-sort="Reporting_Year">Reporting Year</th>
               </tr>
             </thead>
             <tbody id="tableBody"></tbody>
@@ -80,7 +75,7 @@
 
       <footer class="foot">
         <div class="wrap-wide">
-          Prosperity Institute’s FTSE 100 <strong>ESG Exposure</strong> Index — company directory view.
+          Prosperity Institute’s FTSE 100 <strong>ESG Exposure</strong> Index — company source directory.
         </div>
       </footer>
     </div>
