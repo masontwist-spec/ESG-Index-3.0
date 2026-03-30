@@ -54,7 +54,11 @@ function renderTable() {
 
     return `<tr>
       <td><div class="rank-badge">${d.rank}</div></td>
-      <td><div class="company-name">${d.Company}</div></td>
+      <td>
+  <div class="company-name">
+    <a href="profile.html?ticker=${encodeURIComponent(d.Ticker)}">${d.Company}</a>
+  </div>
+</td>
       <td><span class="ticker-badge">${d.Ticker}</span></td>
       <td><span class="sector-name">${d.Sector}</span></td>
       <td>
