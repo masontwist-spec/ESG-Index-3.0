@@ -7,6 +7,10 @@ function fmt(num) {
   return Number(num).toFixed(3);
 }
 
+function fmtPct(num) {
+  return (Number(num) * 100).toFixed(1) + '%';
+}
+
 function buildSectorAverages(data) {
   const grouped = {};
 
@@ -24,63 +28,116 @@ function buildSectorAverages(data) {
     .sort((a, b) => a.avgESG - b.avgESG);
 }
 
+function renderHeroSignals(data) {
+  const el = document.getElementById("heroSignalList");
+  if (!el) return;
+
+  const sorted = [...data].sort((a, b) => a.ESG_Score - b.ESG_Score);
+  const lowest = sorted[0];
+  const highest = sorted[sorted.length - 1];
+  const bestSector = buildSectorAverages(data)[0];
+
+  el.innerHTML = `
+    <div class="signal">
+      <span class="name">Low score</span>
+      <span class="tag">${fmtPct(lowest.ESG_Score)}</span>
+    </div>
+    <div class="signal">
+      <span class="name">High score</span>
+      <span class="tag" style="background:rgba(240,120,120,0.12);color:#f0a0a0;">${fmtPct(highest.ESG_Score)}</span>
+    </div>
+    <div class="signal">
+      <span class="name">Best avg sector</span>
+      <span class="tag">${bestSector.sector}</span>
+    </div>
+  `;
+}
+
 function renderOverviewStats(data) {
   const grid = document.getElementById("overviewStatsGrid");
   if (!grid) return;
 
   const sorted = [...data].sort((a, b) => a.ESG_Score - b.ESG_Score);
+  const sectors = [...new Set(data.map(d => d.Sector))].length;
   const best = sorted[0];
-  const worst = sorted[sorted.length - 1];
   const avgESG = mean(data.map(d => d.ESG_Score));
-  const bestSector = buildSectorAverages(data)[0];
 
   grid.innerHTML = `
     <div class="stat">
-      <div class="stat-value">${fmt(avgESG)}</div>
-      <div class="stat-label">Average ESG score</div>
+      <div class="stat-value">${data.length}</div>
+      <div class="stat-label">Companies covered</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">${sectors}</div>
+      <div class="stat-label">Sectors covered</div>
     </div>
     <div class="stat">
       <div class="stat-value">${best.Ticker}</div>
-      <div class="stat-label">Lowest ESG score company</div>
+      <div class="stat-label">Lowest ESG score</div>
     </div>
     <div class="stat">
-      <div class="stat-value">${worst.Ticker}</div>
-      <div class="stat-label">Highest ESG score company</div>
-    </div>
-    <div class="stat">
-      <div class="stat-value">${bestSector.sector}</div>
-      <div class="stat-label">Lowest average sector</div>
+      <div class="stat-value">${fmtPct(avgESG)}</div>
+      <div class="stat-label">Avg. ESG Exposure</div>
     </div>
   `;
 }
 
-function renderTopChart(data) {
+function renderBreakdownStack(data) {
+  const stack = document.getElementById("breakdownStack");
+  if (!stack) return;
+
+  const envAvg = mean(data.map(d => d.Environment_Score));
+  const socAvg = mean(data.map(d => d.Social_Score));
+  const esgAvg = mean(data.map(d => d.ESG_Score));
+
+  stack.innerHTML = `
+    <div class="breakdown-row">
+      <div class="breakdown-main">
+        <div class="breakdown-title">Environment</div>
+        <div class="breakdown-note">Climate Targets, Investment & Transition, and Climate Reporting.</div>
+      </div>
+      <div class="breakdown-metric">${fmtPct(envAvg)}</div>
+    </div>
+
+    <div class="breakdown-row">
+      <div class="breakdown-main">
+        <div class="breakdown-title">Social</div>
+        <div class="breakdown-note">DEI Targets & Representation, Programmes & Memberships, and Social Incentives.</div>
+      </div>
+      <div class="breakdown-metric">${fmtPct(socAvg)}</div>
+    </div>
+
+    <div class="breakdown-row">
+      <div class="breakdown-main">
+        <div class="breakdown-title">Composite ESG</div>
+        <div class="breakdown-note">Public-facing composite built from the two live domains.</div>
+      </div>
+      <div class="breakdown-metric">${fmtPct(esgAvg)}</div>
+    </div>
+  `;
+}
+
+function renderLeaderboard(data) {
+  const wrap = document.getElementById("overviewLeaderboard");
+  if (!wrap) return;
+
   const top = [...data]
     .sort((a, b) => a.ESG_Score - b.ESG_Score)
-    .slice(0, 10);
+    .slice(0, 5);
 
-  Plotly.newPlot("overviewTopChart", [
-    {
-      type: "bar",
-      orientation: "h",
-      x: top.map(d => d.ESG_Score).reverse(),
-      y: top.map(d => d.Company).reverse(),
-      text: top.map(d => fmt(d.ESG_Score)).reverse(),
-      textposition: "outside",
-      cliponaxis: false,
-      marker: { color: "#2e8b57" },
-      hovertemplate: "<b>%{y}</b><br>ESG score: %{x:.3f}<extra></extra>"
-    }
-  ], {
-    paper_bgcolor: "rgba(0,0,0,0)",
-    plot_bgcolor: "rgba(0,0,0,0)",
-    margin: { l: 180, r: 40, t: 10, b: 30 },
-    xaxis: { title: "Composite ESG Score" },
-    yaxis: { automargin: true }
-  }, {
-    responsive: true,
-    displayModeBar: false
-  });
+  wrap.innerHTML = top.map((d, i) => `
+    <div class="lb-row">
+      <div class="lb-rank">${i + 1}</div>
+      <div class="lb-company">
+        <div class="name">${d.Company}</div>
+        <div class="meta">${d.Sector} · ${d.Ticker}</div>
+      </div>
+      <div class="lb-score">
+        <div class="value">${fmtPct(d.ESG_Score)}</div>
+        <div class="ticker">${d.Ticker}</div>
+      </div>
+    </div>
+  `).join("");
 }
 
 function renderSectorChart(data) {
@@ -94,15 +151,19 @@ function renderSectorChart(data) {
       text: sectors.map(s => fmt(s.avgESG)),
       textposition: "outside",
       cliponaxis: false,
-      marker: { color: "#6d4cc4" },
+      marker: { color: "#2e8b57" },
       hovertemplate: "<b>%{x}</b><br>Average ESG score: %{y:.3f}<extra></extra>"
     }
   ], {
     paper_bgcolor: "rgba(0,0,0,0)",
     plot_bgcolor: "rgba(0,0,0,0)",
-    margin: { l: 50, r: 20, t: 10, b: 110 },
+    margin: { l: 50, r: 20, t: 10, b: 20 },
     yaxis: { title: "Average ESG Score" },
-    xaxis: { tickangle: -30 }
+    xaxis: {
+      showticklabels: false,
+      showgrid: false,
+      zeroline: false
+    }
   }, {
     responsive: true,
     displayModeBar: false
@@ -151,8 +212,10 @@ function initOverviewPage() {
     return;
   }
 
+  renderHeroSignals(cappedData);
   renderOverviewStats(cappedData);
-  renderTopChart(cappedData);
+  renderBreakdownStack(cappedData);
+  renderLeaderboard(cappedData);
   renderSectorChart(cappedData);
   renderScatterChart(cappedData);
 }
