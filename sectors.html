@@ -4,26 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sector Analysis | FTSE 100 ESG Exposure Index</title>
-  <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
-  <script defer src="data.js"></script>
-  <script defer src="sectors.js"></script>
+  styles.css
+  https://cdn.plot.ly/plotly-2.35.2.min.jsscript>
+  data.jsscript>
+  sectors.jsscript>
 </head>
 <body>
   <header>
     <div class="wrap nav">
-      <a href="index.html" class="brand">
+      index.html
         <div class="brand-mark">↗</div>
         <div class="brand-name">FTSE 100 ESG Index</div>
       </a>
       <nav class="nav-links">
-        <a href="index.html">Overview</a>
-        <a href="sectors.html" class="active">Sectors</a>
-        <a href="rankings.html">Environment</a>
-        <a href="social.html">Social</a>
-        <a href="esg.html">ESG</a>
-        <a href="methodology.html">Methodology</a>
-        <a href="companies.html">Companies</a>
+        index.htmlOverview</a>
+        sectors.htmlSectors</a>
+        rankings.htmlEnvironment</a>
+        social.htmlSocial</a>
+        esg.htmlESG</a>
+        methodology.htmlMethodology</a>
+        companies.htmlCompanies</a>
       </nav>
     </div>
   </header>
@@ -34,8 +34,8 @@
         <div class="eyebrow">FTSE 100 ESG Exposure Analysis</div>
         <h1>Sector <span class="accent">Analysis</span></h1>
         <p>
-          A sector-level view of the public-facing ESG Exposure Index. The composite score on this page is built from
-          the live Environment and Social modules. Lower average scores rank higher.
+          A sector-level view of the public-facing ESG Exposure Index. The composite score on this page is built from the
+          live Environment and Social modules. Lower average scores rank higher.
         </p>
       </div>
 
@@ -59,44 +59,42 @@
 
   <section class="page">
     <div class="wrap">
-      <div class="overview-mini-grid">
-        <div class="card mini-chart-card">
-          <div class="overview-mini-head">
-            <h2>Sector Average ESG Scores</h2>
+      <div class="card sector-panel-card">
+        <div class="section-head sector-head">
+          <div>
+            <h2><strong>Sector Average ESG Scores</strong></h2>
             <p>Average composite ESG exposure score by sector.</p>
           </div>
-          <div id="sectorBarChart" style="width:100%;height:420px;"></div>
         </div>
-
-        <div class="card mini-chart-card">
-          <div class="overview-mini-head">
-            <h2>Environment vs Social Heatmap</h2>
-            <p>Sector averages across the two live public-facing domains.</p>
-          </div>
-          <div id="sectorHeatmap" style="width:100%;height:420px;"></div>
-        </div>
+        <div id="sectorBarChart" style="width:100%;height:560px;"></div>
       </div>
     </div>
   </section>
 
   <section class="page" style="padding-top:0;">
     <div class="wrap">
-      <div class="overview-mini-grid">
-        <div class="card mini-chart-card">
-          <div class="overview-mini-head">
-            <h2>Score Distribution by Sector</h2>
+      <div class="card sector-panel-card">
+        <div class="section-head sector-head">
+          <div>
+            <h2><strong>Score Distribution by Sector</strong></h2>
             <p>Spread of company composite ESG scores inside each sector.</p>
           </div>
-          <div id="sectorBoxPlot" style="width:100%;height:430px;"></div>
         </div>
+        <div id="sectorBoxPlot" style="width:100%;height:560px;"></div>
+      </div>
+    </div>
+  </section>
 
-        <div class="card mini-chart-card">
-          <div class="overview-mini-head">
-            <h2>Average Domain Breakdown</h2>
+  <section class="page" style="padding-top:0;">
+    <div class="wrap">
+      <div class="card sector-panel-card">
+        <div class="section-head sector-head">
+          <div>
+            <h2><strong>Average Domain Breakdown</strong></h2>
             <p>Average Environment and Social scores by sector.</p>
           </div>
-          <div id="sectorGroupedChart" style="width:100%;height:430px;"></div>
         </div>
+        <div id="sectorGroupedChart" style="width:100%;height:620px;"></div>
       </div>
     </div>
   </section>
