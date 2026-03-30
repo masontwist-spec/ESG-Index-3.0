@@ -4,26 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FTSE 100 ESG Exposure Index</title>
-  <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
-  <script defer src="data.js"></script>
-  <script defer src="index.js"></script>
+  styles.css
+  https://cdn.plot.ly/plotly-2.35.2.min.jsscript>
+  data.jsscript>
+  index.jsscript>
 </head>
 <body>
   <header>
     <div class="wrap nav">
-      <a href="index.html" class="brand">
+      index.html
         <div class="brand-mark">↗</div>
         <div class="brand-name">FTSE 100 ESG Index</div>
       </a>
       <nav class="nav-links">
-        <a href="index.html" class="active">Overview</a>
-        <a href="sectors.html">Sectors</a>
-        <a href="rankings.html">Environment</a>
-        <a href="social.html">Social</a>
-        <a href="esg.html">ESG</a>
-        <a href="methodology.html">Methodology</a>
-        <a href="companies.html">Companies</a>
+        index.htmlOverview</a>
+        sectors.htmlSectors</a>
+        rankings.htmlEnvironment</a>
+        social.htmlSocial</a>
+        esg.htmlESG</a>
+        methodology.htmlMethodology</a>
+        companies.htmlCompanies</a>
       </nav>
     </div>
   </header>
@@ -42,8 +42,8 @@
         </p>
 
         <div class="hero-actions">
-          <a href="esg.html" class="btn btn-primary">View Rankings →</a>
-          <a href="methodology.html" class="btn btn-secondary">How It Works</a>
+          esg.htmlView Rankings →</a>
+          methodology.htmlHow It Works</a>
         </div>
       </div>
 
@@ -70,47 +70,30 @@
             <div>
               <h2>Index Breakdown</h2>
               <p>
-                The live public composite is built from Environment and Social. Governance-related
-                measures remain embedded within those live domains.
+                The live public composite is built from the current Environment and Social modules.
               </p>
             </div>
           </div>
 
           <div class="breakdown-stack" id="breakdownStack"></div>
+
+          <div class="overview-mini-head" style="margin-top:18px;">
+            <h2>Exposure Distribution</h2>
+            <p>Distribution of FTSE 100 companies by composite ESG exposure score.</p>
+          </div>
+          <div id="overviewDistributionChart" style="width:100%;height:320px;"></div>
         </div>
 
         <div class="card overview-leaderboard-card">
           <div class="section-head overview-feature-head">
             <div>
               <h2>Lowest ESG Exposure</h2>
-              <p>Companies with the lowest composite ESG scores under the current public model.</p>
+              <p>Companies with the least ESG intensity under the current public model.</p>
             </div>
-            <a class="section-link" href="esg.html">All rankings →</a>
+            esg.htmlAll rankings →</a>
           </div>
 
           <div class="leaderboard-list" id="overviewLeaderboard"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="page" style="padding-top: 0;">
-    <div class="wrap">
-      <div class="overview-mini-grid">
-        <div class="card mini-chart-card">
-          <div class="overview-mini-head">
-            <h2>Sector Average ESG Scores</h2>
-            <p>Average composite ESG exposure score by sector.</p>
-          </div>
-          <div id="overviewSectorChart" style="width:100%;height:380px;"></div>
-        </div>
-
-        <div class="card mini-chart-card">
-          <div class="overview-mini-head">
-            <h2>Environment vs Social</h2>
-            <p>Company-level relationship between the two live domains.</p>
-          </div>
-          <div id="overviewScatterChart" style="width:100%;height:380px;"></div>
         </div>
       </div>
 
@@ -130,4 +113,3 @@
   </footer>
 </body>
 </html>
-``
