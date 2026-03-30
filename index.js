@@ -3,10 +3,6 @@ function mean(arr) {
   return arr.reduce((sum, val) => sum + val, 0) / arr.length;
 }
 
-function fmt(num) {
-  return Number(num).toFixed(3);
-}
-
 function fmtPct(num) {
   return (Number(num) * 100).toFixed(1) + '%';
 }
@@ -83,51 +79,25 @@ function renderOverviewStats(data) {
 }
 
 function renderBreakdownCards(data) {
-  const wrap = document.getElementById("breakdownCardList");
-  if (!wrap) return;
-
   const envAvg = mean(data.map(d => d.Environment_Score));
   const socAvg = mean(data.map(d => d.Social_Score));
   const esgAvg = mean(data.map(d => d.ESG_Score));
 
-  const cards = [
-    {
-      title: "Environment",
-      tag: "E",
-      value: envAvg,
-      note: "Climate Targets, Investment & Transition, and Climate Reporting."
-    },
-    {
-      title: "Social",
-      tag: "S",
-      value: socAvg,
-      note: "DEI Targets & Representation, Programmes & Memberships, and Social Incentives."
-    },
-    {
-      title: "Composite ESG",
-      tag: "ES",
-      value: esgAvg,
-      note: "Public-facing composite built from the two live domains."
-    }
-  ];
+  const envAvgPill = document.getElementById("envAvgPill");
+  const socAvgPill = document.getElementById("socAvgPill");
+  const esgAvgPill = document.getElementById("esgAvgPill");
 
-  wrap.innerHTML = cards.map(card => `
-    <div class="breakdown-card-item">
-      <div class="breakdown-card-top">
-        <div class="breakdown-card-title-wrap">
-          <div class="breakdown-card-title">${card.title}</div>
-          <div class="breakdown-card-tag">${card.tag}</div>
-        </div>
-        <div class="breakdown-card-value">${fmtPct(card.value)} <span>avg.</span></div>
-      </div>
+  const envAvgBar = document.getElementById("envAvgBar");
+  const socAvgBar = document.getElementById("socAvgBar");
+  const esgAvgBar = document.getElementById("esgAvgBar");
 
-      <div class="breakdown-bar-track">
-        <div class="breakdown-bar-fill" style="width:${card.value * 100}%"></div>
-      </div>
+  if (envAvgPill) envAvgPill.textContent = `${fmtPct(envAvg)} avg.`;
+  if (socAvgPill) socAvgPill.textContent = `${fmtPct(socAvg)} avg.`;
+  if (esgAvgPill) esgAvgPill.textContent = `${fmtPct(esgAvg)} avg.`;
 
-      <div class="breakdown-card-note">${card.note}</div>
-    </div>
-  `).join("");
+  if (envAvgBar) envAvgBar.style.width = `${envAvg * 100}%`;
+  if (socAvgBar) socAvgBar.style.width = `${socAvg * 100}%`;
+  if (esgAvgBar) esgAvgBar.style.width = `${esgAvg * 100}%`;
 }
 
 function renderLeaderboard(data) {
@@ -154,26 +124,31 @@ function renderLeaderboard(data) {
 }
 
 function renderDistributionChart(data) {
-  Plotly.newPlot("overviewDistributionChart", [
+  Plotly.newPlot(
+    "overviewDistributionChart",
+    [
+      {
+        type: "histogram",
+        x: data.map(d => d.ESG_Score),
+        nbinsx: 10,
+        marker: {
+          color: "#2e8b57"
+        },
+        hovertemplate: "ESG score bin: %{x:.3f}<br>Count: %{y}<extra></extra>"
+      }
+    ],
     {
-      type: "histogram",
-      x: data.map(d => d.ESG_Score),
-      nbinsx: 10,
-      marker: {
-        color: "#2e8b57"
-      },
-      hovertemplate: "ESG score bin: %{x:.3f}<br>Count: %{y}<extra></extra>"
+      paper_bgcolor: "rgba(0,0,0,0)",
+      plot_bgcolor: "rgba(0,0,0,0)",
+      margin: { l: 50, r: 20, t: 10, b: 40 },
+      xaxis: { title: "Composite ESG Score" },
+      yaxis: { title: "Number of Companies" }
+    },
+    {
+      responsive: true,
+      displayModeBar: false
     }
-  ], {
-    paper_bgcolor: "rgba(0,0,0,0)",
-    plot_bgcolor: "rgba(0,0,0,0)",
-    margin: { l: 50, r: 20, t: 10, b: 40 },
-    xaxis: { title: "Composite ESG Score" },
-    yaxis: { title: "Number of Companies" }
-  }, {
-    responsive: true,
-    displayModeBar: false
-  });
+  );
 }
 
 function initOverviewPage() {
@@ -190,3 +165,4 @@ function initOverviewPage() {
 }
 
 document.addEventListener("DOMContentLoaded", initOverviewPage);
+``
