@@ -16,10 +16,6 @@ function fmt(num) {
   return Number(num).toFixed(3);
 }
 
-function fmtPct(num) {
-  return (Number(num) * 100).toFixed(1) + '%';
-}
-
 function buildSectorData(data) {
   const grouped = {};
 
@@ -68,25 +64,21 @@ function renderStats(sectors) {
   const tightest = [...sectors].sort((a, b) => a.range - b.range)[0];
 
   grid.innerHTML = `
-    <div class="card stat-card sector-stat-card">
-      <div class="stat-label">Best Sector</div>
-      <div class="stat-value sector-stat-value">${best.sector}</div>
-      <div class="stat-note">Avg ESG: ${fmt(best.avgESG)}</div>
+    <div class="stat">
+      <div class="stat-value">${best.sector}</div>
+      <div class="stat-label">Best sector</div>
     </div>
-    <div class="card stat-card sector-stat-card">
-      <div class="stat-label">Worst Sector</div>
-      <div class="stat-value sector-stat-value">${worst.sector}</div>
-      <div class="stat-note">Avg ESG: ${fmt(worst.avgESG)}</div>
+    <div class="stat">
+      <div class="stat-value">${worst.sector}</div>
+      <div class="stat-label">Worst sector</div>
     </div>
-    <div class="card stat-card sector-stat-card">
-      <div class="stat-label">Widest Spread</div>
-      <div class="stat-value sector-stat-value">${widest.sector}</div>
-      <div class="stat-note">Range: ${fmt(widest.range)}</div>
+    <div class="stat">
+      <div class="stat-value">${widest.sector}</div>
+      <div class="stat-label">Widest spread</div>
     </div>
-    <div class="card stat-card sector-stat-card">
-      <div class="stat-label">Most Consistent</div>
-      <div class="stat-value sector-stat-value">${tightest.sector}</div>
-      <div class="stat-note">Range: ${fmt(tightest.range)}</div>
+    <div class="stat">
+      <div class="stat-value">${tightest.sector}</div>
+      <div class="stat-label">Most consistent</div>
     </div>
   `;
 }
@@ -115,23 +107,26 @@ function renderBarChart(sectors) {
   Plotly.newPlot("sectorBarChart", [
     {
       type: "bar",
-      orientation: "h",
-      x: sectors.map(s => s.avgESG),
-      y: sectors.map(s => s.sector),
+      x: sectors.map(s => s.sector),
+      y: sectors.map(s => s.avgESG),
       text: sectors.map(s => fmt(s.avgESG)),
       textposition: "outside",
       cliponaxis: false,
       marker: {
         color: "#2e8b57"
       },
-      hovertemplate: "<b>%{y}</b><br>Average ESG score: %{x:.3f}<extra></extra>"
+      hovertemplate: "<b>%{x}</b><br>Average ESG score: %{y:.3f}<extra></extra>"
     }
   ], {
     paper_bgcolor: "rgba(0,0,0,0)",
     plot_bgcolor: "rgba(0,0,0,0)",
-    margin: { l: 180, r: 40, t: 10, b: 40 },
-    xaxis: { title: "Average ESG Score" },
-    yaxis: { automargin: true }
+    margin: { l: 50, r: 20, t: 10, b: 20 },
+    yaxis: { title: "Average ESG Score" },
+    xaxis: {
+      showticklabels: false,
+      showgrid: false,
+      zeroline: false
+    }
   }, {
     responsive: true,
     displayModeBar: false
