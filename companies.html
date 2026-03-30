@@ -11,13 +11,15 @@
 <body>
   <header>
     <div class="wrap nav">
-      <a class="brand" href="index.html">
+      <a href="index.html" class="brand">
         <div class="brand-mark">↗</div>
         <div class="brand-name">FTSE 100 ESG Index</div>
       </a>
       <nav class="nav-links">
         <a href="index.html">Overview</a>
         <a href="rankings.html">Environment</a>
+        <a href="social.html">Social</a>
+        <a href="esg.html">ESG</a>
         <a href="methodology.html">Methodology</a>
         <a href="companies.html" class="active">Companies</a>
       </nav>
@@ -30,8 +32,7 @@
         <div>
           <h1>Companies</h1>
           <p>
-            Company directory view with current rank, sector, and live Environment score.
-            Social and full composite ESG views will be added after the Social module is launched.
+            Directory view showing the current Environment, Social, and composite ESG scores for each company.
           </p>
         </div>
       </div>
@@ -60,7 +61,9 @@
                 <th data-sort="Company">Company</th>
                 <th data-sort="Ticker">Ticker</th>
                 <th data-sort="Sector">Sector</th>
-                <th data-sort="Environment_Score">Environment Score</th>
+                <th data-sort="Environment_Score">Environment</th>
+                <th data-sort="Social_Score">Social</th>
+                <th data-sort="ESG_Score">ESG Score</th>
                 <th data-sort="tier">Tier</th>
               </tr>
             </thead>
@@ -71,7 +74,7 @@
 
       <footer class="foot">
         <div class="wrap-wide">
-          Prosperity Institute’s FTSE 100 <strong>ESG Exposure</strong> Index — company directory currently reflects the live <strong>Environment</strong> module.
+          Prosperity Institute’s FTSE 100 <strong>ESG Exposure</strong> Index — company directory.
         </div>
       </footer>
     </div>
