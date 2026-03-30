@@ -120,7 +120,7 @@ function renderBarChart(sectors) {
   ], {
     paper_bgcolor: "rgba(0,0,0,0)",
     plot_bgcolor: "rgba(0,0,0,0)",
-    margin: { l: 50, r: 20, t: 10, b: 20 },
+    margin: { l: 60, r: 24, t: 10, b: 20 },
     yaxis: { title: "Average ESG Score" },
     xaxis: {
       showticklabels: false,
@@ -145,9 +145,13 @@ function renderBoxPlot(sectors) {
   Plotly.newPlot("sectorBoxPlot", traces, {
     paper_bgcolor: "rgba(0,0,0,0)",
     plot_bgcolor: "rgba(0,0,0,0)",
-    margin: { l: 60, r: 30, t: 10, b: 110 },
+    margin: { l: 60, r: 30, t: 10, b: 20 },
     yaxis: { title: "Company ESG Score" },
-    xaxis: { tickangle: -30 }
+    xaxis: {
+      showticklabels: false,
+      showgrid: false,
+      zeroline: false
+    }
   }, {
     responsive: true,
     displayModeBar: false
@@ -161,70 +165,18 @@ function renderGroupedChart(sectors) {
       name: "Environment",
       x: sectors.map(s => s.sector),
       y: sectors.map(s => s.avgEnvironment),
-      marker: { color: "#2e8b57" }
+      marker: { color: "#2e8b57" },
+      hovertemplate: "<b>%{x}</b><br>Environment: %{y:.3f}<extra></extra>"
     },
     {
       type: "bar",
       name: "Social",
       x: sectors.map(s => s.sector),
       y: sectors.map(s => s.avgSocial),
-      marker: { color: "#4867c9" }
+      marker: { color: "#4867c9" },
+      hovertemplate: "<b>%{x}</b><br>Social: %{y:.3f}<extra></extra>"
     }
   ], {
     barmode: "group",
     paper_bgcolor: "rgba(0,0,0,0)",
     plot_bgcolor: "rgba(0,0,0,0)",
-    margin: { l: 60, r: 30, t: 10, b: 110 },
-    yaxis: { title: "Average Domain Score" },
-    xaxis: { tickangle: -30 }
-  }, {
-    responsive: true,
-    displayModeBar: false
-  });
-}
-
-function renderHeatmap(sectors) {
-  Plotly.newPlot("sectorHeatmap", [
-    {
-      type: "heatmap",
-      x: sectors.map(s => s.sector),
-      y: ["Environment", "Social"],
-      z: [
-        sectors.map(s => Number(s.avgEnvironment.toFixed(3))),
-        sectors.map(s => Number(s.avgSocial.toFixed(3)))
-      ],
-      colorscale: [
-        [0, "#edf7ef"],
-        [0.5, "#dcecdf"],
-        [1, "#2f8b57"]
-      ],
-      hovertemplate: "<b>%{y}</b><br>%{x}<br>Average score: %{z:.3f}<extra></extra>"
-    }
-  ], {
-    paper_bgcolor: "rgba(0,0,0,0)",
-    plot_bgcolor: "rgba(0,0,0,0)",
-    margin: { l: 100, r: 30, t: 10, b: 110 },
-    xaxis: { tickangle: -30 },
-    yaxis: { automargin: true }
-  }, {
-    responsive: true,
-    displayModeBar: false
-  });
-}
-
-function initSectorsPage() {
-  if (!Array.isArray(cappedData)) {
-    console.error("cappedData is not available.");
-    return;
-  }
-
-  const sectors = buildSectorData(cappedData);
-  renderStats(sectors);
-  renderTable(sectors);
-  renderBarChart(sectors);
-  renderBoxPlot(sectors);
-  renderGroupedChart(sectors);
-  renderHeatmap(sectors);
-}
-
-document.addEventListener("DOMContentLoaded", initSectorsPage);
