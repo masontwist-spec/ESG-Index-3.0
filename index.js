@@ -82,39 +82,52 @@ function renderOverviewStats(data) {
   `;
 }
 
-function renderBreakdownStack(data) {
-  const stack = document.getElementById("breakdownStack");
-  if (!stack) return;
+function renderBreakdownCards(data) {
+  const wrap = document.getElementById("breakdownCardList");
+  if (!wrap) return;
 
   const envAvg = mean(data.map(d => d.Environment_Score));
   const socAvg = mean(data.map(d => d.Social_Score));
   const esgAvg = mean(data.map(d => d.ESG_Score));
 
-  stack.innerHTML = `
-    <div class="breakdown-row">
-      <div class="breakdown-main">
-        <div class="breakdown-title">Environment</div>
-        <div class="breakdown-note">Climate Targets, Investment & Transition, and Climate Reporting.</div>
-      </div>
-      <div class="breakdown-metric">${fmtPct(envAvg)}</div>
-    </div>
+  const cards = [
+    {
+      title: "Environment",
+      tag: "E",
+      value: envAvg,
+      note: "Climate Targets, Investment & Transition, and Climate Reporting."
+    },
+    {
+      title: "Social",
+      tag: "S",
+      value: socAvg,
+      note: "DEI Targets & Representation, Programmes & Memberships, and Social Incentives."
+    },
+    {
+      title: "Composite ESG",
+      tag: "ES",
+      value: esgAvg,
+      note: "Public-facing composite built from the two live domains."
+    }
+  ];
 
-    <div class="breakdown-row">
-      <div class="breakdown-main">
-        <div class="breakdown-title">Social</div>
-        <div class="breakdown-note">DEI Targets & Representation, Programmes & Memberships, and Social Incentives.</div>
+  wrap.innerHTML = cards.map(card => `
+    <div class="breakdown-card-item">
+      <div class="breakdown-card-top">
+        <div class="breakdown-card-title-wrap">
+          <div class="breakdown-card-title">${card.title}</div>
+          <div class="breakdown-card-tag">${card.tag}</div>
+        </div>
+        <div class="breakdown-card-value">${fmtPct(card.value)} <span>avg.</span></div>
       </div>
-      <div class="breakdown-metric">${fmtPct(socAvg)}</div>
-    </div>
 
-    <div class="breakdown-row">
-      <div class="breakdown-main">
-        <div class="breakdown-title">Composite ESG</div>
-        <div class="breakdown-note">Public-facing composite built from the two live domains.</div>
+      <div class="breakdown-bar-track">
+        <div class="breakdown-bar-fill" style="width:${card.value * 100}%"></div>
       </div>
-      <div class="breakdown-metric">${fmtPct(esgAvg)}</div>
+
+      <div class="breakdown-card-note">${card.note}</div>
     </div>
-  `;
+  `).join("");
 }
 
 function renderLeaderboard(data) {
@@ -171,7 +184,7 @@ function initOverviewPage() {
 
   renderHeroSignals(cappedData);
   renderOverviewStats(cappedData);
-  renderBreakdownStack(cappedData);
+  renderBreakdownCards(cappedData);
   renderLeaderboard(cappedData);
   renderDistributionChart(cappedData);
 }
