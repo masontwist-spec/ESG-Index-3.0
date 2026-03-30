@@ -1059,3 +1059,100 @@ tbody tr:nth-child(even):hover {
     width: 100%;
   }
 }
+/* =========================
+   SOCIAL PAGE TABLE COMPACT FIX
+========================= */
+
+body.page-social table {
+  min-width: 1180px;
+}
+
+body.page-social thead th {
+  white-space: normal;
+  line-height: 1.15;
+  font-size: 11px;
+  padding: 16px 12px;
+}
+
+body.page-social tbody td {
+  padding: 14px 12px;
+}
+
+body.page-social .company-name {
+  min-width: 150px;
+  font-size: 15px;
+}
+
+body.page-social .sector-name {
+  font-size: 13px;
+}
+
+body.page-social .metric-cell {
+  gap: 8px;
+}
+
+body.page-social .tiny-track {
+  width: 64px;
+}
+
+body.page-social .metric-cell .pct {
+  min-width: 40px;
+  font-size: 12px;
+}
+
+body.page-social .score-value {
+  font-size: 16px;
+}
+
+body.page-social .ticker-badge {
+  font-size: 11px;
+  padding: 4px 7px;
+}
+
+body.page-social .tier-pill {
+  padding: 7px 10px;
+  font-size: 12px;
+}
+
+@media (max-width: 1200px) {
+  body.page-social table {
+    min-width: 1080px;
+  }
+
+  body.page-social .company-name {
+    min-width: 135px;
+  }
+
+  body.page-social .tiny-track {
+    width: 58px;
+  }
+}
+
+@media (max-width: 900px) {
+  body.page-social table {
+    min-width: 980px;
+  }
+
+  body.page-social thead th {
+    font-size: 10px;
+    padding: 14px 10px;
+  }
+
+  body.page-social tbody td {
+    padding: 12px 10px;
+  }
+
+  body.page-social .company-name {
+    min-width: 120px;
+    font-size: 14px;
+  }
+
+  body.page-social .tiny-track {
+    width: 52px;
+  }
+
+  body.page-social .metric-cell .pct {
+    min-width: 36px;
+    font-size: 11px;
+  }
+}
