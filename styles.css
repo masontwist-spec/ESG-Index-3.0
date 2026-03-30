@@ -1156,3 +1156,135 @@ body.page-social .tier-pill {
     font-size: 11px;
   }
 }
+/* =========================
+   OVERVIEW / SECTORS LAYOUT REFRESH
+========================= */
+
+.overview-feature-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.overview-feature-head {
+  margin-bottom: 14px;
+}
+
+.overview-feature-head h2 {
+  font-size: 22px;
+  line-height: 1.08;
+  margin: 0 0 6px 0;
+}
+
+.overview-feature-head p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--ink-soft);
+  max-width: 100%;
+}
+
+.overview-breakdown-card,
+.overview-leaderboard-card {
+  padding: 20px;
+}
+
+.breakdown-stack {
+  display: grid;
+  gap: 12px;
+}
+
+.breakdown-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 96px;
+  gap: 16px;
+  align-items: center;
+  padding: 16px 16px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: linear-gradient(180deg, #fff, #fbfcfa);
+}
+
+.breakdown-main {
+  min-width: 0;
+}
+
+.breakdown-title {
+  font-size: 15px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.breakdown-note {
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--ink-soft);
+}
+
+.breakdown-metric {
+  text-align: right;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--green);
+  white-space: nowrap;
+}
+
+.overview-mini-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.overview-leaderboard-card .leaderboard-list {
+  gap: 12px;
+}
+
+.overview-leaderboard-card .lb-row {
+  grid-template-columns: 40px minmax(0, 1fr) 92px;
+  gap: 12px;
+  padding: 12px 12px;
+}
+
+.overview-leaderboard-card .lb-company .name {
+  font-size: 16px;
+}
+
+.overview-leaderboard-card .lb-company .meta {
+  font-size: 12px;
+}
+
+.overview-leaderboard-card .lb-score .value {
+  font-size: 28px;
+  color: var(--green);
+}
+
+.overview-leaderboard-card .lb-score .ticker {
+  font-size: 11px;
+}
+
+@media (max-width: 1100px) {
+  .overview-feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .overview-mini-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .breakdown-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .breakdown-metric {
+    text-align: left;
+  }
+
+  .overview-breakdown-card,
+  .overview-leaderboard-card {
+    padding: 16px;
+  }
+}
