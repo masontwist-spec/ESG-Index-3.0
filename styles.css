@@ -180,7 +180,7 @@ body.page-esg .nav-links a:hover {
       rgba(10, 18, 34, 0.48) 100%
     ),
     radial-gradient(circle at right top, rgba(47, 139, 87, 0.14), transparent 28%),
-    url("Stock_Market_Changes.png") center center / cover no-repeat;
+    url("./Stock_Market_Changes.png" center center / cover no-repeat;
   z-index: 0;
 }
 
