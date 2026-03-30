@@ -17,42 +17,46 @@
         <div class="brand-name">FTSE 100 ESG Index</div>
       </a>
       <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="esg.html">ESG Index</a>
+        <a href="index.html">Overview</a>
+        <a href="sectors.html" class="active">Sectors</a>
         <a href="rankings.html">Environment</a>
         <a href="social.html">Social</a>
-        <a href="sectors.html" class="active">Sectors</a>
+        <a href="esg.html">ESG</a>
         <a href="methodology.html">Methodology</a>
-        <a href="companies.html">Company Directory</a>
+        <a href="companies.html">Companies</a>
       </nav>
     </div>
   </header>
 
-<section class="page" style="padding-bottom: 20px;">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <h1>Sector Analysis</h1>
-        <p>
-          A sector-level view of the public-facing ESG Exposure Index. The composite score on this page
-          is built from the live Environment and Social modules. Lower average scores rank higher.
-        </p>
+  <section class="page" style="padding-bottom: 20px;">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h1>Sector Analysis</h1>
+          <p>
+            A sector-level view of the public-facing ESG Exposure Index. The composite score on this page
+            is built from the live Environment and Social modules. Lower average scores rank higher.
+          </p>
+        </div>
+      </div>
+
+      <div class="construction" style="margin-top: 0;">
+        <strong>Interpretation:</strong>
+        This page aggregates company-level Environment, Social, and composite ESG scores by sector.
+        Lower average values rank higher.
       </div>
     </div>
+  </section>
 
-    <div class="sector-interpretation-widget">
-      <strong>Interpretation:</strong>
-      This page aggregates company-level Environment, Social, and composite ESG scores by sector.
-      Lower average values rank higher.
+  <section class="page" style="padding-top: 0; padding-bottom: 24px;">
+    <div class="wrap">
+      <div class="card sector-stats-widget">
+        <div class="stats-grid sector-stats-grid" id="sectorStatsGrid"></div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-  <div class="stats-strip">
-    <div class="wrap stats-grid" id="sectorStatsGrid"></div>
-  </div>
-
-  <section class="page">
+  <section class="page" style="padding-top: 0;">
     <div class="wrap">
       <div class="card sector-panel-card">
         <div class="section-head sector-head">
@@ -128,7 +132,7 @@
 
   <footer class="foot">
     <div class="wrap">
-      Prosperity Institute’s FTSE 100 <strong>ESG Exposure</strong> Index — Sectors Page.
+      Prosperity Institute’s FTSE 100 <strong>ESG Exposure</strong> Index.
     </div>
   </footer>
 </body>
