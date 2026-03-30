@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Companies | FTSE 100 ESG Exposure Index</title>
+  <title>Sector Analysis | FTSE 100 ESG Exposure Index</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
   <script defer src="data.js"></script>
-  <script defer src="companies.js"></script>
+  <script defer src="sectors.js"></script>
 </head>
 <body>
   <header>
@@ -17,68 +18,123 @@
       </a>
       <nav class="nav-links">
         <a href="index.html">Overview</a>
-        <a href="sectors.html">Sectors</a>
+        <a href="sectors.html" class="active">Sectors</a>
         <a href="rankings.html">Environment</a>
         <a href="social.html">Social</a>
         <a href="esg.html">ESG</a>
         <a href="methodology.html">Methodology</a>
-        <a href="companies.html" class="active">Companies</a>
+        <a href="companies.html">Companies</a>
       </nav>
     </div>
   </header>
 
-  <section class="page">
-    <div class="wrap-wide">
-      <div class="section-head">
-        <div>
-          <h1>Companies</h1>
-          <p>
-            Reference directory for FTSE 100 companies included in the index, with source links to company websites,
-            annual reports, sustainability / ESG reports, and reporting year where available.
-          </p>
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div>
+        <div class="eyebrow">FTSE 100 ESG Exposure Analysis</div>
+        <h1>Sector <span class="accent">Analysis</span></h1>
+        <p>
+          A sector-level view of the public-facing ESG Exposure Index. The composite score on this page is built from
+          the live Environment and Social modules. Lower average scores rank higher.
+        </p>
+      </div>
+
+      <div class="hero-panel">
+        <h3>Interpretation</h3>
+        <p>
+          This page aggregates company-level Environment, Social, and composite ESG scores by sector.
+        </p>
+        <div class="signal-list">
+          <div class="signal"><span class="name">Best sector</span><span class="tag">Lowest average</span></div>
+          <div class="signal"><span class="name">Worst sector</span><span class="tag" style="background:rgba(240,120,120,0.12);color:#f0a0a0;">Highest average</span></div>
+          <div class="signal"><span class="name">Ranking logic</span><span class="tag">Ascending</span></div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="construction" style="margin-bottom:18px;">
-        <strong>Directory note:</strong>
-        This page is intended as a source directory rather than a rankings table. Use the Environment, Social, and ESG pages for scored views.
+  <div class="stats-strip">
+    <div class="wrap stats-grid" id="sectorStatsGrid"></div>
+  </div>
+
+  <section class="page">
+    <div class="wrap">
+      <div class="card sector-panel-card">
+        <div class="section-head sector-head">
+          <div>
+            <h2><strong>Sector Average ESG Scores</strong></h2>
+            <p>Average composite ESG exposure score by sector.</p>
+          </div>
+        </div>
+        <div id="sectorBarChart" style="width:100%;height:560px;"></div>
       </div>
+    </div>
+  </section>
 
-      <div class="toolbar">
-        <input class="control" id="searchInput" placeholder="Search company or ticker..." />
-        <select class="control" id="sectorFilter">
-          <option value="">All sectors</option>
-        </select>
-        <select class="control" id="yearFilter">
-          <option value="">All reporting years</option>
-        </select>
+  <section class="page" style="padding-top:0;">
+    <div class="wrap">
+      <div class="card sector-panel-card">
+        <div class="section-head sector-head">
+          <div>
+            <h2><strong>Score Distribution by Sector</strong></h2>
+            <p>Spread of company composite ESG scores inside each sector.</p>
+          </div>
+        </div>
+        <div id="sectorBoxPlot" style="width:100%;height:560px;"></div>
       </div>
+    </div>
+  </section>
 
-      <div class="table-card">
-        <div class="table-wrap">
-          <table>
+  <section class="page" style="padding-top:0;">
+    <div class="wrap">
+      <div class="card sector-panel-card">
+        <div class="section-head sector-head">
+          <div>
+            <h2><strong>Average Domain Breakdown</strong></h2>
+            <p>Average Environment and Social scores by sector.</p>
+          </div>
+        </div>
+        <div id="sectorGroupedChart" style="width:100%;height:620px;"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" style="padding-top:0;">
+    <div class="wrap">
+      <div class="card sector-panel-card">
+        <div class="section-head sector-head">
+          <div>
+            <h2><strong>Sector Table</strong></h2>
+            <p>Lower average scores rank higher.</p>
+          </div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%; border-collapse:collapse;">
             <thead>
               <tr>
-                <th data-sort="Company">Company</th>
-                <th data-sort="Ticker">Ticker</th>
-                <th data-sort="Sector">Sector</th>
-                <th data-sort="Website">Website</th>
-                <th data-sort="Annual_Report_URL">Annual Report</th>
-                <th data-sort="Sustainability_Report_URL">Sustainability / ESG Report</th>
-                <th data-sort="Reporting_Year">Reporting Year</th>
+                <th style="text-align:left; padding:12px;">Rank</th>
+                <th style="text-align:left; padding:12px;">Sector</th>
+                <th style="text-align:left; padding:12px;">Companies</th>
+                <th style="text-align:left; padding:12px;">Avg ESG</th>
+                <th style="text-align:left; padding:12px;">Avg Env</th>
+                <th style="text-align:left; padding:12px;">Avg Social</th>
+                <th style="text-align:left; padding:12px;">Median</th>
+                <th style="text-align:left; padding:12px;">Best Company</th>
+                <th style="text-align:left; padding:12px;">Worst Company</th>
+                <th style="text-align:left; padding:12px;">Range</th>
               </tr>
             </thead>
-            <tbody id="tableBody"></tbody>
+            <tbody id="sectorTableBody"></tbody>
           </table>
         </div>
       </div>
-
-      <footer class="foot">
-        <div class="wrap-wide">
-          Prosperity Institute’s FTSE 100 <strong>ESG Exposure</strong> Index — company source directory.
-        </div>
-      </footer>
     </div>
   </section>
+
+  <footer class="foot">
+    <div class="wrap">
+      Prosperity Institute’s FTSE 100 <strong>ESG Exposure</strong> Index.
+    </div>
+  </footer>
 </body>
 </html>
