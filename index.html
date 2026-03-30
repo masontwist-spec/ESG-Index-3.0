@@ -31,33 +31,29 @@
   <section class="hero">
     <div class="wrap hero-inner">
       <div>
-        <div class="eyebrow">FTSE 100 · Contrarian exposure framework</div>
+        <div class="eyebrow">FTSE 100 ESG Exposure Analysis</div>
         <h1>
-          FTSE 100
-          <span class="accent">ESG Exposure Index</span>
+          ESG Exposure
+          <span class="accent">Index 2026</span>
         </h1>
         <p>
-          A contrarian framework for ranking FTSE 100 companies by their ESG exposure.
-          The public-facing composite on this website is built from the live Environment and Social modules.
-          Lower scores rank higher.
+          A contrarian assessment of FTSE 100 companies. Higher scores reflect greater ESG-related
+          commitments, programmes, incentives, and reporting intensity. Lower scores rank higher.
         </p>
 
         <div class="hero-actions">
-          <a href="esg.html" class="btn btn-primary">View ESG Rankings</a>
-          <a href="sectors.html" class="btn btn-secondary">Open Sector Analysis</a>
+          <a href="esg.html" class="btn btn-primary">View Rankings →</a>
+          <a href="methodology.html" class="btn btn-secondary">How It Works</a>
         </div>
       </div>
 
       <div class="hero-panel">
         <h3>Interpretation</h3>
         <p>
-          The website is structured around Environment and Social domain pages, a composite ESG page, and a sector-level analysis view.
+          The public-facing composite is built from the live Environment and Social modules.
+          Governance-related indicators are embedded within those domains rather than scored separately.
         </p>
-        <div class="signal-list">
-          <div class="signal"><span class="name">Environment</span><span class="tag">Live</span></div>
-          <div class="signal"><span class="name">Social</span><span class="tag">Live</span></div>
-          <div class="signal"><span class="name">Governance</span><span class="tag">Embedded</span></div>
-        </div>
+        <div class="signal-list" id="heroSignalList"></div>
       </div>
     </div>
   </section>
@@ -67,53 +63,71 @@
   </div>
 
   <section class="page">
-    <div class="wrap-wide">
-      <div class="section-head">
-        <div>
-          <h2>Index Overview</h2>
-          <p>
-            The homepage highlights the current composite ranking picture, sector structure, and the relationship between the live Environment and Social modules.
-          </p>
+    <div class="wrap">
+      <div class="overview-feature-grid">
+        <div class="card overview-breakdown-card">
+          <div class="section-head overview-feature-head">
+            <div>
+              <h2>Index Breakdown</h2>
+              <p>
+                The live public composite is built from Environment and Social. Governance-related
+                measures remain embedded within those live domains.
+              </p>
+            </div>
+          </div>
+
+          <div class="breakdown-stack" id="breakdownStack"></div>
+        </div>
+
+        <div class="card overview-leaderboard-card">
+          <div class="section-head overview-feature-head">
+            <div>
+              <h2>Lowest ESG Exposure</h2>
+              <p>Companies with the lowest composite ESG scores under the current public model.</p>
+            </div>
+            <a class="section-link" href="esg.html">All rankings →</a>
+          </div>
+
+          <div class="leaderboard-list" id="overviewLeaderboard"></div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="simple-grid">
-        <div class="simple-card mini-chart-card">
-          <div class="overview-mini-head">
-            <h2>Lowest ESG Exposure Companies</h2>
-            <p>Top 10 companies with the lowest composite ESG scores.</p>
-          </div>
-          <div id="overviewTopChart" style="width:100%;height:420px;"></div>
-        </div>
-
-        <div class="simple-card mini-chart-card">
+  <section class="page" style="padding-top: 0;">
+    <div class="wrap">
+      <div class="overview-mini-grid">
+        <div class="card mini-chart-card">
           <div class="overview-mini-head">
             <h2>Sector Average ESG Scores</h2>
-            <p>Average composite ESG score by sector.</p>
+            <p>Average composite ESG exposure score by sector.</p>
           </div>
-          <div id="overviewSectorChart" style="width:100%;height:420px;"></div>
+          <div id="overviewSectorChart" style="width:100%;height:380px;"></div>
         </div>
 
-        <div class="simple-card mini-chart-card">
+        <div class="card mini-chart-card">
           <div class="overview-mini-head">
             <h2>Environment vs Social</h2>
             <p>Company-level relationship between the two live domains.</p>
           </div>
-          <div id="overviewScatterChart" style="width:100%;height:420px;"></div>
+          <div id="overviewScatterChart" style="width:100%;height:380px;"></div>
         </div>
       </div>
 
-      <div class="construction">
+      <div class="construction" style="margin-top:18px;">
         <strong>Governance treatment:</strong>
-        Governance-related indicators are treated as embedded within the Environment and Social frameworks, particularly in reporting, oversight, and incentive-related measures, rather than scored as a standalone public-facing domain.
+        Governance-related indicators are treated as embedded within Environment and Social,
+        particularly in reporting, oversight, and incentive-related measures, rather than scored as a
+        standalone public-facing domain.
       </div>
-
-      <footer class="foot">
-        <div class="wrap-wide">
-          Prosperity Institute’s FTSE 100 <strong>ESG Exposure</strong> Index.
-        </div>
-      </footer>
     </div>
   </section>
+
+  <footer class="foot">
+    <div class="wrap">
+      Prosperity Institute’s FTSE 100 <strong>ESG Exposure</strong> Index.
+    </div>
+  </footer>
 </body>
 </html>
+``
