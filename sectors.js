@@ -180,3 +180,31 @@ function renderGroupedChart(sectors) {
     barmode: "group",
     paper_bgcolor: "rgba(0,0,0,0)",
     plot_bgcolor: "rgba(0,0,0,0)",
+    margin: { l: 60, r: 30, t: 10, b: 20 },
+    yaxis: { title: "Average Domain Score" },
+    xaxis: {
+      showticklabels: false,
+      showgrid: false,
+      zeroline: false
+    }
+  }, {
+    responsive: true,
+    displayModeBar: false
+  });
+}
+
+function initSectorsPage() {
+  if (!Array.isArray(cappedData)) {
+    console.error("cappedData is not available.");
+    return;
+  }
+
+  const sectors = buildSectorData(cappedData);
+  renderStats(sectors);
+  renderTable(sectors);
+  renderBarChart(sectors);
+  renderBoxPlot(sectors);
+  renderGroupedChart(sectors);
+}
+
+document.addEventListener("DOMContentLoaded", initSectorsPage);
