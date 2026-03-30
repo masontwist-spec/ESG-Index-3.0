@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FTSE 100 ESG Exposure Index</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <script defer src="data.js"></script>
+  <script defer src="index.js"></script>
 </head>
 <body>
   <header>
@@ -15,6 +18,7 @@
       </a>
       <nav class="nav-links">
         <a href="index.html" class="active">Overview</a>
+        <a href="sectors.html">Sectors</a>
         <a href="rankings.html">Environment</a>
         <a href="social.html">Social</a>
         <a href="esg.html">ESG</a>
@@ -34,99 +38,74 @@
         </h1>
         <p>
           A contrarian framework for ranking FTSE 100 companies by their ESG exposure.
-          Higher values reflect greater commitments, incentives, programmes, disclosure intensity, and related governance integration.
-          Lower scores therefore rank higher on the Index.
+          The public-facing composite on this website is built from the live Environment and Social modules.
+          Lower scores rank higher.
         </p>
 
         <div class="hero-actions">
-          <a class="btn btn-primary" href="esg.html">View ESG Rankings</a>
-          <a class="btn btn-secondary" href="methodology.html">Read Methodology</a>
+          <a href="esg.html" class="btn btn-primary">View ESG Rankings</a>
+          <a href="sectors.html" class="btn btn-secondary">Open Sector Analysis</a>
         </div>
       </div>
 
       <div class="hero-panel">
-        <h3>Site Structure</h3>
+        <h3>Interpretation</h3>
         <p>
-          The website is organized around Environment and Social domain pages, alongside a composite ESG view built from those two live scoring modules.
+          The website is structured around Environment and Social domain pages, a composite ESG page, and a sector-level analysis view.
         </p>
-
         <div class="signal-list">
-          <div class="signal">
-            <span class="name">Environment page</span>
-            <span class="tag">Live</span>
-          </div>
-          <div class="signal">
-            <span class="name">Social page</span>
-            <span class="tag">Live</span>
-          </div>
-          <div class="signal">
-            <span class="name">Governance treatment</span>
-            <span class="tag">Embedded</span>
-          </div>
+          <div class="signal"><span class="name">Environment</span><span class="tag">Live</span></div>
+          <div class="signal"><span class="name">Social</span><span class="tag">Live</span></div>
+          <div class="signal"><span class="name">Governance</span><span class="tag">Embedded</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="stats-strip">
-    <div class="wrap stats-grid">
-      <div class="stat">
-        <div class="stat-value">E</div>
-        <div class="stat-label">Environment module</div>
-      </div>
-      <div class="stat">
-        <div class="stat-value">S</div>
-        <div class="stat-label">Social module</div>
-      </div>
-      <div class="stat">
-        <div class="stat-value">ES</div>
-        <div class="stat-label">Composite public model</div>
-      </div>
-      <div class="stat">
-        <div class="stat-value">↓</div>
-        <div class="stat-label">Lower score ranks higher</div>
-      </div>
-    </div>
-  </section>
+  <div class="stats-strip">
+    <div class="wrap stats-grid" id="overviewStatsGrid"></div>
+  </div>
 
   <section class="page">
     <div class="wrap-wide">
       <div class="section-head">
         <div>
-          <h2>How to Read the Site</h2>
+          <h2>Index Overview</h2>
           <p>
-            Each page applies the same contrarian interpretation: lower scores rank higher.
-            Use the Environment and Social pages to inspect the live domain-specific drivers, and the ESG page for the composite public-facing score.
+            The homepage highlights the current composite ranking picture, sector structure, and the relationship between the live Environment and Social modules.
           </p>
         </div>
       </div>
 
       <div class="simple-grid">
-        <div class="simple-card">
-          <h3>Environment</h3>
-          <p>
-            The Environment page shows Climate Targets, Investment &amp; Transition, and Climate Reporting.
-          </p>
+        <div class="simple-card mini-chart-card">
+          <div class="overview-mini-head">
+            <h2>Lowest ESG Exposure Companies</h2>
+            <p>Top 10 companies with the lowest composite ESG scores.</p>
+          </div>
+          <div id="overviewTopChart" style="width:100%;height:420px;"></div>
         </div>
 
-        <div class="simple-card">
-          <h3>Social</h3>
-          <p>
-            The Social page shows DEI Targets &amp; Representation, DEI Programmes &amp; Memberships, and Social Incentives.
-          </p>
+        <div class="simple-card mini-chart-card">
+          <div class="overview-mini-head">
+            <h2>Sector Average ESG Scores</h2>
+            <p>Average composite ESG score by sector.</p>
+          </div>
+          <div id="overviewSectorChart" style="width:100%;height:420px;"></div>
         </div>
 
-        <div class="simple-card">
-          <h3>ESG</h3>
-          <p>
-            The ESG page uses an Environment + Social public composite, while governance-related indicators are treated as embedded rather than scored as a standalone public-facing domain.
-          </p>
+        <div class="simple-card mini-chart-card">
+          <div class="overview-mini-head">
+            <h2>Environment vs Social</h2>
+            <p>Company-level relationship between the two live domains.</p>
+          </div>
+          <div id="overviewScatterChart" style="width:100%;height:420px;"></div>
         </div>
       </div>
 
       <div class="construction">
-        <strong>Construction note:</strong>
-        This is not a traditional ESG “quality” index. It is an ESG exposure / burden index. Under the current public model, more commitments, more programmes, more incentives, and more disclosure intensity increase the score.
+        <strong>Governance treatment:</strong>
+        Governance-related indicators are treated as embedded within the Environment and Social frameworks, particularly in reporting, oversight, and incentive-related measures, rather than scored as a standalone public-facing domain.
       </div>
 
       <footer class="foot">
