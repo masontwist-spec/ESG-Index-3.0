@@ -1,101 +1,160 @@
-function renderDistributionChart(data) {
-  const target = document.getElementById('distributionChart');
-  if (!target || !Array.isArray(data)) return;
-
-  const scores = data.map(d => d.Environment_Score);
-
-  Plotly.newPlot('distributionChart', [
-  {
-    type: 'histogram',
-    x: scores,
-    nbinsx: 12,
-    marker: { color: '#2e8b57' },
-    hovertemplate: 'Count: %{y}<br>Score range: %{x}<extra></extra>'
-  }
-], {
-  paper_bgcolor: 'rgba(0,0,0,0)',
-  plot_bgcolor: 'rgba(0,0,0,0)',
-
-  margin: { l: 45, r: 20, t: 10, b: 40 },
-
-  font: {
-    size: 11 
-  },
-
-  xaxis: {
-    title: {
-      text: 'Environment Score',
-      font: { size: 10 }
-    },
-    tickfont: { size: 10 },
-    tickformat: '.2f'
-  },
-
-  yaxis: {
-    title: {
-      text: 'Number of Companies',
-      font: { size: 10 }
-    },
-    tickfont: { size: 10 }
-  }
-
-}, {
-  responsive: true,
-  displayModeBar: false
-});
+function mean(arr) {
+  if (!arr.length) return 0;
+  return arr.reduce((sum, val) => sum + val, 0) / arr.length;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const best = cappedData.filter(d => d.Environment_Score < 0.20).length;
+function fmt(num) {
+  return Number(num).toFixed(3);
+}
 
-  const stats = [
-    { value: cappedData.length, label: 'Companies Assessed' },
-    { value: uniqueSectors().length, label: 'Sectors Covered' },
-    { value: best, label: 'Best Tier (<20%)' },
-    { value: pct(avg('Environment_Score')), label: 'Avg. ESG Exposure' }
-  ];
+function buildSectorAverages(data) {
+  const grouped = {};
 
-  document.getElementById('statsGrid').innerHTML = stats.map(s =>
-    `<div class="stat">
-      <div class="stat-value">${s.value}</div>
-      <div class="stat-label">${s.label}</div>
-    </div>`
-  ).join('');
+  data.forEach((row) => {
+    const sector = row.Sector || "Unclassified";
+    if (!grouped[sector]) grouped[sector] = [];
+    grouped[sector].push(row);
+  });
 
-  const pillars = [
-    { title: 'Climate Targets', badge: 'E1', avgVal: avg('Climate_Targets'), note: 'Net zero year, scope coverage, SBTi alignment, TPI alignment' },
-    { title: 'Investment & Transition', badge: 'E2', avgVal: avg('Investment_Transition'), note: 'Decarbonisation capex, green bonds, transition memberships, internal carbon pricing' },
-    { title: 'Climate Reporting', badge: 'E3', avgVal: avg('Climate_Reporting'), note: 'Sustainability reporting, CDP score, executive pay KPIs, assurance level' }
-  ];
+  return Object.entries(grouped)
+    .map(([sector, rows]) => ({
+      sector,
+      avgESG: mean(rows.map(r => r.ESG_Score))
+    }))
+    .sort((a, b) => a.avgESG - b.avgESG);
+}
 
-  document.getElementById('pillarStack').innerHTML = pillars.map(p =>
-    `<div class="pillar-card">
-      <div class="pillar-top">
-        <div class="pillar-title">${p.title} <span class="pill">${p.badge}</span></div>
-        <div class="pill">${pct(p.avgVal)} avg.</div>
-      </div>
-      <div class="progress red">
-        <span style="width:${(p.avgVal * 100).toFixed(1)}%"></span>
-      </div>
-      <div class="pillar-note">${p.note}</div>
-    </div>`
-  ).join('');
+function renderOverviewStats(data) {
+  const grid = document.getElementById("overviewStatsGrid");
+  if (!grid) return;
 
-  const lowest = rankSorted().slice(0, 8);
+  const sorted = [...data].sort((a, b) => a.ESG_Score - b.ESG_Score);
+  const best = sorted[0];
+  const worst = sorted[sorted.length - 1];
+  const avgESG = mean(data.map(d => d.ESG_Score));
+  const bestSector = buildSectorAverages(data)[0];
 
-  document.getElementById('leaderboardList').innerHTML = lowest.map(d =>
-    `<div class="lb-row">
-      <div class="lb-rank">${d.rank}</div>
-      <div class="lb-company">
-        <div class="name">${d.Company}</div>
-        <div class="meta">${d.Sector}</div>
-      </div>
-      <div class="lb-score">
-        <div class="value" style="color:var(--green)">${pct(d.Environment_Score)}</div>
-        <div class="ticker">${d.Ticker}</div>
-      </div>
-    </div>`
-  ).join('');
+  grid.innerHTML = `
+    <div class="stat">
+      <div class="stat-value">${fmt(avgESG)}</div>
+      <div class="stat-label">Average ESG score</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">${best.Ticker}</div>
+      <div class="stat-label">Lowest ESG score company</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">${worst.Ticker}</div>
+      <div class="stat-label">Highest ESG score company</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">${bestSector.sector}</div>
+      <div class="stat-label">Lowest average sector</div>
+    </div>
+  `;
+}
 
-  renderDistributionChart(cappedData);
-});
+function renderTopChart(data) {
+  const top = [...data]
+    .sort((a, b) => a.ESG_Score - b.ESG_Score)
+    .slice(0, 10);
+
+  Plotly.newPlot("overviewTopChart", [
+    {
+      type: "bar",
+      orientation: "h",
+      x: top.map(d => d.ESG_Score).reverse(),
+      y: top.map(d => d.Company).reverse(),
+      text: top.map(d => fmt(d.ESG_Score)).reverse(),
+      textposition: "outside",
+      cliponaxis: false,
+      marker: { color: "#2e8b57" },
+      hovertemplate: "<b>%{y}</b><br>ESG score: %{x:.3f}<extra></extra>"
+    }
+  ], {
+    paper_bgcolor: "rgba(0,0,0,0)",
+    plot_bgcolor: "rgba(0,0,0,0)",
+    margin: { l: 180, r: 40, t: 10, b: 30 },
+    xaxis: { title: "Composite ESG Score" },
+    yaxis: { automargin: true }
+  }, {
+    responsive: true,
+    displayModeBar: false
+  });
+}
+
+function renderSectorChart(data) {
+  const sectors = buildSectorAverages(data);
+
+  Plotly.newPlot("overviewSectorChart", [
+    {
+      type: "bar",
+      x: sectors.map(s => s.sector),
+      y: sectors.map(s => s.avgESG),
+      text: sectors.map(s => fmt(s.avgESG)),
+      textposition: "outside",
+      cliponaxis: false,
+      marker: { color: "#6d4cc4" },
+      hovertemplate: "<b>%{x}</b><br>Average ESG score: %{y:.3f}<extra></extra>"
+    }
+  ], {
+    paper_bgcolor: "rgba(0,0,0,0)",
+    plot_bgcolor: "rgba(0,0,0,0)",
+    margin: { l: 50, r: 20, t: 10, b: 110 },
+    yaxis: { title: "Average ESG Score" },
+    xaxis: { tickangle: -30 }
+  }, {
+    responsive: true,
+    displayModeBar: false
+  });
+}
+
+function renderScatterChart(data) {
+  Plotly.newPlot("overviewScatterChart", [
+    {
+      type: "scatter",
+      mode: "markers",
+      x: data.map(d => d.Environment_Score),
+      y: data.map(d => d.Social_Score),
+      text: data.map(d => `${d.Company}<br>${d.Sector}`),
+      marker: {
+        size: 11,
+        color: data.map(d => d.ESG_Score),
+        colorscale: [
+          [0, "#dcecdf"],
+          [0.5, "#9fd0b0"],
+          [1, "#2e8b57"]
+        ],
+        line: {
+          color: "rgba(23,27,36,0.18)",
+          width: 1
+        },
+        showscale: false
+      },
+      hovertemplate: "<b>%{text}</b><br>Environment: %{x:.3f}<br>Social: %{y:.3f}<extra></extra>"
+    }
+  ], {
+    paper_bgcolor: "rgba(0,0,0,0)",
+    plot_bgcolor: "rgba(0,0,0,0)",
+    margin: { l: 50, r: 20, t: 10, b: 40 },
+    xaxis: { title: "Environment Score" },
+    yaxis: { title: "Social Score" }
+  }, {
+    responsive: true,
+    displayModeBar: false
+  });
+}
+
+function initOverviewPage() {
+  if (!Array.isArray(cappedData)) {
+    console.error("cappedData is not available.");
+    return;
+  }
+
+  renderOverviewStats(cappedData);
+  renderTopChart(cappedData);
+  renderSectorChart(cappedData);
+  renderScatterChart(cappedData);
+}
+
+document.addEventListener("DOMContentLoaded", initOverviewPage);
