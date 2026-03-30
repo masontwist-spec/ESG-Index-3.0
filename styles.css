@@ -1164,8 +1164,11 @@ body.page-social .tier-pill {
 
 .overview-feature-head h2,
 .overview-mini-head h2 {
+  font-family: Georgia, "Times New Roman", serif;
   font-size: 24px;
   line-height: 1.08;
+  letter-spacing: -0.03em;
+  font-weight: 400;
   margin: 0 0 6px 0;
   white-space: normal;
   overflow-wrap: anywhere;
