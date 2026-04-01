@@ -101,43 +101,63 @@ function renderGovernanceTable(rows) {
 
   const current = currentGovernanceRows(rows);
 
-  body.innerHTML = current.map(r => `
-    <tr>
-      <td><div class="rank-badge">${r.rank}</div></td>
-      <td><div class="company-name">${r.Company}</div></td>
-      <td><span class="ticker-badge">${r.Ticker}</span></td>
-      <td><span class="sector-name">${r.Sector}</span></td>
-      <td>
-        <div class="metric-cell">
-          <div class="tiny-track">
-            <div class="tiny-fill bad" style="width:${r.Governance_Reporting_Assurance_Score * 100}%"></div>
+ body.innerHTML = current.map(r => `
+  <tr>
+    <td><div class="rank-badge">${r.rank}</div></td>
+    <td><div class="company-name">${r.Company}</div></td>
+    <td><span class="ticker-badge">${r.Ticker}</span></td>
+    <td><span class="sector-name">${r.Sector}</span></td>
+
+    <td>
+      <div class="metric-cell">
+        <div class="tiny-track">
+          <div
+            class="tiny-fill"
+            style="width:${r.Governance_Reporting_Assurance_Score * 100}%; background:${scoreGradientColor(r.Governance_Reporting_Assurance_Score)};">
           </div>
-          <span class="pct">${pct(r.Governance_Reporting_Assurance_Score)}</span>
         </div>
-      </td>
-      <td>
-        <div class="metric-cell">
-          <div class="tiny-track">
-            <div class="tiny-fill bad" style="width:${r.Governance_Oversight_Incentives_Score * 100}%"></div>
-          </div>
-          <span class="pct">${pct(r.Governance_Oversight_Incentives_Score)}</span>
-        </div>
-      </td>
-     <td>
-  <div class="metric-cell">
-    <div class="tiny-track">
-      <div
-        class="tiny-fill"
-        style="width:${r.Governance_Reference_Score * 100}%; background:${governanceFillColor(r.Governance_Reference_Score)};">
+        <span class="pct" style="color:${scoreGradientColor(r.Governance_Reporting_Assurance_Score)};">
+          ${pct(r.Governance_Reporting_Assurance_Score)}
+        </span>
       </div>
-    </div>
-    <span class="${governanceTrackClass(r.Governance_Reference_Score)}">
-      ${pct(r.Governance_Reference_Score)}
-    </span>
-  </div>
-</td>
-    </tr>
-  `).join("");
+    </td>
+
+    <td>
+      <div class="metric-cell">
+        <div class="tiny-track">
+          <div
+            class="tiny-fill"
+            style="width:${r.Governance_Oversight_Incentives_Score * 100}%; background:${scoreGradientColor(r.Governance_Oversight_Incentives_Score)};">
+          </div>
+        </div>
+        <span class="pct" style="color:${scoreGradientColor(r.Governance_Oversight_Incentives_Score)};">
+          ${pct(r.Governance_Oversight_Incentives_Score)}
+        </span>
+      </div>
+    </td>
+
+    <td>
+      <div class="metric-cell">
+        <div class="tiny-track">
+          <div
+            class="tiny-fill"
+            style="width:${r.Governance_Reference_Score * 100}%; background:${scoreGradientColor(r.Governance_Reference_Score)};">
+          </div>
+        </div>
+        <span class="score-value" style="color:${scoreGradientColor(r.Governance_Reference_Score)};">
+          ${pct(r.Governance_Reference_Score)}
+        </span>
+      </div>
+    </td>
+
+    <td>
+      <span class="tier-pill tier-${tierKey(r.Governance_Reference_Score)}">
+        ${tierLabel(r.Governance_Reference_Score)}
+      </span>
+    </td>
+  </tr>
+`).join("");
+
 }
 
 function initGovernancePage() {
