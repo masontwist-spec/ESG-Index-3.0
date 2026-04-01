@@ -108,19 +108,33 @@ const cappedData = RAW_DATA.map(d => {
   const socialScore = clamp(d.Social_Score);
   const esOnlyComposite = clamp((environmentScore + socialScore) / 2);
 
+  const governanceReportingAssurance = clamp(d.Climate_Reporting);
+  const governanceOversightIncentives = clamp(d.Social_Incentives);
+  const governanceReferenceScore = clamp(
+    (governanceReportingAssurance + governanceOversightIncentives) / 2
+  );
+
   return {
     ...d,
+
     Climate_Targets: clamp(d.Climate_Targets),
     Investment_Transition: clamp(d.Investment_Transition),
     Climate_Reporting: clamp(d.Climate_Reporting),
     Environment_Score: environmentScore,
+
     DEI_Targets_Representation: clamp(d.DEI_Targets_Representation),
     DEI_Programmes_Memberships: clamp(d.DEI_Programmes_Memberships),
     Social_Incentives: clamp(d.Social_Incentives),
     Social_Score: socialScore,
-    ESG_Score: esOnlyComposite
+
+    ESG_Score: esOnlyComposite,
+
+    Governance_Reporting_Assurance_Score: governanceReportingAssurance,
+    Governance_Oversight_Incentives_Score: governanceOversightIncentives,
+    Governance_Reference_Score: governanceReferenceScore
   };
 });
+
 
 function pct(v) {
   return (v * 100).toFixed(1) + '%';
