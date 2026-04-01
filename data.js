@@ -163,26 +163,7 @@ function tierColor(tier) {
   if (tier === 'poor') return '#c96a2b';
   return 'var(--red)';
 }
-function scoreGradientColor(v) {
-  const x = Math.max(0, Math.min(1, Number(v) || 0));
 
-  // 0   -> green
-  // 0.5 -> amber
-  // 1   -> red
-  if (x <= 0.5) {
-    const t = x / 0.5;
-    const r = Math.round(47 + (198 - 47) * t);   // 47 -> 198
-    const g = Math.round(139 + (135 - 139) * t); // 139 -> 135
-    const b = Math.round(87 + (47 - 87) * t);    // 87 -> 47
-    return `rgb(${r}, ${g}, ${b})`;
-  } else {
-    const t = (x - 0.5) / 0.5;
-    const r = Math.round(198 + (217 - 198) * t); // 198 -> 217
-    const g = Math.round(135 + (93 - 135) * t);  // 135 -> 93
-    const b = Math.round(47 + (93 - 47) * t);    // 47 -> 93
-    return `rgb(${r}, ${g}, ${b})`;
-  }
-}
 function rankSortedBy(scoreKey) {
   return [...cappedData]
     .sort((a, b) => a[scoreKey] - b[scoreKey])
