@@ -119,7 +119,7 @@ function renderGovernanceTable(rows) {
     <div class="tiny-track">
       <div class="tiny-fill bad" style="width:${r.Governance_Reference_Score * 100}%"></div>
     </div>
-    <span class="score-value">${pct(r.Governance_Reference_Score)}</span>
+    <span class="score-value governance-score-value">${pct(r.Governance_Reference_Score)}</span>
   </div>
 </td>
       <td>
