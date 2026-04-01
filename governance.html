@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Governance Indicators | FTSE 100 ESG Exposure Index</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <script defer src="data.js"></script>
+  <script defer src="governance.js"></script>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a href="index.html" class="brand">
+        <div class="brand-mark">↗</div>
+        <div class="brand-name">FTSE 100 ESG Index</div>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">Overview</a>
+        <a href="sectors.html">Sectors</a>
+        <a href="rankings.html">Environment</a>
+        <a href="social.html">Social</a>
+        <a href="esg.html">ESG</a>
+        <a href="governance.html" class="active">Governance</a>
+        <a href="methodology.html">Methodology</a>
+        <a href="companies.html">Companies</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page">
+    <div class="wrap-wide">
+      <div class="section-head">
+        <div>
+          <h1>Governance Indicators</h1>
+          <p>
+            Governance-related indicators are shown here for methodological transparency. In the public-facing
+            website model, governance is treated as embedded within Environment and Social rather than surfaced
+            as a standalone scored pillar.
+          </p>
+        </div>
+      </div>
+
+      <div class="construction">
+        <strong>Governance treatment:</strong>
+        Governance appears in the methodology through strategy integration, board oversight, transparency,
+        and assurance-related signals. These indicators are tracked and shown here, but the live public-facing
+        structure of the website remains centered on the Environment and Social domains.
+      </div>
+    </div>
+  </section>
+
+  <section class="page" style="padding-top: 0;">
+    <div class="wrap">
+      <div class="card" style="padding: 22px;">
+        <div class="section-head overview-feature-head">
+          <div>
+            <h2>How Governance Is Used</h2>
+            <p>
+              The governance layer is not presented as an equal public-facing domain in the current website.
+              Instead, it functions as a supporting methodological layer that informs how oversight, reporting,
+              strategy integration, and incentive-related structures are understood across the broader index.
+            </p>
+          </div>
+        </div>
+
+        <div class="simple-grid">
+          <div class="simple-card">
+            <h3>Strategy Integration</h3>
+            <p>
+              Covers whether ESG-related themes are integrated into the company’s broader corporate strategy,
+              risk language, or formal organizational commitments.
+            </p>
+          </div>
+
+          <div class="simple-card">
+            <h3>Board Oversight</h3>
+            <p>
+              Covers board-level integration, governance structures, oversight committees, or other signals
+              that indicate formal governance treatment of ESG-related matters.
+            </p>
+          </div>
+
+          <div class="simple-card">
+            <h3>Transparency &amp; Assurance</h3>
+            <p>
+              Covers frameworks, disclosure structures, external alignment, and other transparency or
+              assurance-oriented indicators.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats-strip">
+    <div class="wrap stats-grid" id="governanceStatsGrid"></div>
+  </div>
+
+  <section class="page">
+    <div class="wrap">
+      <div class="card sector-panel-card">
+        <div class="section-head sector-head">
+          <div>
+            <h2><strong>Governance Reference Scores</strong></h2>
+            <p>
+              Governance reference score shown for transparency only. Lower values still rank higher under the
+              site’s contrarian exposure logic.
+            </p>
+          </div>
+        </div>
+        <div id="governanceBarChart" style="width:100%;height:560px;"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" style="padding-top:0;">
+    <div class="wrap">
+      <div class="card sector-panel-card">
+        <div class="section-head sector-head">
+          <div>
+            <h2><strong>Governance Component Breakdown</strong></h2>
+            <p>
+              Reference view across governance strategy integration, board oversight, and transparency /
+              assurance indicators.
+            </p>
+          </div>
+        </div>
+        <div id="governanceComponentChart" style="width:100%;height:620px;"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" style="padding-top:0;">
+    <div class="wrap">
+      <div class="card sector-panel-card">
+        <div class="section-head sector-head">
+          <div>
+            <h2><strong>Governance Table</strong></h2>
+            <p>
+              Reference table showing the governance fields from the current methodology structure.
+            </p>
+          </div>
+        </div>
+
+        <div style="overflow-x:auto;">
+          <table style="width:100%; border-collapse:collapse;">
+            <thead>
+              <tr>
+                <th style="text-align:left; padding:12px;">Rank</th>
+                <th style="text-align:left; padding:12px;">Company</th>
+                <th style="text-align:left; padding:12px;">Ticker</th>
+                <th style="text-align:left; padding:12px;">Sector</th>
+                <th style="text-align:left; padding:12px;">Strategy Integration</th>
+                <th style="text-align:left; padding:12px;">Board Oversight</th>
+                <th style="text-align:left; padding:12px;">Transparency & Assurance</th>
+                <th style="text-align:left; padding:12px;">Governance Reference Score</th>
+              </tr>
+            </thead>
+            <tbody id="governanceTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="wrap">
+      Prosperity Institute’s FTSE 100 <strong>ESG Exposure</strong> Index — governance indicators page.
+    </div>
+  </footer>
+</body>
+</html>
