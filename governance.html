@@ -5,18 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Governance Indicators | FTSE 100 ESG Exposure Index</title>
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
   <script defer src="data.js"></script>
   <script defer src="governance.js"></script>
 </head>
-<body>
+<body class="page-governance">
   <header>
     <div class="wrap nav">
       <a href="index.html" class="brand">
         <div class="brand-mark">↗</div>
         <div class="brand-name">FTSE 100 ESG Index</div>
       </a>
-     <nav class="nav-links">
+      <nav class="nav-links">
         <a href="index.html">Home</a>
         <a href="esg.html">Full ESG Index</a>
         <a href="rankings.html">Environment</a>
@@ -35,18 +34,11 @@
         <div>
           <h1>Governance Indicators</h1>
           <p>
-            The following data is extracted <Strong>directly from the E3 and S3 sub-domains</Strong>. 
-            As mentioned, the Governance data is embedded in Environment and Social. 
-            However, it is helpful to visualize it on its own.
+            The following data is extracted <Strong>directly from the E3 and S3 sub-domains</Strong>. As mentioned,
+            the governance data is embedded in Environment and Social, but it is still useful to
+            visualize it on its own for transparency.
           </p>
         </div>
-      </div>
-
-      <div class="construction">
-        <strong>Governance treatment:</strong>
-        Governance appears in the methodology through strategy integration, board oversight, transparency,
-        and assurance-related signals. These indicators are tracked and shown here, 
-        but are not being used again in the total ESG calculation because of redundancy.
       </div>
     </div>
   </section>
@@ -58,9 +50,10 @@
           <div>
             <h2>How Governance Is Used</h2>
             <p>
-              The governance layer is not presented as an equal public-facing domain in the current website.
-              Instead, it functions as a supporting methodological layer that informs how oversight, reporting,
-              strategy integration, and incentive-related structures are understood across the broader index.
+              The governance layer is not presented as an equal public-facing domain in the current
+              website. Instead, it functions as a supporting methodological layer that informs how
+              oversight, reporting, strategy integration, and incentive-related structures are
+              understood across the broader index.
             </p>
           </div>
         </div>
@@ -69,24 +62,24 @@
           <div class="simple-card">
             <h3>Strategy Integration</h3>
             <p>
-              Covers whether ESG-related themes are integrated into the company’s broader corporate strategy,
-              risk language, or formal organizational commitments.
+              Covers whether ESG-related themes are integrated into the company’s broader corporate
+              strategy, risk language, or formal organizational commitments.
             </p>
           </div>
 
           <div class="simple-card">
             <h3>Board Oversight</h3>
             <p>
-              Covers board-level integration, governance structures, oversight committees, or other signals
-              that indicate formal governance treatment of ESG-related matters.
+              Covers board-level integration, governance structures, oversight committees, or other
+              signals that indicate formal governance treatment of ESG-related matters.
             </p>
           </div>
 
           <div class="simple-card">
             <h3>Transparency &amp; Assurance</h3>
             <p>
-              Covers frameworks, disclosure structures, external alignment, and other transparency or
-              assurance-oriented indicators.
+              Covers frameworks, disclosure structures, external alignment, and other transparency
+              or assurance-oriented indicators.
             </p>
           </div>
         </div>
@@ -94,36 +87,39 @@
     </div>
   </section>
 
-  <div class="stats-strip">
-    <div class="wrap stats-grid" id="governanceStatsGrid"></div>
-  </div>
+  <section class="page" style="padding-top: 0;">
+    <div class="wrap-wide">
+      <div class="toolbar governance-toolbar">
+        <input class="control" id="searchInput" placeholder="Search company or ticker..." />
+        <select class="control" id="sectorFilter">
+          <option value="">All sectors</option>
+        </select>
+        <select class="control" id="bandFilter">
+          <option value="">All reference bands</option>
+          <option value="best">Best</option>
+          <option value="good">Good</option>
+          <option value="moderate">Moderate</option>
+          <option value="poor">Poor</option>
+          <option value="wasteful">Wasteful</option>
+        </select>
+      </div>
 
-  <section class="page" style="padding-top:0;">
-    <div class="wrap">
-      <div class="card sector-panel-card">
-        <div class="section-head sector-head">
-          <div>
-            <h2><strong>Governance Table</strong></h2>
-            <p>
-              Reference table showing the governance fields from the current methodology structure.
-            </p>
-          </div>
-        </div>
-
-        <div style="overflow-x:auto;">
-          <table style="width:100%; border-collapse:collapse;">
-           <thead>
-  <tr>
-    <th style="text-align:left; padding:12px;">Rank</th>
-    <th style="text-align:left; padding:12px;">Company</th>
-    <th style="text-align:left; padding:12px;">Ticker</th>
-    <th style="text-align:left; padding:12px;">Sector</th>
-    <th style="text-align:left; padding:12px;">Reporting & Assurance</th>
-    <th style="text-align:left; padding:12px;">Oversight & Incentives</th>
-    <th style="text-align:left; padding:12px;">Governance Reference Score</th>
-  </tr>
-</thead>
-<tbody id="governanceTableBody"></tbody>
+      <div class="table-card">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th data-sort="rank">Rank</th>
+                <th data-sort="Company">Company</th>
+                <th data-sort="Ticker">Ticker</th>
+                <th data-sort="Sector">Sector</th>
+                <th data-sort="Governance_Reporting_Assurance_Score">Reporting &amp; Assurance</th>
+                <th data-sort="Governance_Oversight_Incentives_Score">Oversight &amp; Incentives</th>
+                <th data-sort="Governance_Reference_Score">Governance Reference Score</th>
+                <th data-sort="band">Reference Band</th>
+              </tr>
+            </thead>
+            <tbody id="governanceTableBody"></tbody>
           </table>
         </div>
       </div>
@@ -137,3 +133,4 @@
   </footer>
 </body>
 </html>
+``
