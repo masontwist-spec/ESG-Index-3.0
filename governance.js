@@ -86,6 +86,15 @@ function currentGovernanceRows(rows) {
   return filtered;
 }
 
+function governanceFillColor(v) {
+  const tier = tierKey(v);
+  return tierColor(tier);
+}
+
+function governanceTrackClass(v) {
+  const tier = tierKey(v);
+  return `governance-score-value governance-score-${tier}`;
+}
 function renderGovernanceTable(rows) {
   const body = document.getElementById("governanceTableBody");
   if (!body) return;
@@ -117,16 +126,16 @@ function renderGovernanceTable(rows) {
      <td>
   <div class="metric-cell">
     <div class="tiny-track">
-      <div class="tiny-fill bad" style="width:${r.Governance_Reference_Score * 100}%"></div>
+      <div
+        class="tiny-fill"
+        style="width:${r.Governance_Reference_Score * 100}%; background:${governanceFillColor(r.Governance_Reference_Score)};">
+      </div>
     </div>
-    <span class="score-value governance-score-value">${pct(r.Governance_Reference_Score)}</span>
+    <span class="${governanceTrackClass(r.Governance_Reference_Score)}">
+      ${pct(r.Governance_Reference_Score)}
+    </span>
   </div>
 </td>
-      <td>
-        <span class="tier-pill tier-${governanceBand(r.Governance_Reference_Score)}">
-          ${governanceBandLabel(r.Governance_Reference_Score)}
-        </span>
-      </td>
     </tr>
   `).join("");
 }
