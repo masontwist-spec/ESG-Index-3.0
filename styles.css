@@ -1590,15 +1590,15 @@ body.page-governance .score-value {
 }
 
 .governance-score-good {
-  color: #4f9b63;
+  color:var(--green);
 }
 
 .governance-score-moderate {
-  color: var(--amber);
+  color: var(--yellow);
 }
 
 .governance-score-poor {
-  color: #c96a2b;
+  color: var(--red);
 }
 
 .governance-score-wasteful {
