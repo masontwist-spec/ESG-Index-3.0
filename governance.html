@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Governance | FTSE 100 ESG Exposure Index</title>
+  <title>Governance Reference | FTSE 100 ESG Exposure Index</title>
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
   <script defer src="data.js"></script>
   <script defer src="governance.js"></script>
 </head>
@@ -29,135 +28,63 @@
     </div>
   </header>
 
-  <section class="hero">
-    <div class="wrap hero-inner">
-      <div>
-        <div class="eyebrow">FTSE 100 ESG Exposure Analysis</div>
-        <h1>
-          Governance
-          <span class="accent">Reference 2026</span>
-        </h1>
-        <p>
-          A reference view of governance-related indicators across the FTSE 100. These signals are useful for transparency and interpretation, but they are treated as embedded within the Environment and Social domains rather than scored again as a standalone public-facing pillar.
-        </p>
-
-        <div class="hero-actions">
-          <a href="esg.html" class="btn btn-primary">View Full ESG Index →</a>
-          <a href="methodology.html" class="btn btn-secondary">How It Works</a>
-        </div>
-      </div>
-
-      <div class="hero-panel">
-        <h3>Interpretation</h3>
-        <p>
-          The Governance page is a reference layer. It surfaces governance-related reporting, oversight, and incentive signals already embedded in the live model, without reintroducing governance as a separate scored domain in the public-facing website.
-        </p>
-        <div class="signal-list" id="governanceSignalList"></div>
-      </div>
-    </div>
-  </section>
-
-  <div class="stats-strip">
-    <div class="wrap stats-grid" id="governanceStatsGrid"></div>
-  </div>
-
   <section class="page">
-    <div class="wrap">
-      <div class="overview-feature-grid">
-        <div class="card overview-breakdown-card">
-          <div class="section-head overview-feature-head">
-            <div>
-              <h2>Governance Breakdown</h2>
-              <p>
-                The reference governance view is built from embedded reporting / assurance and oversight / incentive signals already present in the live Environment and Social framework.
-              </p>
-            </div>
-          </div>
-
-          <div class="pillar-stack">
-            <div class="pillar-card">
-              <div class="pillar-top">
-                <div class="pillar-title">
-                  <span>Reporting &amp; Assurance</span>
-                  <span class="pill">G1</span>
-                </div>
-                <span class="pill" id="govReportingPill">0.0% avg.</span>
-              </div>
-              <div class="progress red">
-                <span id="govReportingBar" style="width:0%"></span>
-              </div>
-              <div class="pillar-note">
-                Reference governance signal drawn from reporting, disclosure quality, and assurance-related indicators already embedded in the live model.
-              </div>
-            </div>
-
-            <div class="pillar-card">
-              <div class="pillar-top">
-                <div class="pillar-title">
-                  <span>Oversight &amp; Incentives</span>
-                  <span class="pill">G2</span>
-                </div>
-                <span class="pill" id="govOversightPill">0.0% avg.</span>
-              </div>
-              <div class="progress red">
-                <span id="govOversightBar" style="width:0%"></span>
-              </div>
-              <div class="pillar-note">
-                Reference governance signal drawn from oversight, incentive, and board-related measures already embedded in the live model.
-              </div>
-            </div>
-
-            <div class="pillar-card">
-              <div class="pillar-top">
-                <div class="pillar-title">
-                  <span>Governance Reference</span>
-                  <span class="pill">G</span>
-                </div>
-                <span class="pill" id="govReferencePill">0.0% avg.</span>
-              </div>
-              <div class="progress red">
-                <span id="govReferenceBar" style="width:0%"></span>
-              </div>
-              <div class="pillar-note">
-                Composite governance reference indicator used for transparency only. It is not re-added as a separate pillar in the public-facing ESG score.
-              </div>
-            </div>
-          </div>
-
-          <div class="overview-distribution-block">
-            <div class="section-head overview-feature-head">
-              <h2>Distribution</h2>
-            </div>
-            <div id="governanceDistributionChart" style="width:100%;height:320px;"></div>
-          </div>
-        </div>
-
-        <div class="card overview-leaderboard-card">
-          <div class="section-head overview-feature-head">
-            <div>
-              <h2>Lowest Governance Reference</h2>
-              <p>
-                The top 8 companies with the lowest governance reference scores under the embedded governance view.
-              </p>
-            </div>
-            <a href="companies.html" class="section-link">Company directory →</a>
-          </div>
-
-          <div class="leaderboard-list" id="governanceLeaderboard"></div>
+    <div class="wrap-wide">
+      <div class="section-head">
+        <div>
+          <h1>Governance Reference</h1>
+          <p>
+            This page shows a governance reference view built from governance-related indicators that are already embedded within the live Environment and Social model. Lower reference scores rank higher in line with the Index’s contrarian logic.
+          </p>
         </div>
       </div>
 
-      <div class="construction" style="margin-top:18px;">
+      <div class="construction" style="margin-bottom: 18px;">
         <strong>Governance caveat:</strong>
-        Governance-related indicators are shown here for transparency and interpretation only. They are already reflected in the live Environment and Social domains — particularly through reporting, oversight, and incentive-related measures — and are therefore not scored again as a standalone public-facing domain.
+        Governance-related indicators are shown here for transparency and interpretation only. They are already reflected within the live Environment and Social domains — particularly through reporting, oversight, and incentive-related measures — and are therefore not scored again as a separate public-facing pillar.
       </div>
+
+      <div class="toolbar">
+        <input class="control" id="searchInput" placeholder="Search company or ticker..." />
+        <select class="control" id="sectorFilter">
+          <option value="">All sectors</option>
+        </select>
+        <select class="control" id="tierFilter">
+          <option value="">All bands</option>
+          <option value="best">Best</option>
+          <option value="good">Good</option>
+          <option value="moderate">Moderate</option>
+          <option value="poor">Poor</option>
+          <option value="wasteful">Wasteful</option>
+        </select>
+      </div>
+
+      <div class="table-card">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th data-sort="rank">#</th>
+                <th data-sort="Company">Company</th>
+                <th data-sort="Ticker">Ticker</th>
+                <th data-sort="Sector">Sector</th>
+                <th data-sort="Governance_Reporting_Assurance_Score">Reporting &amp; Assurance</th>
+                <th data-sort="Governance_Oversight_Incentives_Score">Oversight &amp; Incentives</th>
+                <th data-sort="Governance_Reference_Score">Governance Reference Score</th>
+                <th data-sort="tier">Band</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <footer class="foot">
+        <div class="wrap-wide">
+          Prosperity Institute’s FTSE 100 <strong>ESG Exposure</strong> Index — governance reference view.
+        </div>
+      </footer>
     </div>
   </section>
-
-  <footer class="foot">
-    <div class="wrap">
-      Prosperity Institute’s FTSE 100 <strong>ESG Exposure</strong> Index — Governance Reference.
-    </div>
-  </footer>
 </body>
 </html>
