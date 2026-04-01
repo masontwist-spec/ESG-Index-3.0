@@ -1578,3 +1578,6 @@ body.page-governance .score-value {
     width: 62px;
   }
 }
+.governance-score-value {
+  color: var(--red);
+}
