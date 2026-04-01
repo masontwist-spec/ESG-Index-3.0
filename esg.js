@@ -19,21 +19,10 @@ function populateSectorFilter() {
 function gradientColor(v) {
   const x = Math.max(0, Math.min(1, Number(v) || 0));
 
-  if (x <= 0.5) {
-    const t = x / 0.5;
-    const r = Math.round(47 + (198 - 47) * t);   // green -> amber
-    const g = Math.round(139 + (135 - 139) * t);
-    const b = Math.round(87 + (47 - 87) * t);
-    return `rgb(${r}, ${g}, ${b})`;
-  } else {
-    const t = (x - 0.5) / 0.5;
-    const r = Math.round(198 + (217 - 198) * t); // amber -> red
-    const g = Math.round(135 + (93 - 135) * t);
-    const b = Math.round(47 + (93 - 47) * t);
-    return `rgb(${r}, ${g}, ${b})`;
-  }
+  if (x < 0.33) return '#4f9b63';   // green
+  if (x < 0.66) return '#c6872f';   // yellow / amber
+  return '#d95d5d';                 // red
 }
-
 function metricMarkup(v, bold = false) {
   const value = Math.max(0, Math.min(1, Number(v) || 0));
   const color = gradientColor(value);
