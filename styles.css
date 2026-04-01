@@ -1579,5 +1579,28 @@ body.page-governance .score-value {
   }
 }
 .governance-score-value {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.governance-score-best {
+  color: var(--green);
+}
+
+.governance-score-good {
+  color: #4f9b63;
+}
+
+.governance-score-moderate {
+  color: var(--amber);
+}
+
+.governance-score-poor {
+  color: #c96a2b;
+}
+
+.governance-score-wasteful {
   color: var(--red);
 }
