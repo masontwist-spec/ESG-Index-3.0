@@ -11,11 +11,7 @@ function populateSectorFilter() {
   });
 }
 
-/* Continuous colour scale:
-   0.0 = green
-   0.5 = amber
-   1.0 = red
-*/
+
 function gradientColor(v) {
   const x = Math.max(0, Math.min(1, Number(v) || 0));
 
