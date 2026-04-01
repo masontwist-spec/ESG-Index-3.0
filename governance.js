@@ -14,13 +14,12 @@ function fmtPct(num) {
 function governanceRows() {
   return cappedData
     .filter(d =>
-      typeof d.Governance_Score !== "undefined" &&
-      typeof d.Governance_Strategy_Integration !== "undefined" &&
-      typeof d.Governance_Board_Oversight !== "undefined" &&
-      typeof d.Governance_Transparency_Assurance !== "undefined"
+      typeof d.Governance_Reference_Score !== "undefined" &&
+      typeof d.Governance_Reporting_Assurance_Score !== "undefined" &&
+      typeof d.Governance_Oversight_Incentives_Score !== "undefined"
     )
     .slice()
-    .sort((a, b) => a.Governance_Score - b.Governance_Score)
+    .sort((a, b) => a.Governance_Reference_Score - b.Governance_Reference_Score)
     .map((d, i) => ({ ...d, rank: i + 1 }));
 }
 
@@ -30,10 +29,10 @@ function renderGovernanceStats(rows) {
 
   const best = rows[0];
   const worst = rows[rows.length - 1];
-  const avgGov = mean(rows.map(r => r.Governance_Score));
-  const strongestTransparency = rows
+  const avgGov = mean(rows.map(r => r.Governance_Reference_Score));
+  const strongestReporting = rows
     .slice()
-    .sort((a, b) => b.Governance_Transparency_Assurance - a.Governance_Transparency_Assurance)[0];
+    .sort((a, b) => b.Governance_Reporting_Assurance_Score - a.Governance_Reporting_Assurance_Score)[0];
 
   grid.innerHTML = `
     <div class="stat">
@@ -49,8 +48,8 @@ function renderGovernanceStats(rows) {
       <div class="stat-label">Highest governance reference score</div>
     </div>
     <div class="stat">
-      <div class="stat-value">${strongestTransparency.Ticker}</div>
-      <div class="stat-label">Strongest transparency & assurance signal</div>
+      <div class="stat-value">${strongestReporting.Ticker}</div>
+      <div class="stat-label">Strongest reporting & assurance signal</div>
     </div>
   `;
 }
@@ -62,9 +61,9 @@ function renderGovernanceBarChart(rows) {
       {
         type: "bar",
         orientation: "h",
-        x: rows.slice(0, 20).map(r => r.Governance_Score).reverse(),
+        x: rows.slice(0, 20).map(r => r.Governance_Reference_Score).reverse(),
         y: rows.slice(0, 20).map(r => r.Company).reverse(),
-        text: rows.slice(0, 20).map(r => fmt(r.Governance_Score)).reverse(),
+        text: rows.slice(0, 20).map(r => fmt(r.Governance_Reference_Score)).reverse(),
         textposition: "outside",
         cliponaxis: false,
         marker: { color: "#6d4cc4" },
@@ -91,27 +90,19 @@ function renderGovernanceComponentChart(rows) {
     [
       {
         type: "bar",
-        name: "Strategy Integration",
+        name: "Reporting & Assurance",
         x: rows.map(r => r.Company),
-        y: rows.map(r => r.Governance_Strategy_Integration),
+        y: rows.map(r => r.Governance_Reporting_Assurance_Score),
         marker: { color: "#6d4cc4" },
-        hovertemplate: "<b>%{x}</b><br>Strategy Integration: %{y:.3f}<extra></extra>"
+        hovertemplate: "<b>%{x}</b><br>Reporting & Assurance: %{y:.3f}<extra></extra>"
       },
       {
         type: "bar",
-        name: "Board Oversight",
+        name: "Oversight & Incentives",
         x: rows.map(r => r.Company),
-        y: rows.map(r => r.Governance_Board_Oversight),
+        y: rows.map(r => r.Governance_Oversight_Incentives_Score),
         marker: { color: "#4867c9" },
-        hovertemplate: "<b>%{x}</b><br>Board Oversight: %{y:.3f}<extra></extra>"
-      },
-      {
-        type: "bar",
-        name: "Transparency & Assurance",
-        x: rows.map(r => r.Company),
-        y: rows.map(r => r.Governance_Transparency_Assurance),
-        marker: { color: "#c6872f" },
-        hovertemplate: "<b>%{x}</b><br>Transparency & Assurance: %{y:.3f}<extra></extra>"
+        hovertemplate: "<b>%{x}</b><br>Oversight & Incentives: %{y:.3f}<extra></extra>"
       }
     ],
     {
@@ -143,10 +134,9 @@ function renderGovernanceTable(rows) {
       <td style="padding:12px;">${r.Company}</td>
       <td style="padding:12px;">${r.Ticker}</td>
       <td style="padding:12px;">${r.Sector}</td>
-      <td style="padding:12px;">${fmt(r.Governance_Strategy_Integration)}</td>
-      <td style="padding:12px;">${fmt(r.Governance_Board_Oversight)}</td>
-      <td style="padding:12px;">${fmt(r.Governance_Transparency_Assurance)}</td>
-      <td style="padding:12px;">${fmt(r.Governance_Score)}</td>
+      <td style="padding:12px;">${fmt(r.Governance_Reporting_Assurance_Score)}</td>
+      <td style="padding:12px;">${fmt(r.Governance_Oversight_Incentives_Score)}</td>
+      <td style="padding:12px;">${fmt(r.Governance_Reference_Score)}</td>
     </tr>
   `).join("");
 }
@@ -165,7 +155,7 @@ function initGovernancePage() {
       stats.innerHTML = `
         <div class="stat" style="grid-column: 1 / -1;">
           <div class="stat-value">No governance data</div>
-          <div class="stat-label">Add governance columns into data.js to populate this page</div>
+          <div class="stat-label">Check governance field names in data.js and governance.js</div>
         </div>
       `;
     }
