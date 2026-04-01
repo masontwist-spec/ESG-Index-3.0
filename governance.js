@@ -163,9 +163,15 @@ function initGovernancePage() {
   }
 
   renderGovernanceStats(rows);
-  renderGovernanceBarChart(rows);
-  renderGovernanceComponentChart(rows);
   renderGovernanceTable(rows);
+
+  if (document.getElementById("governanceBarChart")) {
+    renderGovernanceBarChart(rows);
+  }
+
+  if (document.getElementById("governanceComponentChart")) {
+    renderGovernanceComponentChart(rows);
+  }
 }
 
 document.addEventListener("DOMContentLoaded", initGovernancePage);
