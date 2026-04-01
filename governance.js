@@ -114,7 +114,14 @@ function renderGovernanceTable(rows) {
           <span class="pct">${pct(r.Governance_Oversight_Incentives_Score)}</span>
         </div>
       </td>
-      <td><span class="score-value">${fmt(r.Governance_Reference_Score)}</span></td>
+     <td>
+  <div class="metric-cell">
+    <div class="tiny-track">
+      <div class="tiny-fill bad" style="width:${r.Governance_Reference_Score * 100}%"></div>
+    </div>
+    <span class="pct">${pct(r.Governance_Reference_Score)}</span>
+  </div>
+</td>
       <td>
         <span class="tier-pill tier-${governanceBand(r.Governance_Reference_Score)}">
           ${governanceBandLabel(r.Governance_Reference_Score)}
