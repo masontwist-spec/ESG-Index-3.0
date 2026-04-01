@@ -11,6 +11,45 @@ function populateSectorFilter() {
   });
 }
 
+/* Continuous colour scale:
+   0.0 = green
+   0.5 = amber
+   1.0 = red
+*/
+function gradientColor(v) {
+  const x = Math.max(0, Math.min(1, Number(v) || 0));
+
+  if (x <= 0.5) {
+    const t = x / 0.5;
+    const r = Math.round(47 + (198 - 47) * t);   // green -> amber
+    const g = Math.round(139 + (135 - 139) * t);
+    const b = Math.round(87 + (47 - 87) * t);
+    return `rgb(${r}, ${g}, ${b})`;
+  } else {
+    const t = (x - 0.5) / 0.5;
+    const r = Math.round(198 + (217 - 198) * t); // amber -> red
+    const g = Math.round(135 + (93 - 135) * t);
+    const b = Math.round(47 + (93 - 47) * t);
+    return `rgb(${r}, ${g}, ${b})`;
+  }
+}
+
+function metricMarkup(v, bold = false) {
+  const value = Math.max(0, Math.min(1, Number(v) || 0));
+  const color = gradientColor(value);
+
+  return `
+    <div class="metric-cell">
+      <div class="tiny-track">
+        <div class="tiny-fill" style="width:${value * 100}%; background:${color};"></div>
+      </div>
+      <div class="${bold ? 'score-value' : 'pct'}" style="color:${color}">
+        ${pct(value)}
+      </div>
+    </div>
+  `;
+}
+
 function currentRows() {
   const q = document.getElementById('searchInput').value.toLowerCase().trim();
   const sector = document.getElementById('sectorFilter').value;
@@ -50,49 +89,22 @@ function renderTable() {
 
   document.getElementById('tableBody').innerHTML = rows.map(d => {
     const tier = tierKey(d.Environment_Score);
-    const color = tierColor(tier);
 
     return `<tr>
       <td><div class="rank-badge">${d.rank}</div></td>
       <td>
-  <div class="company-name">
-    <a href="profile.html?ticker=${encodeURIComponent(d.Ticker)}">${d.Company}</a>
-  </div>
-</td>
+        <div class="company-name">
+          <a href="profile.html?ticker=${encodeURIComponent(d.Ticker)}">${d.Company}</a>
+        </div>
+      </td>
       <td><span class="ticker-badge">${d.Ticker}</span></td>
       <td><span class="sector-name">${d.Sector}</span></td>
-      <td>
-        <div class="metric-cell">
-          <div class="tiny-track">
-            <div class="tiny-fill bad" style="width:${d.Climate_Targets * 100}%"></div>
-          </div>
-          <div class="pct">${pct(d.Climate_Targets)}</div>
-        </div>
-      </td>
-      <td>
-        <div class="metric-cell">
-          <div class="tiny-track">
-            <div class="tiny-fill bad" style="width:${d.Investment_Transition * 100}%"></div>
-          </div>
-          <div class="pct">${pct(d.Investment_Transition)}</div>
-        </div>
-      </td>
-      <td>
-        <div class="metric-cell">
-          <div class="tiny-track">
-            <div class="tiny-fill bad" style="width:${d.Climate_Reporting * 100}%"></div>
-          </div>
-          <div class="pct">${pct(d.Climate_Reporting)}</div>
-        </div>
-      </td>
-      <td>
-        <div class="metric-cell">
-          <div class="tiny-track">
-            <div class="tiny-fill ${tier === 'poor' || tier === 'wasteful' ? 'bad' : ''}" style="width:${d.Environment_Score * 100}%"></div>
-          </div>
-          <div class="score-value" style="color:${color}">${pct(d.Environment_Score)}</div>
-        </div>
-      </td>
+
+      <td>${metricMarkup(d.Climate_Targets)}</td>
+      <td>${metricMarkup(d.Investment_Transition)}</td>
+      <td>${metricMarkup(d.Climate_Reporting)}</td>
+      <td>${metricMarkup(d.Environment_Score, true)}</td>
+
       <td><span class="tier-pill tier-${tier}">${tierLabel(d.Environment_Score)}</span></td>
     </tr>`;
   }).join('');
