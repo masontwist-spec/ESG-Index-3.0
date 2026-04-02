@@ -149,7 +149,7 @@ header {
 /* Environment button — slightly darker green */
 .nav-links a[href="rankings.html"]:hover,
 .nav-links a[href="rankings.html"].active {
-  background: #d6e7d8;
+  background: #b9d3bf;
   color: #1f4d34;
 }
 
