@@ -146,6 +146,13 @@ header {
   color: #24553a;
 }
 
+/* Environment button — slightly darker green */
+.nav-links a[href="rankings.html"]:hover,
+.nav-links a[href="rankings.html"].active {
+  background: #d6e7d8;
+  color: #1f4d34;
+}
+
 /* ESG button always purple when hovered / active */
 .nav-links a[href="esg.html"]:hover,
 .nav-links a[href="esg.html"].active {
