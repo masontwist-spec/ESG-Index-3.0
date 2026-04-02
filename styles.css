@@ -146,17 +146,25 @@ header {
   color: #24553a;
 }
 
-/* Optional page-specific nav accents if you later add body classes */
-body.page-social .nav-links a.active,
-body.page-social .nav-links a:hover {
+/* ESG button always purple when hovered / active */
+.nav-links a[href="esg.html"]:hover,
+.nav-links a[href="esg.html"].active {
+  background: var(--esg-soft);
+  color: #5336a1;
+}
+
+/* Social button always blue when hovered / active */
+.nav-links a[href="social.html"]:hover,
+.nav-links a[href="social.html"].active {
   background: var(--social-soft);
   color: #334a96;
 }
 
-body.page-esg .nav-links a.active,
-body.page-esg .nav-links a:hover {
-  background: var(--esg-soft);
-  color: #5336a1;
+/* Governance button always red when hovered / active */
+.nav-links a[href="governance.html"]:hover,
+.nav-links a[href="governance.html"].active {
+  background: var(--red-soft);
+  color: #b54747;
 }
 
 .hero {
