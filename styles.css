@@ -150,7 +150,7 @@ header {
 .nav-links a[href="rankings.html"]:hover,
 .nav-links a[href="rankings.html"].active {
   background: #b9d3bf;
-  color: #1f4d34;
+  color: #0f2b1d;
 }
 
 /* ESG button always purple when hovered / active */
