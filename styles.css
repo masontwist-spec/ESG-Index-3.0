@@ -1007,7 +1007,7 @@ tbody tr:not(.ranking-row):hover {
 /* Ranking table rows - card-like appearance */
 .ranking-row {
   width: 100%;
-  margin: 8px 0;
+  margin: 2px 0;
   border-radius: 18px;
   border: 1px solid var(--line);
   background: linear-gradient(180deg, #fff, #fbfcfa);
