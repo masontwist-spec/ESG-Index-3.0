@@ -716,6 +716,7 @@ function renderTable(rows) {
     <tr>
       <td>
   <div class="company-name">
+    <img src="assets/logos/${r.Ticker.toUpperCase()}.png" alt="${r.Company} logo" class="company-logo" onerror="this.style.display='none'">
     <a href="profile.html?ticker=${encodeURIComponent(r.Ticker)}">${r.Company}</a>
   </div>
 </td>

@@ -971,6 +971,8 @@ tbody tr:nth-child(even):hover {
   font-weight: 700;
   font-size: 16px;
   min-width: 240px;
+  display: flex;
+  align-items: center;
 }
 
 .company-logo {

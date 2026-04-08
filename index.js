@@ -69,7 +69,7 @@ function renderOverviewStats(data) {
       <div class="stat-label">Sectors covered</div>
     </div>
     <div class="stat">
-      <div class="stat-value"><a href="profile.html?ticker=${encodeURIComponent(highest.Ticker)}" style="color: inherit; text-decoration: none; border-bottom: 2px solid var(--green);">${highest.Ticker}</a></div>
+      <div class="stat-value"><a href="profile.html?ticker=${encodeURIComponent(highest.Ticker)}" style="color: inherit; text-decoration: none; border-bottom: 2px solid var(--red);">${highest.Ticker}</a></div>
       <div class="stat-label">Highest ESG Score</div>
     </div>
     <div class="stat">
