@@ -158,6 +158,7 @@ function renderTable(rows) {
       <td><div class="rank-badge">${r.rank}</div></td>
       <td>
   <div class="company-name">
+    <img src="assets/logos/${r.Ticker.toLowerCase()}.png" alt="${r.Company} logo" class="company-logo" onerror="this.style.display='none'">
     <a href="profile.html?ticker=${encodeURIComponent(r.Ticker)}">${r.Company}</a>
   </div>
 </td>

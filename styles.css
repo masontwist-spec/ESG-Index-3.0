@@ -596,6 +596,14 @@ section.page {
   font-size: 13px;
 }
 
+.lb-logo {
+  width: 24px;
+  height: 24px;
+  margin-right: 6px;
+  vertical-align: middle;
+  border-radius: 2px;
+}
+
 .lb-score {
   text-align: right;
 }
@@ -740,6 +748,14 @@ tbody tr:nth-child(even):hover {
   font-weight: 700;
   font-size: 16px;
   min-width: 240px;
+}
+
+.company-logo {
+  width: 32px;
+  height: 32px;
+  margin-right: 8px;
+  vertical-align: middle;
+  border-radius: 4px;
 }
 
 .sector-name {
