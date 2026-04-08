@@ -897,17 +897,30 @@ a:hover .lb-row {
   border: 1px solid var(--line);
   border-radius: 24px;
   box-shadow: var(--shadow-strong);
+  overflow: hidden;
+}
+
+body.page-rankings .table-card,
+body.page-esg .table-card,
+body.page-social .table-card,
+body.page-governance .table-card {
+  overflow: visible;
 }
 
 .table-wrap {
   overflow-x: auto;
   border-radius: 24px;
-  overflow: hidden;
 }
 
 .table-header {
   border-bottom: 1px solid var(--line);
   background: #fbfcfa;
+}
+
+body.page-rankings .table-header,
+body.page-esg .table-header,
+body.page-social .table-header,
+body.page-governance .table-header {
   position: sticky;
   top: 0;
   z-index: 10;
