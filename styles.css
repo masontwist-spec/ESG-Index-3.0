@@ -950,7 +950,7 @@ body.page-governance .row-content {
 
 .table-body {
   display: grid;
-  gap: 8px;
+  gap: 4px;
   padding: 12px 12px;
 }
 
