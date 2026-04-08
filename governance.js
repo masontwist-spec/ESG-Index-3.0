@@ -202,6 +202,34 @@ function initGovernancePage() {
   document.getElementById("searchInput")?.addEventListener("input", () => renderTable(rows));
   document.getElementById("sectorFilter")?.addEventListener("change", () => renderTable(rows));
   document.getElementById("tierFilter")?.addEventListener("change", () => renderTable(rows));
+
+  // Modal functionality
+  const modal = document.getElementById('scoreInfoModal');
+  const scoreInfoBtn = document.getElementById('scoreInfoBtn');
+  const closeBtn = document.getElementById('scoreInfoClose');
+
+  function openModal() {
+    modal.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeModal() {
+    modal.setAttribute('aria-hidden', 'true');
+  }
+
+  scoreInfoBtn.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal.querySelector('.modal-overlay')) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
+      closeModal();
+    }
+  });
 }
 
 document.addEventListener("DOMContentLoaded", initGovernancePage);
