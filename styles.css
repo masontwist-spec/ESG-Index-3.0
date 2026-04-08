@@ -933,23 +933,30 @@ table {
   display: block;
 }
 
+thead {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
 thead tr {
   display: grid;
   width: 100%;
+  padding: 18px 20px;
+  align-items: center;
+  justify-items: start;
 }
 
 thead th {
   text-align: left;
-  padding: 18px 20px;
+  padding: 0;
   font-size: 13px;
   color: var(--ink-soft);
   letter-spacing: 0.04em;
   text-transform: uppercase;
   border-bottom: 1px solid var(--line);
   background: #fbfcfa;
-  position: sticky;
-  top: 0;
-  z-index: 2;
   cursor: pointer;
   white-space: nowrap;
   transition: color 0.15s ease, background 0.15s ease;
