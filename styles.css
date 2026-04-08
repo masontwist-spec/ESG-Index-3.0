@@ -964,7 +964,10 @@ body.page-governance .table-wrap {
   overflow: visible;
 }
 
-.table-wrap table {
+body.page-rankings .table-wrap table,
+body.page-esg .table-wrap table,
+body.page-social .table-wrap table,
+body.page-governance .table-wrap table {
   display: none;
 }
 
