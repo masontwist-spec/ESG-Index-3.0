@@ -1018,6 +1018,11 @@ body:not(.page-rankings):not(.page-esg):not(.page-social):not(.page-governance) 
   table-layout: auto;
 }
 
+body:not(.page-rankings):not(.page-esg):not(.page-social):not(.page-governance) thead th {
+  text-align: left;
+  padding-left: 16px;
+}
+
 body:not(.page-rankings):not(.page-esg):not(.page-social):not(.page-governance) th:nth-child(1),
 body:not(.page-rankings):not(.page-esg):not(.page-social):not(.page-governance) td:nth-child(1) {
   min-width: 220px;
