@@ -908,6 +908,9 @@ a:hover .lb-row {
 .table-header {
   border-bottom: 1px solid var(--line);
   background: #fbfcfa;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .table-header .header-row {
