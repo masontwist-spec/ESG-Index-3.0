@@ -61,11 +61,11 @@ function renderOverviewStats(data) {
 
   grid.innerHTML = `
     <div class="stat">
-      <div class="stat-value">${data.length}</div>
+      <div class="stat-value"><a href="companies.html" style="color: inherit; text-decoration: none;">${data.length}</a></div>
       <div class="stat-label">Companies covered</div>
     </div>
     <div class="stat">
-      <div class="stat-value">${sectors}</div>
+      <div class="stat-value"><a href="sectors.html" style="color: inherit; text-decoration: none;">${sectors}</a></div>
       <div class="stat-label">Sectors covered</div>
     </div>
     <div class="stat">
@@ -77,7 +77,7 @@ function renderOverviewStats(data) {
       <div class="stat-label">Lowest ESG score</div>
     </div>
     <div class="stat">
-      <div class="stat-value">${fmtPct(avgESG)}</div>
+      <div class="stat-value"><a href="esg.html" style="color: inherit; text-decoration: none;">${fmtPct(avgESG)}</a></div>
       <div class="stat-label">Avg. ESG Exposure</div>
     </div>
   `;
