@@ -69,11 +69,11 @@ function renderOverviewStats(data) {
       <div class="stat-label">Sectors covered</div>
     </div>
     <div class="stat">
-      <div class="stat-value">${highest.Ticker}</div>
+      <div class="stat-value"><a href="profile.html?ticker=${encodeURIComponent(highest.Ticker)}" style="color: inherit; text-decoration: none; border-bottom: 2px solid var(--green);">${highest.Ticker}</a></div>
       <div class="stat-label">Highest ESG Score</div>
     </div>
     <div class="stat">
-      <div class="stat-value">${lowest.Ticker}</div>
+      <div class="stat-value"><a href="profile.html?ticker=${encodeURIComponent(lowest.Ticker)}" style="color: inherit; text-decoration: none; border-bottom: 2px solid var(--green);">${lowest.Ticker}</a></div>
       <div class="stat-label">Lowest ESG score</div>
     </div>
     <div class="stat">
@@ -121,35 +121,39 @@ function renderLeaderboard(data) {
     <div class="leaderboard-section worst-section">
       <h3>Worst Performers</h3>
       ${highest.map((d, i) => `
-        <div class="lb-row">
-          <div class="lb-rank worst-rank">${100 - i}</div>
-          <div class="lb-company">
-            <img src="assets/logos/${d.Ticker.toUpperCase()}.png" alt="${d.Company} logo" class="lb-logo" onerror="this.style.display='none'">
-            <div class="name">${d.Company}</div>
-            <div class="meta">${d.Sector}</div>
+        <a href="profile.html?ticker=${encodeURIComponent(d.Ticker)}" style="text-decoration: none; color: inherit;">
+          <div class="lb-row" style="cursor: pointer;">
+            <div class="lb-rank worst-rank">${100 - i}</div>
+            <div class="lb-company">
+              <img src="assets/logos/${d.Ticker.toUpperCase()}.png" alt="${d.Company} logo" class="lb-logo" onerror="this.style.display='none'">
+              <div class="name">${d.Company}</div>
+              <div class="meta">${d.Sector}</div>
+            </div>
+            <div class="lb-score">
+              <div class="value worst-value">${fmtPct(d.ESG_Score)}</div>
+              <div class="ticker">${d.Ticker}</div>
+            </div>
           </div>
-          <div class="lb-score">
-            <div class="value worst-value">${fmtPct(d.ESG_Score)}</div>
-            <div class="ticker">${d.Ticker}</div>
-          </div>
-        </div>
+        </a>
       `).join("")}
     </div>
     <div class="leaderboard-section best-section">
       <h3>Best Performers</h3>
       ${lowest.map((d, i) => `
-        <div class="lb-row">
-          <div class="lb-rank best-rank">${i + 1}</div>
-          <div class="lb-company">
-            <img src="assets/logos/${d.Ticker.toUpperCase()}.png" alt="${d.Company} logo" class="lb-logo" onerror="this.style.display='none'">
-            <div class="name">${d.Company}</div>
-            <div class="meta">${d.Sector}</div>
+        <a href="profile.html?ticker=${encodeURIComponent(d.Ticker)}" style="text-decoration: none; color: inherit;">
+          <div class="lb-row" style="cursor: pointer;">
+            <div class="lb-rank best-rank">${i + 1}</div>
+            <div class="lb-company">
+              <img src="assets/logos/${d.Ticker.toUpperCase()}.png" alt="${d.Company} logo" class="lb-logo" onerror="this.style.display='none'">
+              <div class="name">${d.Company}</div>
+              <div class="meta">${d.Sector}</div>
+            </div>
+            <div class="lb-score">
+              <div class="value best-value">${fmtPct(d.ESG_Score)}</div>
+              <div class="ticker">${d.Ticker}</div>
+            </div>
           </div>
-          <div class="lb-score">
-            <div class="value best-value">${fmtPct(d.ESG_Score)}</div>
-            <div class="ticker">${d.Ticker}</div>
-          </div>
-        </div>
+        </a>
       `).join("")}
     </div>
   `;

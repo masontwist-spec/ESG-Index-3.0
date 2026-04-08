@@ -782,6 +782,15 @@ section.page {
   border-radius: 18px;
   border: 1px solid var(--line);
   background: linear-gradient(180deg, #fff, #fbfcfa);
+  transition: all 0.2s ease;
+}
+
+.lb-row[style*="cursor: pointer"]:hover,
+a:hover .lb-row {
+  background: linear-gradient(180deg, #fff, #f0f3ee);
+  border-color: var(--green);
+  box-shadow: 0 4px 12px rgba(47, 139, 87, 0.1);
+  transform: translateX(2px);
 }
 
 .lb-rank {
