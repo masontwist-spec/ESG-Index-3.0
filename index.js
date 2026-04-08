@@ -55,7 +55,8 @@ function renderOverviewStats(data) {
 
   const sorted = [...data].sort((a, b) => a.ESG_Score - b.ESG_Score);
   const sectors = [...new Set(data.map(d => d.Sector))].length;
-  const best = sorted[0];
+  const lowest = sorted[0];
+  const highest = sorted[sorted.length - 1];
   const avgESG = mean(data.map(d => d.ESG_Score));
 
   grid.innerHTML = `
@@ -68,7 +69,11 @@ function renderOverviewStats(data) {
       <div class="stat-label">Sectors covered</div>
     </div>
     <div class="stat">
-      <div class="stat-value">${best.Ticker}</div>
+      <div class="stat-value">${highest.Ticker}</div>
+      <div class="stat-label">Highest ESG Score</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">${lowest.Ticker}</div>
       <div class="stat-label">Lowest ESG score</div>
     </div>
     <div class="stat">
