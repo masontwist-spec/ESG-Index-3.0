@@ -997,6 +997,21 @@ tbody tr:nth-child(even):hover {
   font-size: 14px;
 }
 
+.method-download-note {
+  margin: 24px 0 0;
+  padding: 18px 20px;
+  background: rgba(46, 139, 87, 0.05);
+  border: 1px solid rgba(46, 139, 87, 0.12);
+  border-radius: 10px;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.method-download-note a {
+  color: var(--green);
+  text-decoration: underline;
+}
+
 /* =========================
    Responsive
 ========================= */
