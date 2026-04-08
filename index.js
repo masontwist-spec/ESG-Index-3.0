@@ -122,7 +122,7 @@ function renderLeaderboard(data) {
       <h3>Worst Performers</h3>
       ${highest.map((d, i) => `
         <div class="lb-row">
-          <div class="lb-rank">${i + 1}</div>
+          <div class="lb-rank worst-rank">${100 - i}</div>
           <div class="lb-company">
             <div class="name">${d.Company}</div>
             <div class="meta">${d.Sector}</div>
@@ -138,7 +138,7 @@ function renderLeaderboard(data) {
       <h3>Best Performers</h3>
       ${lowest.map((d, i) => `
         <div class="lb-row">
-          <div class="lb-rank">${i + 1}</div>
+          <div class="lb-rank best-rank">${i + 1}</div>
           <div class="lb-company">
             <div class="name">${d.Company}</div>
             <div class="meta">${d.Sector}</div>

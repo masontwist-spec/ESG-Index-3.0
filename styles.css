@@ -1312,6 +1312,14 @@ body.page-social .tier-pill {
   color: var(--green);
 }
 
+.overview-leaderboard-card .worst-rank {
+  color: red;
+}
+
+.overview-leaderboard-card .best-rank {
+  color: var(--green);
+}
+
 .leaderboard-section {
   margin-bottom: 20px;
 }
