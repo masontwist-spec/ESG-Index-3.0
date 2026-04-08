@@ -930,7 +930,7 @@ table {
 
 thead th {
   text-align: left;
-  padding: 18px 16px;
+  padding: 18px 20px;
   font-size: 13px;
   color: var(--ink-soft);
   letter-spacing: 0.04em;
@@ -968,6 +968,58 @@ thead th:last-child {
 thead th:hover {
   color: var(--ink);
   background: #f5f7f3;
+}
+
+/* Specific min-widths for rankings tables to align with grid columns */
+body.page-rankings thead th:nth-child(5),
+body.page-rankings thead th:nth-child(6),
+body.page-rankings thead th:nth-child(7),
+body.page-rankings thead th:nth-child(8) {
+  min-width: 140px;
+}
+
+body.page-esg thead th:nth-child(5),
+body.page-esg thead th:nth-child(6),
+body.page-esg thead th:nth-child(7) {
+  min-width: 140px;
+}
+
+body.page-social thead th:nth-child(5),
+body.page-social thead th:nth-child(6),
+body.page-social thead th:nth-child(7),
+body.page-social thead th:nth-child(8) {
+  min-width: 140px;
+}
+
+body.page-governance thead th:nth-child(5),
+body.page-governance thead th:nth-child(6),
+body.page-governance thead th:nth-child(7) {
+  min-width: 140px;
+}
+
+/* Make thead rows grid to align with tbody grid columns */
+body.page-rankings thead tr {
+  display: grid;
+  grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(4, minmax(140px, 1.1fr)) minmax(120px, 1.2fr);
+  gap: 14px;
+}
+
+body.page-esg thead tr {
+  display: grid;
+  grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(3, minmax(140px, 1.1fr)) minmax(120px, 1.2fr);
+  gap: 14px;
+}
+
+body.page-social thead tr {
+  display: grid;
+  grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(4, minmax(140px, 1.1fr)) minmax(120px, 1.2fr);
+  gap: 14px;
+}
+
+body.page-governance thead tr {
+  display: grid;
+  grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(3, minmax(140px, 1.1fr)) minmax(120px, 1.2fr);
+  gap: 14px;
 }
 
 tbody td {
@@ -1009,7 +1061,7 @@ tbody tr:not(.ranking-row):hover {
   display: grid;
   gap: 14px;
   align-items: center;
-  padding: 16px 20px;
+  padding: 18px 20px;
 }
 
 /* Rankings page - 9 columns */
