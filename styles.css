@@ -1012,20 +1012,30 @@ body.page-governance .row-content {
   grid-template-columns: 46px minmax(260px, 2fr) 90px 150px repeat(3, minmax(140px, 1fr)) 140px;
 }
 
-/* Style table headers for card-style ranking pages */
 body.page-rankings thead tr,
 body.page-esg thead tr,
 body.page-social thead tr,
 body.page-governance thead tr {
-  background: var(--surface);
-  border-radius: 18px;
-  margin: 16px;
-  box-shadow: 0 2px 8px rgba(16, 25, 43, 0.04);
-  border: 1px solid var(--line);
-  overflow: hidden;
+  display: grid;
+  align-items: center;
 }
 
-/* Adjust table body for card-style rows */
+body.page-rankings thead tr {
+  grid-template-columns: 46px minmax(260px, 2fr) 90px 150px repeat(4, minmax(140px, 1fr)) 140px;
+}
+
+body.page-esg thead tr {
+  grid-template-columns: 46px minmax(260px, 2fr) 90px 150px repeat(3, minmax(140px, 1fr)) 140px;
+}
+
+body.page-social thead tr {
+  grid-template-columns: 46px minmax(260px, 2fr) 90px 150px repeat(4, minmax(140px, 1fr)) 140px;
+}
+
+body.page-governance thead tr {
+  grid-template-columns: 46px minmax(260px, 2fr) 90px 150px repeat(3, minmax(140px, 1fr)) 140px;
+}
+
 body.page-rankings tbody,
 body.page-esg tbody,
 body.page-social tbody,
