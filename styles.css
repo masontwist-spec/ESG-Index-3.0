@@ -1304,11 +1304,11 @@ body.page-social .tier-pill {
   font-size: 11px;
 }
 
-.worst-value {
+.overview-leaderboard-card .worst-value {
   color: red;
 }
 
-.best-value {
+.overview-leaderboard-card .best-value {
   color: var(--green);
 }
 
