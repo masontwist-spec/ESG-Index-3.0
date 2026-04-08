@@ -109,23 +109,48 @@ function renderLeaderboard(data) {
   const wrap = document.getElementById("overviewLeaderboard");
   if (!wrap) return;
 
-  const top = [...data]
+  const worst = [...data]
     .sort((a, b) => a.ESG_Score - b.ESG_Score)
-    .slice(0, 8);
+    .slice(0, 3);
 
-  wrap.innerHTML = top.map((d, i) => `
-    <div class="lb-row">
-      <div class="lb-rank">${i + 1}</div>
-      <div class="lb-company">
-        <div class="name">${d.Company}</div>
-        <div class="meta">${d.Sector}</div>
-      </div>
-      <div class="lb-score">
-        <div class="value">${fmtPct(d.ESG_Score)}</div>
-        <div class="ticker">${d.Ticker}</div>
-      </div>
+  const best = [...data]
+    .sort((a, b) => b.ESG_Score - a.ESG_Score)
+    .slice(0, 3);
+
+  wrap.innerHTML = `
+    <div class="leaderboard-section worst-section">
+      <h3>Worst Performers</h3>
+      ${worst.map((d, i) => `
+        <div class="lb-row">
+          <div class="lb-rank">${i + 1}</div>
+          <div class="lb-company">
+            <div class="name">${d.Company}</div>
+            <div class="meta">${d.Sector}</div>
+          </div>
+          <div class="lb-score">
+            <div class="value worst-value">${fmtPct(d.ESG_Score)}</div>
+            <div class="ticker">${d.Ticker}</div>
+          </div>
+        </div>
+      `).join("")}
     </div>
-  `).join("");
+    <div class="leaderboard-section best-section">
+      <h3>Best Performers</h3>
+      ${best.map((d, i) => `
+        <div class="lb-row">
+          <div class="lb-rank">${i + 1}</div>
+          <div class="lb-company">
+            <div class="name">${d.Company}</div>
+            <div class="meta">${d.Sector}</div>
+          </div>
+          <div class="lb-score">
+            <div class="value best-value">${fmtPct(d.ESG_Score)}</div>
+            <div class="ticker">${d.Ticker}</div>
+          </div>
+        </div>
+      `).join("")}
+    </div>
+  `;
 }
 
 function renderDistributionChart(data) {

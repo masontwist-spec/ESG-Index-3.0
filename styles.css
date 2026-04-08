@@ -1304,6 +1304,32 @@ body.page-social .tier-pill {
   font-size: 11px;
 }
 
+.worst-value {
+  color: red;
+}
+
+.best-value {
+  color: var(--green);
+}
+
+.leaderboard-section {
+  margin-bottom: 20px;
+}
+
+.leaderboard-section h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.worst-section h3 {
+  color: red;
+}
+
+.best-section h3 {
+  color: var(--green);
+}
+
 @media (max-width: 1100px) {
   .overview-feature-grid {
     grid-template-columns: 1fr;
