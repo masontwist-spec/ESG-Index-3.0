@@ -75,23 +75,27 @@ function renderTable() {
   document.getElementById('tableBody').innerHTML = rows.map(d => {
     const tier = tierKey(d.Social_Score);
 
-    return `<tr class="ranking-row" onclick="window.location.href='profile.html?ticker=${encodeURIComponent(d.Ticker)}'" style="cursor: pointer;">
-      <td><div class="rank-badge">${d.rank}</div></td>
-      <td>
-        <div class="company-name">
-          <img src="assets/logos/${d.Ticker.toUpperCase()}.png" alt="${d.Company} logo" class="company-logo" onerror="this.style.display='none'">
-          <span>${d.Company}</span>
+    return `<tr>
+      <td colspan="9" style="padding: 0; border: none;">
+        <div class="ranking-row" onclick="window.location.href='profile.html?ticker=${encodeURIComponent(d.Ticker)}'">
+          <div class="row-content">
+            <div class="rank-cell"><div class="rank-badge">${d.rank}</div></div>
+            <div class="company-cell">
+              <div class="company-name">
+                <img src="assets/logos/${d.Ticker.toUpperCase()}.png" alt="${d.Company} logo" class="company-logo" onerror="this.style.display='none'">
+                <span>${d.Company}</span>
+              </div>
+            </div>
+            <div class="ticker-cell"><span class="ticker-badge">${d.Ticker}</span></div>
+            <div class="sector-cell"><span class="sector-name">${d.Sector}</span></div>
+            <div class="metric-cell">${metricMarkup(d.DEI_Targets_Representation)}</div>
+            <div class="metric-cell">${metricMarkup(d.DEI_Programmes_Memberships)}</div>
+            <div class="metric-cell">${metricMarkup(d.Social_Incentives)}</div>
+            <div class="metric-cell">${metricMarkup(d.Social_Score, true)}</div>
+            <div class="tier-cell"><span class="tier-pill tier-${tier}">${tierLabel(d.Social_Score)}</span></div>
+          </div>
         </div>
       </td>
-      <td><span class="ticker-badge">${d.Ticker}</span></td>
-      <td><span class="sector-name">${d.Sector}</span></td>
-
-      <td>${metricMarkup(d.DEI_Targets_Representation)}</td>
-      <td>${metricMarkup(d.DEI_Programmes_Memberships)}</td>
-      <td>${metricMarkup(d.Social_Incentives)}</td>
-      <td>${metricMarkup(d.Social_Score, true)}</td>
-
-      <td><span class="tier-pill tier-${tier}">${tierLabel(d.Social_Score)}</span></td>
     </tr>`;
   }).join('');
 }

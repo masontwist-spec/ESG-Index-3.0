@@ -959,34 +959,102 @@ tbody tr:not(.ranking-row):hover {
 }
 
 /* Ranking table rows - card-like appearance */
-tbody .ranking-row {
-  margin: 8px 16px !important;
-  border-radius: 18px !important;
-  border: 1px solid var(--line) !important;
-  background: linear-gradient(180deg, #fff, #fbfcfa) !important;
-  box-shadow: 0 2px 8px rgba(16, 25, 43, 0.04) !important;
-  transition: all 0.2s ease !important;
-  cursor: pointer !important;
+.ranking-row {
+  margin: 8px 16px;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, #fff, #fbfcfa);
+  box-shadow: 0 2px 8px rgba(16, 25, 43, 0.04);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  overflow: hidden;
 }
 
-tbody .ranking-row:hover {
-  background: linear-gradient(180deg, #fff, #f0f3ee) !important;
-  border-color: var(--green) !important;
-  box-shadow: 0 4px 16px rgba(47, 139, 87, 0.12) !important;
-  transform: translateY(-1px) !important;
+.ranking-row:hover {
+  background: linear-gradient(180deg, #fff, #f0f3ee);
+  border-color: var(--green);
+  box-shadow: 0 4px 16px rgba(47, 139, 87, 0.12);
+  transform: translateY(-1px);
 }
 
-tbody .ranking-row td {
-  border-bottom: none !important;
-  padding: 16px 20px !important;
+.row-content {
+  display: grid;
+  gap: 14px;
+  align-items: center;
+  padding: 16px 20px;
 }
 
-tbody .ranking-row:first-child {
-  margin-top: 16px !important;
+/* Rankings page - 9 columns */
+body.page-rankings .row-content {
+  grid-template-columns: 46px minmax(0, 1fr) 80px 120px repeat(5, 100px);
 }
 
-tbody .ranking-row:last-child {
-  margin-bottom: 16px !important;
+/* ESG page - 7 columns */
+body.page-esg .row-content {
+  grid-template-columns: 46px minmax(0, 1fr) 80px 120px repeat(3, 100px) 120px;
+}
+
+/* Social page - 9 columns */
+body.page-social .row-content {
+  grid-template-columns: 46px minmax(0, 1fr) 80px 120px repeat(5, 100px);
+}
+
+/* Style table headers for card-style ranking pages */
+body.page-rankings thead tr,
+body.page-esg thead tr,
+body.page-social thead tr,
+body.page-governance thead tr {
+  background: var(--surface);
+  border-radius: 18px;
+  margin: 16px;
+  box-shadow: 0 2px 8px rgba(16, 25, 43, 0.04);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+/* Adjust table body for card-style rows */
+body.page-rankings tbody,
+body.page-esg tbody,
+body.page-social tbody,
+body.page-governance tbody {
+  display: block;
+  padding: 0;
+}
+
+body.page-rankings tbody tr,
+body.page-esg tbody tr,
+body.page-social tbody tr,
+body.page-governance tbody tr {
+  display: block;
+  border: none;
+  background: transparent;
+}
+
+body.page-rankings tbody td,
+body.page-esg tbody td,
+body.page-social tbody td,
+body.page-governance tbody td {
+  border: none;
+  padding: 0;
+}
+
+.rank-cell {
+  display: flex;
+  justify-content: center;
+}
+
+.company-cell {
+  min-width: 240px;
+}
+
+.ticker-cell, .sector-cell, .tier-cell {
+  display: flex;
+  justify-content: center;
+}
+
+.metric-cell {
+  display: flex;
+  justify-content: center;
 }
 
 tbody tr:nth-child(even) {

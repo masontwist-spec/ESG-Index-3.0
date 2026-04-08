@@ -154,23 +154,29 @@ function renderTable(rows) {
   const current = filteredRows(rows);
 
   body.innerHTML = current.map(r => `
-    <tr class="ranking-row" onclick="window.location.href='profile.html?ticker=${encodeURIComponent(r.Ticker)}'" style="cursor: pointer;">
-      <td><div class="rank-badge">${r.rank}</div></td>
-      <td>
-  <div class="company-name">
-    <img src="assets/logos/${r.Ticker.toUpperCase()}.png" alt="${r.Company} logo" class="company-logo" onerror="this.style.display='none'">
-    <span>${r.Company}</span>
-  </div>
-</td>
-      <td><span class="ticker-badge">${r.Ticker}</span></td>
-      <td><span class="sector-name">${r.Sector}</span></td>
-      <td>${metricMarkup(r.Governance_Reporting_Assurance_Score)}</td>
-      <td>${metricMarkup(r.Governance_Oversight_Incentives_Score)}</td>
-      <td>${metricMarkup(r.Governance_Reference_Score, true)}</td>
-      <td>
-        <span class="tier-pill tier-${tierKey(r.Governance_Reference_Score)}">
-          ${tierLabel(r.Governance_Reference_Score)}
-        </span>
+    <tr>
+      <td colspan="8" style="padding: 0; border: none;">
+        <div class="ranking-row" onclick="window.location.href='profile.html?ticker=${encodeURIComponent(r.Ticker)}'">
+          <div class="row-content">
+            <div class="rank-cell"><div class="rank-badge">${r.rank}</div></div>
+            <div class="company-cell">
+              <div class="company-name">
+                <img src="assets/logos/${r.Ticker.toUpperCase()}.png" alt="${r.Company} logo" class="company-logo" onerror="this.style.display='none'">
+                <span>${r.Company}</span>
+              </div>
+            </div>
+            <div class="ticker-cell"><span class="ticker-badge">${r.Ticker}</span></div>
+            <div class="sector-cell"><span class="sector-name">${r.Sector}</span></div>
+            <div class="metric-cell">${metricMarkup(r.Governance_Reporting_Assurance_Score)}</div>
+            <div class="metric-cell">${metricMarkup(r.Governance_Oversight_Incentives_Score)}</div>
+            <div class="metric-cell">${metricMarkup(r.Governance_Reference_Score, true)}</div>
+            <div class="tier-cell">
+              <span class="tier-pill tier-${tierKey(r.Governance_Reference_Score)}">
+                ${tierLabel(r.Governance_Reference_Score)}
+              </span>
+            </div>
+          </div>
+        </div>
       </td>
     </tr>
   `).join("");
