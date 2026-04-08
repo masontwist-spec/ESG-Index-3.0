@@ -915,6 +915,13 @@ a:hover .lb-row {
   position: relative;
 }
 
+body.page-rankings .table-wrap,
+body.page-esg .table-wrap,
+body.page-social .table-wrap,
+body.page-governance .table-wrap {
+  overflow: visible;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -960,7 +967,8 @@ tbody tr:not(.ranking-row):hover {
 
 /* Ranking table rows - card-like appearance */
 .ranking-row {
-  margin: 8px 16px;
+  width: 100%;
+  margin: 8px 0;
   border-radius: 18px;
   border: 1px solid var(--line);
   background: linear-gradient(180deg, #fff, #fbfcfa);
@@ -986,17 +994,22 @@ tbody tr:not(.ranking-row):hover {
 
 /* Rankings page - 9 columns */
 body.page-rankings .row-content {
-  grid-template-columns: 46px minmax(0, 1fr) 80px 120px repeat(5, 100px);
+  grid-template-columns: 46px minmax(260px, 2fr) 90px 150px repeat(4, minmax(140px, 1fr)) 140px;
 }
 
-/* ESG page - 7 columns */
+/* ESG page - 8 columns */
 body.page-esg .row-content {
-  grid-template-columns: 46px minmax(0, 1fr) 80px 120px repeat(3, 100px) 120px;
+  grid-template-columns: 46px minmax(260px, 2fr) 90px 150px repeat(3, minmax(140px, 1fr)) 140px;
 }
 
 /* Social page - 9 columns */
 body.page-social .row-content {
-  grid-template-columns: 46px minmax(0, 1fr) 80px 120px repeat(5, 100px);
+  grid-template-columns: 46px minmax(260px, 2fr) 90px 150px repeat(4, minmax(140px, 1fr)) 140px;
+}
+
+/* Governance page - 8 columns */
+body.page-governance .row-content {
+  grid-template-columns: 46px minmax(260px, 2fr) 90px 150px repeat(3, minmax(140px, 1fr)) 140px;
 }
 
 /* Style table headers for card-style ranking pages */
@@ -1017,8 +1030,9 @@ body.page-rankings tbody,
 body.page-esg tbody,
 body.page-social tbody,
 body.page-governance tbody {
-  display: block;
-  padding: 0;
+  display: grid;
+  gap: 16px;
+  padding: 16px 0;
 }
 
 body.page-rankings tbody tr,
@@ -1036,6 +1050,7 @@ body.page-social tbody td,
 body.page-governance tbody td {
   border: none;
   padding: 0;
+  width: 100%;
 }
 
 .rank-cell {
@@ -1044,7 +1059,7 @@ body.page-governance tbody td {
 }
 
 .company-cell {
-  min-width: 240px;
+  min-width: 280px;
 }
 
 .ticker-cell, .sector-cell, .tier-cell {

@@ -76,7 +76,7 @@ function renderTable() {
     const tier = tierKey(d.ESG_Score);
 
     return `<tr>
-      <td colspan="7" style="padding: 0; border: none;">
+      <td colspan="8" style="padding: 0; border: none;">
         <div class="ranking-row" onclick="window.location.href='profile.html?ticker=${encodeURIComponent(d.Ticker)}'">
           <div class="row-content">
             <div class="rank-cell"><div class="rank-badge">${d.rank}</div></div>
