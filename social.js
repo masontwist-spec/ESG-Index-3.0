@@ -75,12 +75,12 @@ function renderTable() {
   document.getElementById('tableBody').innerHTML = rows.map(d => {
     const tier = tierKey(d.Social_Score);
 
-    return `<tr>
+    return `<tr class="ranking-row" onclick="window.location.href='profile.html?ticker=${encodeURIComponent(d.Ticker)}'" style="cursor: pointer;">
       <td><div class="rank-badge">${d.rank}</div></td>
       <td>
         <div class="company-name">
           <img src="assets/logos/${d.Ticker.toUpperCase()}.png" alt="${d.Company} logo" class="company-logo" onerror="this.style.display='none'">
-          <a href="profile.html?ticker=${encodeURIComponent(d.Ticker)}">${d.Company}</a>
+          <span>${d.Company}</span>
         </div>
       </td>
       <td><span class="ticker-badge">${d.Ticker}</span></td>

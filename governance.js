@@ -154,12 +154,12 @@ function renderTable(rows) {
   const current = filteredRows(rows);
 
   body.innerHTML = current.map(r => `
-    <tr>
+    <tr class="ranking-row" onclick="window.location.href='profile.html?ticker=${encodeURIComponent(r.Ticker)}'" style="cursor: pointer;">
       <td><div class="rank-badge">${r.rank}</div></td>
       <td>
   <div class="company-name">
     <img src="assets/logos/${r.Ticker.toUpperCase()}.png" alt="${r.Company} logo" class="company-logo" onerror="this.style.display='none'">
-    <a href="profile.html?ticker=${encodeURIComponent(r.Ticker)}">${r.Company}</a>
+    <span>${r.Company}</span>
   </div>
 </td>
       <td><span class="ticker-badge">${r.Ticker}</span></td>
