@@ -945,6 +945,26 @@ thead th {
   transition: color 0.15s ease, background 0.15s ease;
 }
 
+thead th:first-child {
+  min-width: 68px;
+}
+
+thead th:nth-child(2) {
+  min-width: 260px;
+}
+
+thead th:nth-child(3) {
+  min-width: 92px;
+}
+
+thead th:nth-child(4) {
+  min-width: 120px;
+}
+
+thead th:last-child {
+  min-width: 120px;
+}
+
 thead th:hover {
   color: var(--ink);
   background: #f5f7f3;
@@ -994,46 +1014,22 @@ tbody tr:not(.ranking-row):hover {
 
 /* Rankings page - 9 columns */
 body.page-rankings .row-content {
-  grid-template-columns: 46px minmax(260px, 2fr) 90px 150px repeat(4, minmax(140px, 1fr)) 140px;
+  grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(4, minmax(140px, 1.1fr)) minmax(120px, 1.2fr);
 }
 
 /* ESG page - 8 columns */
 body.page-esg .row-content {
-  grid-template-columns: 46px minmax(260px, 2fr) 90px 150px repeat(3, minmax(140px, 1fr)) 140px;
+  grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(3, minmax(140px, 1.1fr)) minmax(120px, 1.2fr);
 }
 
 /* Social page - 9 columns */
 body.page-social .row-content {
-  grid-template-columns: 46px minmax(260px, 2fr) 90px 150px repeat(4, minmax(140px, 1fr)) 140px;
+  grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(4, minmax(140px, 1.1fr)) minmax(120px, 1.2fr);
 }
 
 /* Governance page - 8 columns */
 body.page-governance .row-content {
-  grid-template-columns: 46px minmax(260px, 2fr) 90px 150px repeat(3, minmax(140px, 1fr)) 140px;
-}
-
-body.page-rankings thead tr,
-body.page-esg thead tr,
-body.page-social thead tr,
-body.page-governance thead tr {
-  display: grid;
-  align-items: center;
-}
-
-body.page-rankings thead tr {
-  grid-template-columns: 46px minmax(260px, 2fr) 90px 150px repeat(4, minmax(140px, 1fr)) 140px;
-}
-
-body.page-esg thead tr {
-  grid-template-columns: 46px minmax(260px, 2fr) 90px 150px repeat(3, minmax(140px, 1fr)) 140px;
-}
-
-body.page-social thead tr {
-  grid-template-columns: 46px minmax(260px, 2fr) 90px 150px repeat(4, minmax(140px, 1fr)) 140px;
-}
-
-body.page-governance thead tr {
-  grid-template-columns: 46px minmax(260px, 2fr) 90px 150px repeat(3, minmax(140px, 1fr)) 140px;
+  grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(3, minmax(140px, 1.1fr)) minmax(120px, 1.2fr);
 }
 
 body.page-rankings tbody,
@@ -1041,8 +1037,8 @@ body.page-esg tbody,
 body.page-social tbody,
 body.page-governance tbody {
   display: grid;
-  gap: 16px;
-  padding: 16px 0;
+  gap: 6px;
+  padding: 8px 0;
 }
 
 body.page-rankings tbody tr,
