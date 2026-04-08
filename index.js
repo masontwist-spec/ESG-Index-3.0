@@ -109,18 +109,18 @@ function renderLeaderboard(data) {
   const wrap = document.getElementById("overviewLeaderboard");
   if (!wrap) return;
 
-  const worst = [...data]
+  const lowest = [...data]
     .sort((a, b) => a.ESG_Score - b.ESG_Score)
     .slice(0, 3);
 
-  const best = [...data]
+  const highest = [...data]
     .sort((a, b) => b.ESG_Score - a.ESG_Score)
     .slice(0, 3);
 
   wrap.innerHTML = `
     <div class="leaderboard-section worst-section">
       <h3>Worst Performers</h3>
-      ${worst.map((d, i) => `
+      ${highest.map((d, i) => `
         <div class="lb-row">
           <div class="lb-rank">${i + 1}</div>
           <div class="lb-company">
@@ -136,7 +136,7 @@ function renderLeaderboard(data) {
     </div>
     <div class="leaderboard-section best-section">
       <h3>Best Performers</h3>
-      ${best.map((d, i) => `
+      ${lowest.map((d, i) => `
         <div class="lb-row">
           <div class="lb-rank">${i + 1}</div>
           <div class="lb-company">
