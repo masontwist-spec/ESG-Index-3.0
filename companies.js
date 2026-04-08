@@ -269,7 +269,7 @@ const MASTER_COMPANY_LIST = {
     Sustainability_Report_URL: "https://www.hiscoxgroup.com/sites/group/files/docs/2024-03/Hiscox_ESG_Report_2024.pdf",
     Reporting_Year: "2024"
   },
-  "Howden Joinery Group": {
+  "Howdens Joinery Group": {
     Website: "https://www.howdenjoinerygroup.com/",
     Annual_Report_URL: "https://www.howdenjoinerygroupplc.com/docs/librariesprovider25/annual-reports/howdens-annual-report-2023.pdf",
     Sustainability_Report_URL: "https://www.howdenjoinerygroupplc.com/docs/librariesprovider25/esg-reports/howdens-esg-report-2023.pdf",
