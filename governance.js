@@ -154,8 +154,6 @@ function renderTable(rows) {
   const current = filteredRows(rows);
 
   body.innerHTML = current.map(r => `
-    <tr>
-      <td colspan="8" style="padding: 0; border: none;">
         <div class="ranking-row" onclick="window.location.href='profile.html?ticker=${encodeURIComponent(r.Ticker)}'">
           <div class="row-content">
             <div class="rank-cell"><div class="rank-badge">${r.rank}</div></div>
@@ -177,8 +175,6 @@ function renderTable(rows) {
             </div>
           </div>
         </div>
-      </td>
-    </tr>
   `).join("");
 }
 
@@ -192,8 +188,8 @@ function initGovernancePage() {
   populateFilters(rows);
   renderTable(rows);
 
-  document.querySelectorAll("th[data-sort]").forEach(th => {
-    th.addEventListener("click", () => {
+  document.querySelectorAll('.table-header [data-sort]').forEach(th => {
+    th.addEventListener('click', () => {
       const col = th.dataset.sort;
       if (sortCol === col) {
         sortAsc = !sortAsc;

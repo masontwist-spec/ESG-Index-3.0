@@ -75,9 +75,7 @@ function renderTable() {
   document.getElementById('tableBody').innerHTML = rows.map(d => {
     const tier = tierKey(d.Social_Score);
 
-    return `<tr>
-      <td colspan="9" style="padding: 0; border: none;">
-        <div class="ranking-row" onclick="window.location.href='profile.html?ticker=${encodeURIComponent(d.Ticker)}'">
+    return `<div class="ranking-row" onclick="window.location.href='profile.html?ticker=${encodeURIComponent(d.Ticker)}'">
           <div class="row-content">
             <div class="rank-cell"><div class="rank-badge">${d.rank}</div></div>
             <div class="company-cell">
@@ -94,9 +92,7 @@ function renderTable() {
             <div class="metric-cell">${metricMarkup(d.Social_Score, true)}</div>
             <div class="tier-cell"><span class="tier-pill tier-${tier}">${tierLabel(d.Social_Score)}</span></div>
           </div>
-        </div>
-      </td>
-    </tr>`;
+        </div>`;
   }).join('');
 }
 
@@ -104,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
   populateSectorFilter();
   renderTable();
 
-  document.querySelectorAll('th[data-sort]').forEach(th => {
+  document.querySelectorAll('.table-header [data-sort]').forEach(th => {
     th.addEventListener('click', () => {
       const col = th.dataset.sort;
       if (sortCol === col) {

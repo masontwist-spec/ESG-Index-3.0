@@ -906,17 +906,42 @@ a:hover .lb-row {
   border-radius: 24px;
 }
 
-/* Adjust table layout for card-like rows */
-.table-wrap table {
-  margin: 0;
-  display: block;
+.table-header {
+  border-bottom: 1px solid var(--line);
+  background: #fbfcfa;
 }
 
-.table-wrap table thead {
-  position: sticky;
-  top: 0;
-  display: block;
-  z-index: 2;
+.table-header .header-row {
+  display: grid;
+  width: 100%;
+  gap: 14px;
+  padding: 18px 20px;
+  align-items: center;
+  justify-items: start;
+}
+
+.table-header .header-cell {
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-size: 13px;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.table-header .header-cell:hover {
+  color: var(--ink);
+}
+
+.table-body {
+  display: grid;
+  gap: 6px;
+  padding: 8px 0;
 }
 
 body.page-rankings .table-wrap,
@@ -926,117 +951,29 @@ body.page-governance .table-wrap {
   overflow: visible;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 1350px;
-  display: block;
+.table-wrap table {
+  display: none;
 }
 
-thead {
-  display: block;
-  position: sticky;
-  top: 0;
-  z-index: 2;
-}
-
-thead tr {
-  display: grid;
-  width: 100%;
-  padding: 18px 20px;
-  align-items: center;
-  justify-items: start;
-}
-
-thead th {
-  text-align: left;
-  padding: 0;
-  font-size: 13px;
-  color: var(--ink-soft);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  border-bottom: 1px solid var(--line);
-  background: #fbfcfa;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: color 0.15s ease, background 0.15s ease;
-}
-
-thead th:first-child {
-  min-width: 68px;
-}
-
-thead th:nth-child(2) {
-  min-width: 260px;
-}
-
-thead th:nth-child(3) {
-  min-width: 92px;
-}
-
-thead th:nth-child(4) {
-  min-width: 120px;
-}
-
-thead th:last-child {
-  min-width: 120px;
-}
-
-thead th:hover {
-  color: var(--ink);
-  background: #f5f7f3;
-}
-
-/* Specific min-widths for rankings tables to align with grid columns */
-body.page-rankings thead th:nth-child(5),
-body.page-rankings thead th:nth-child(6),
-body.page-rankings thead th:nth-child(7),
-body.page-rankings thead th:nth-child(8) {
-  min-width: 140px;
-}
-
-body.page-esg thead th:nth-child(5),
-body.page-esg thead th:nth-child(6),
-body.page-esg thead th:nth-child(7) {
-  min-width: 140px;
-}
-
-body.page-social thead th:nth-child(5),
-body.page-social thead th:nth-child(6),
-body.page-social thead th:nth-child(7),
-body.page-social thead th:nth-child(8) {
-  min-width: 140px;
-}
-
-body.page-governance thead th:nth-child(5),
-body.page-governance thead th:nth-child(6),
-body.page-governance thead th:nth-child(7) {
-  min-width: 140px;
-}
-
-/* Make thead rows grid to align with tbody grid columns */
-body.page-rankings thead tr {
-  display: grid;
+/* Header column templates */
+body.page-rankings .table-header .header-row,
+body.page-rankings .row-content {
   grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(4, minmax(140px, 1.1fr)) minmax(120px, 1.2fr);
-  gap: 14px;
 }
 
-body.page-esg thead tr {
-  display: grid;
+body.page-esg .table-header .header-row,
+body.page-esg .row-content {
   grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(3, minmax(140px, 1.1fr)) minmax(120px, 1.2fr);
-  gap: 14px;
 }
 
-body.page-social thead tr {
-  display: grid;
+body.page-social .table-header .header-row,
+body.page-social .row-content {
   grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(4, minmax(140px, 1.1fr)) minmax(120px, 1.2fr);
-  gap: 14px;
 }
 
-body.page-governance thead tr {
-  display: grid;
+body.page-governance .table-header .header-row,
+body.page-governance .row-content {
   grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(3, minmax(140px, 1.1fr)) minmax(120px, 1.2fr);
-  gap: 14px;
 }
 
 tbody td {
