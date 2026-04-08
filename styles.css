@@ -1065,23 +1065,18 @@ body.page-governance tbody td {
   width: 100%;
 }
 
-.rank-cell {
+.rank-cell,
+.ticker-cell,
+.sector-cell,
+.metric-cell,
+.tier-cell {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .company-cell {
   min-width: 280px;
-}
-
-.ticker-cell, .sector-cell, .tier-cell {
-  display: flex;
-  justify-content: center;
-}
-
-.metric-cell {
-  display: flex;
-  justify-content: center;
 }
 
 tbody tr:nth-child(even) {
