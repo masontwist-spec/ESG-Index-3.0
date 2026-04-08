@@ -1,5 +1,5 @@
 let sortCol = "Governance_Reference_Score";
-let sortAsc = true;
+let sortAsc = false;
 
 function governanceValueSet(row) {
   const reporting = Math.max(

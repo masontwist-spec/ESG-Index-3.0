@@ -1,5 +1,5 @@
 let sortCol = 'Social_Score';
-let sortAsc = true;
+let sortAsc = false;
 
 function populateSectorFilter() {
   const sel = document.getElementById('sectorFilter');
