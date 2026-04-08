@@ -909,10 +909,14 @@ a:hover .lb-row {
 /* Adjust table layout for card-like rows */
 .table-wrap table {
   margin: 0;
+  display: block;
 }
 
 .table-wrap table thead {
-  position: relative;
+  position: sticky;
+  top: 0;
+  display: block;
+  z-index: 2;
 }
 
 body.page-rankings .table-wrap,
@@ -926,6 +930,12 @@ table {
   width: 100%;
   border-collapse: collapse;
   min-width: 1350px;
+  display: block;
+}
+
+thead tr {
+  display: grid;
+  width: 100%;
 }
 
 thead th {
