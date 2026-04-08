@@ -938,6 +938,17 @@ a:hover .lb-row {
   color: var(--ink);
 }
 
+/* Increase column widths for metric headers to prevent smushing */
+body.page-rankings .table-header .header-row,
+body.page-rankings .row-content {
+  grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(4, minmax(155px, 1.1fr)) minmax(120px, 1.2fr);
+}
+
+body.page-governance .table-header .header-row,
+body.page-governance .row-content {
+  grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(3, minmax(165px, 1.1fr)) minmax(120px, 1.2fr);
+}
+
 .table-body {
   display: grid;
   gap: 6px;
@@ -958,7 +969,7 @@ body.page-governance .table-wrap {
 /* Header column templates */
 body.page-rankings .table-header .header-row,
 body.page-rankings .row-content {
-  grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(4, minmax(140px, 1.1fr)) minmax(120px, 1.2fr);
+  grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(4, minmax(155px, 1.1fr)) minmax(120px, 1.2fr);
 }
 
 body.page-esg .table-header .header-row,
@@ -968,12 +979,12 @@ body.page-esg .row-content {
 
 body.page-social .table-header .header-row,
 body.page-social .row-content {
-  grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(4, minmax(140px, 1.1fr)) minmax(120px, 1.2fr);
+  grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(4, minmax(155px, 1.1fr)) minmax(120px, 1.2fr);
 }
 
 body.page-governance .table-header .header-row,
 body.page-governance .row-content {
-  grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(3, minmax(140px, 1.1fr)) minmax(120px, 1.2fr);
+  grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(3, minmax(165px, 1.1fr)) minmax(120px, 1.2fr);
 }
 
 tbody td {
