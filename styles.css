@@ -1132,13 +1132,14 @@ tbody tr:nth-child(even):hover {
 
 .metric-cell {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
 }
 
 .metric-cell .pct {
   min-width: 54px;
-  text-align: right;
+  text-align: left;
   color: var(--ink-soft);
   font-weight: 700;
   font-size: 13px;
