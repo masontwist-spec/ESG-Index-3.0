@@ -900,16 +900,10 @@ a:hover .lb-row {
   overflow: hidden;
 }
 
-body.page-rankings .table-card,
-body.page-esg .table-card,
-body.page-social .table-card,
-body.page-governance .table-card {
-  overflow: visible;
-}
-
 .table-wrap {
   overflow-x: auto;
   border-radius: 24px;
+  background: var(--surface);
 }
 
 .table-header {
@@ -917,25 +911,33 @@ body.page-governance .table-card {
   background: #fbfcfa;
 }
 
-body.page-rankings .table-header,
-body.page-esg .table-header,
-body.page-social .table-header,
-body.page-governance .table-header {
+.score-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  min-width: 1120px;
+}
+
+.score-table thead {
   position: sticky;
   top: 0;
   z-index: 10;
 }
 
-.table-header .header-row {
-  display: grid;
-  width: 100%;
-  gap: 14px;
+.score-table thead th {
   padding: 18px 20px;
-  align-items: center;
-  justify-items: start;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: middle;
+  background: #fbfcfa;
 }
 
 .table-header .header-cell {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
   border: none;
   background: transparent;
   padding: 0;
@@ -953,52 +955,16 @@ body.page-governance .table-header {
   color: var(--ink);
 }
 
-body.page-rankings {
-  --table-columns: minmax(72px, 84px) minmax(320px, 2.25fr) minmax(110px, 0.8fr) minmax(170px, 1.05fr) repeat(4, minmax(132px, 0.95fr)) fit-content(124px);
-}
-
-body.page-esg {
-  --table-columns: minmax(72px, 84px) minmax(320px, 2.25fr) minmax(110px, 0.8fr) minmax(170px, 1.05fr) repeat(3, minmax(150px, 1fr)) fit-content(124px);
-}
-
-body.page-social {
-  --table-columns: minmax(72px, 84px) minmax(320px, 2.25fr) minmax(110px, 0.8fr) minmax(170px, 1.05fr) repeat(4, minmax(132px, 0.95fr)) fit-content(124px);
-}
-
-body.page-governance {
-  --table-columns: minmax(72px, 84px) minmax(320px, 2.25fr) minmax(110px, 0.8fr) minmax(170px, 1.05fr) repeat(3, minmax(150px, 1fr)) fit-content(124px);
-}
-
 .table-body {
-  display: grid;
-  gap: 4px;
-  padding: 12px 12px;
-}
-
-body.page-rankings .table-wrap,
-body.page-esg .table-wrap,
-body.page-social .table-wrap,
-body.page-governance .table-wrap {
-  overflow: visible;
-}
-
-body.page-rankings .table-wrap table,
-body.page-esg .table-wrap table,
-body.page-social .table-wrap table,
-body.page-governance .table-wrap table {
-  display: none;
-}
-
-.table-header .header-row,
-.row-content {
-  grid-template-columns: var(--table-columns);
+  background: var(--surface);
 }
 
 tbody td {
-  padding: 16px;
+  padding: 18px 20px;
   border-bottom: 1px solid var(--line);
   vertical-align: middle;
   font-size: 15px;
+  background: var(--surface);
 }
 
 /* Companies page table column widths */
@@ -1052,90 +1018,20 @@ tbody tr {
   transition: background 0.15s ease;
 }
 
-tbody tr:not(.ranking-row):hover {
+tbody tr:hover td {
   background: #fbfcfa;
 }
 
-/* Ranking table rows - card-like appearance */
 .ranking-row {
-  width: 100%;
-  margin: 2px 0;
-  border-radius: 18px;
-  border: 1px solid var(--line);
-  background: linear-gradient(180deg, #fff, #fbfcfa);
-  box-shadow: 0 2px 8px rgba(16, 25, 43, 0.04);
-  transition: all 0.2s ease;
   cursor: pointer;
-  overflow: hidden;
-}
-
-.ranking-row:hover {
-  background: linear-gradient(180deg, #fff, #f0f3ee);
-  border-color: var(--green);
-  box-shadow: 0 4px 16px rgba(47, 139, 87, 0.12);
-  transform: translateY(-1px);
-}
-
-.row-content {
-  display: grid;
-  gap: 16px;
-  align-items: center;
-  padding: 18px 20px;
-}
-
-.row-content > *,
-.table-header .header-cell {
-  min-width: 0;
-}
-
-body.page-rankings tbody,
-body.page-esg tbody,
-body.page-social tbody,
-body.page-governance tbody {
-  display: grid;
-  gap: 6px;
-  padding: 8px 0;
-}
-
-body.page-rankings tbody tr,
-body.page-esg tbody tr,
-body.page-social tbody tr,
-body.page-governance tbody tr {
-  display: block;
-  border: none;
-  background: transparent;
-}
-
-body.page-rankings tbody td,
-body.page-esg tbody td,
-body.page-social tbody td,
-body.page-governance tbody td {
-  border: none;
-  padding: 0;
-  width: 100%;
-}
-
-.rank-cell,
-.company-cell,
-.ticker-cell,
-.sector-cell,
-.metric-cell,
-.tier-cell {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.company-cell {
-  min-width: 0;
 }
 
 tbody tr:nth-child(even) {
   background: rgba(251, 252, 250, 0.55);
 }
 
-tbody tr:nth-child(even):hover {
-  background: #f7f9f5;
+tbody tr:nth-child(even) td {
+  background: rgba(251, 252, 250, 0.55);
 }
 
 .rank-badge {
@@ -1150,6 +1046,18 @@ tbody tr:nth-child(even):hover {
   font-size: 14px;
 }
 
+.rank-cell,
+.company-cell,
+.ticker-cell,
+.sector-cell,
+.metric-cell,
+.tier-cell {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 0;
+}
+
 .ticker-badge {
   display: inline-flex;
   align-items: center;
@@ -1162,6 +1070,7 @@ tbody tr:nth-child(even):hover {
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.03em;
+  white-space: nowrap;
 }
 
 .company-name {
@@ -1171,7 +1080,6 @@ tbody tr:nth-child(even):hover {
   align-items: center;
   gap: 10px;
   min-width: 0;
-  width: 100%;
 }
 
 .company-name span {
@@ -1291,6 +1199,95 @@ tbody tr:nth-child(even):hover {
 .tier-wasteful {
   color: #c94b4b;
   background: #f9e3e3;
+}
+
+body.page-rankings .score-table th:nth-child(1),
+body.page-rankings .score-table td:nth-child(1),
+body.page-esg .score-table th:nth-child(1),
+body.page-esg .score-table td:nth-child(1),
+body.page-social .score-table th:nth-child(1),
+body.page-social .score-table td:nth-child(1),
+body.page-governance .score-table th:nth-child(1),
+body.page-governance .score-table td:nth-child(1) {
+  width: 88px;
+}
+
+body.page-rankings .score-table th:nth-child(2),
+body.page-rankings .score-table td:nth-child(2),
+body.page-esg .score-table th:nth-child(2),
+body.page-esg .score-table td:nth-child(2),
+body.page-social .score-table th:nth-child(2),
+body.page-social .score-table td:nth-child(2),
+body.page-governance .score-table th:nth-child(2),
+body.page-governance .score-table td:nth-child(2) {
+  width: 30%;
+}
+
+body.page-rankings .score-table th:nth-child(3),
+body.page-rankings .score-table td:nth-child(3),
+body.page-esg .score-table th:nth-child(3),
+body.page-esg .score-table td:nth-child(3),
+body.page-social .score-table th:nth-child(3),
+body.page-social .score-table td:nth-child(3),
+body.page-governance .score-table th:nth-child(3),
+body.page-governance .score-table td:nth-child(3) {
+  width: 110px;
+}
+
+body.page-rankings .score-table th:nth-child(4),
+body.page-rankings .score-table td:nth-child(4),
+body.page-esg .score-table th:nth-child(4),
+body.page-esg .score-table td:nth-child(4),
+body.page-social .score-table th:nth-child(4),
+body.page-social .score-table td:nth-child(4),
+body.page-governance .score-table th:nth-child(4),
+body.page-governance .score-table td:nth-child(4) {
+  width: 17%;
+}
+
+body.page-rankings .score-table th:nth-child(5),
+body.page-rankings .score-table td:nth-child(5),
+body.page-rankings .score-table th:nth-child(6),
+body.page-rankings .score-table td:nth-child(6),
+body.page-rankings .score-table th:nth-child(7),
+body.page-rankings .score-table td:nth-child(7),
+body.page-rankings .score-table th:nth-child(8),
+body.page-rankings .score-table td:nth-child(8),
+body.page-social .score-table th:nth-child(5),
+body.page-social .score-table td:nth-child(5),
+body.page-social .score-table th:nth-child(6),
+body.page-social .score-table td:nth-child(6),
+body.page-social .score-table th:nth-child(7),
+body.page-social .score-table td:nth-child(7),
+body.page-social .score-table th:nth-child(8),
+body.page-social .score-table td:nth-child(8) {
+  width: 132px;
+}
+
+body.page-esg .score-table th:nth-child(5),
+body.page-esg .score-table td:nth-child(5),
+body.page-esg .score-table th:nth-child(6),
+body.page-esg .score-table td:nth-child(6),
+body.page-esg .score-table th:nth-child(7),
+body.page-esg .score-table td:nth-child(7),
+body.page-governance .score-table th:nth-child(5),
+body.page-governance .score-table td:nth-child(5),
+body.page-governance .score-table th:nth-child(6),
+body.page-governance .score-table td:nth-child(6),
+body.page-governance .score-table th:nth-child(7),
+body.page-governance .score-table td:nth-child(7) {
+  width: 150px;
+}
+
+body.page-rankings .score-table th:nth-child(9),
+body.page-rankings .score-table td:nth-child(9),
+body.page-social .score-table th:nth-child(9),
+body.page-social .score-table td:nth-child(9),
+body.page-esg .score-table th:nth-child(8),
+body.page-esg .score-table td:nth-child(8),
+body.page-governance .score-table th:nth-child(8),
+body.page-governance .score-table td:nth-child(8) {
+  width: 126px;
 }
 
 /* =========================
@@ -1576,18 +1573,18 @@ tbody tr:nth-child(even):hover {
    SOCIAL PAGE TABLE COMPACT FIX
 ========================= */
 
-body.page-social table {
+body.page-social .score-table {
   min-width: 1180px;
 }
 
-body.page-social thead th {
+body.page-social .score-table thead th {
   white-space: normal;
   line-height: 1.15;
   font-size: 11px;
   padding: 16px 12px;
 }
 
-body.page-social tbody td {
+body.page-social .score-table tbody td {
   padding: 14px 12px;
 }
 
@@ -1627,7 +1624,7 @@ body.page-social .tier-pill {
 }
 
 @media (max-width: 1200px) {
-  body.page-social table {
+  body.page-social .score-table {
     min-width: 1080px;
   }
 
@@ -1641,16 +1638,16 @@ body.page-social .tier-pill {
 }
 
 @media (max-width: 900px) {
-  body.page-social table {
+  body.page-social .score-table {
     min-width: 980px;
   }
 
-  body.page-social thead th {
+  body.page-social .score-table thead th {
     font-size: 10px;
     padding: 14px 10px;
   }
 
-  body.page-social tbody td {
+  body.page-social .score-table tbody td {
     padding: 12px 10px;
   }
 

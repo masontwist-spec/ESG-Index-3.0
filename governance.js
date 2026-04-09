@@ -154,27 +154,27 @@ function renderTable(rows) {
   const current = filteredRows(rows);
 
   body.innerHTML = current.map(r => `
-        <div class="ranking-row" onclick="window.location.href='profile.html?ticker=${encodeURIComponent(r.Ticker)}'">
-          <div class="row-content">
-            <div class="rank-cell"><div class="rank-badge">${r.rank}</div></div>
+        <tr class="ranking-row" onclick="window.location.href='profile.html?ticker=${encodeURIComponent(r.Ticker)}'">
+          <td><div class="rank-cell"><div class="rank-badge">${r.rank}</div></div></td>
+          <td>
             <div class="company-cell">
               <div class="company-name">
                 <img src="assets/logos/${r.Ticker.toUpperCase()}.png" alt="${r.Company} logo" class="company-logo" onerror="this.style.display='none'">
                 <span>${r.Company}</span>
               </div>
             </div>
-            <div class="ticker-cell"><span class="ticker-badge">${r.Ticker}</span></div>
-            <div class="sector-cell"><span class="sector-name">${r.Sector}</span></div>
-            <div class="metric-cell">${metricMarkup(r.Governance_Reporting_Assurance_Score)}</div>
-            <div class="metric-cell">${metricMarkup(r.Governance_Oversight_Incentives_Score)}</div>
-            <div class="metric-cell">${metricMarkup(r.Governance_Reference_Score, true)}</div>
-            <div class="tier-cell">
-              <span class="tier-pill tier-${tierKey(r.Governance_Reference_Score)}">
-                ${tierLabel(r.Governance_Reference_Score)}
-              </span>
-            </div>
-          </div>
-        </div>
+          </td>
+          <td><div class="ticker-cell"><span class="ticker-badge">${r.Ticker}</span></div></td>
+          <td><div class="sector-cell"><span class="sector-name">${r.Sector}</span></div></td>
+          <td><div class="metric-cell">${metricMarkup(r.Governance_Reporting_Assurance_Score)}</div></td>
+          <td><div class="metric-cell">${metricMarkup(r.Governance_Oversight_Incentives_Score)}</div></td>
+          <td><div class="metric-cell">${metricMarkup(r.Governance_Reference_Score, true)}</div></td>
+          <td><div class="tier-cell">
+            <span class="tier-pill tier-${tierKey(r.Governance_Reference_Score)}">
+              ${tierLabel(r.Governance_Reference_Score)}
+            </span>
+          </div></td>
+        </tr>
   `).join("");
 }
 

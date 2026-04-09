@@ -61,20 +61,22 @@
 
       <div class="table-card">
         <div class="table-wrap">
-          <div class="table-header">
-            <div class="header-row">
-              <button type="button" class="header-cell" data-sort="rank">Rank</button>
-              <button type="button" class="header-cell" data-sort="Company">Company</button>
-              <button type="button" class="header-cell" data-sort="Ticker">Ticker</button>
-              <button type="button" class="header-cell" data-sort="Sector">Sector</button>
-              <button type="button" class="header-cell" data-sort="Climate_Targets">Climate Targets</button>
-              <button type="button" class="header-cell" data-sort="Investment_Transition">Inv. &amp; Transition</button>
-              <button type="button" class="header-cell" data-sort="Climate_Reporting">Climate Reporting</button>
-              <button type="button" class="header-cell" data-sort="Environment_Score">Environment Score</button>
-              <button type="button" class="header-cell" data-sort="tier">Tier</button>
-            </div>
-          </div>
-          <div class="table-body" id="tableBody"></div>
+          <table class="score-table">
+            <thead class="table-header">
+              <tr class="header-row">
+                <th><button type="button" class="header-cell" data-sort="rank">Rank</button></th>
+                <th><button type="button" class="header-cell" data-sort="Company">Company</button></th>
+                <th><button type="button" class="header-cell" data-sort="Ticker">Ticker</button></th>
+                <th><button type="button" class="header-cell" data-sort="Sector">Sector</button></th>
+                <th><button type="button" class="header-cell" data-sort="Climate_Targets">Climate Targets</button></th>
+                <th><button type="button" class="header-cell" data-sort="Investment_Transition">Inv. &amp; Transition</button></th>
+                <th><button type="button" class="header-cell" data-sort="Climate_Reporting">Climate Reporting</button></th>
+                <th><button type="button" class="header-cell" data-sort="Environment_Score">Environment Score</button></th>
+                <th><button type="button" class="header-cell" data-sort="tier">Tier</button></th>
+              </tr>
+            </thead>
+            <tbody class="table-body" id="tableBody"></tbody>
+          </table>
         </div>
       </div>
 

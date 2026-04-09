@@ -75,23 +75,23 @@ function renderTable() {
   document.getElementById('tableBody').innerHTML = rows.map(d => {
     const tier = tierKey(d.ESG_Score);
 
-    return `<div class="ranking-row" onclick="window.location.href='profile.html?ticker=${encodeURIComponent(d.Ticker)}'">
-          <div class="row-content">
-            <div class="rank-cell"><div class="rank-badge">${d.rank}</div></div>
-            <div class="company-cell">
-              <div class="company-name">
-                <img src="assets/logos/${d.Ticker.toUpperCase()}.png" alt="${d.Company} logo" class="company-logo" onerror="this.style.display='none'">
-                <span>${d.Company}</span>
-              </div>
-            </div>
-            <div class="ticker-cell"><span class="ticker-badge">${d.Ticker}</span></div>
-            <div class="sector-cell"><span class="sector-name">${d.Sector}</span></div>
-            <div class="metric-cell">${metricMarkup(d.Environment_Score)}</div>
-            <div class="metric-cell">${metricMarkup(d.Social_Score)}</div>
-            <div class="metric-cell">${metricMarkup(d.ESG_Score, true)}</div>
-            <div class="tier-cell"><span class="tier-pill tier-${tier}">${tierLabel(d.ESG_Score)}</span></div>
+    return `<tr class="ranking-row" onclick="window.location.href='profile.html?ticker=${encodeURIComponent(d.Ticker)}'">
+      <td><div class="rank-cell"><div class="rank-badge">${d.rank}</div></div></td>
+      <td>
+        <div class="company-cell">
+          <div class="company-name">
+            <img src="assets/logos/${d.Ticker.toUpperCase()}.png" alt="${d.Company} logo" class="company-logo" onerror="this.style.display='none'">
+            <span>${d.Company}</span>
           </div>
-        </div>`;
+        </div>
+      </td>
+      <td><div class="ticker-cell"><span class="ticker-badge">${d.Ticker}</span></div></td>
+      <td><div class="sector-cell"><span class="sector-name">${d.Sector}</span></div></td>
+      <td><div class="metric-cell">${metricMarkup(d.Environment_Score)}</div></td>
+      <td><div class="metric-cell">${metricMarkup(d.Social_Score)}</div></td>
+      <td><div class="metric-cell">${metricMarkup(d.ESG_Score, true)}</div></td>
+      <td><div class="tier-cell"><span class="tier-pill tier-${tier}">${tierLabel(d.ESG_Score)}</span></div></td>
+    </tr>`;
   }).join('');
 }
 
