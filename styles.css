@@ -1053,6 +1053,10 @@ body:not(.page-rankings):not(.page-esg):not(.page-social):not(.page-governance) 
   table-layout: auto;
 }
 
+body:not(.page-rankings):not(.page-esg):not(.page-social):not(.page-governance) .toolbar {
+  grid-template-columns: minmax(0, 1fr) 220px;
+}
+
 body:not(.page-rankings):not(.page-esg):not(.page-social):not(.page-governance) thead th {
   text-align: left;
   padding-left: 16px;
@@ -1080,17 +1084,12 @@ body:not(.page-rankings):not(.page-esg):not(.page-social):not(.page-governance) 
 
 body:not(.page-rankings):not(.page-esg):not(.page-social):not(.page-governance) th:nth-child(5),
 body:not(.page-rankings):not(.page-esg):not(.page-social):not(.page-governance) td:nth-child(5) {
-  min-width: 130px;
+  min-width: 240px;
 }
 
 body:not(.page-rankings):not(.page-esg):not(.page-social):not(.page-governance) th:nth-child(6),
 body:not(.page-rankings):not(.page-esg):not(.page-social):not(.page-governance) td:nth-child(6) {
-  min-width: 160px;
-}
-
-body:not(.page-rankings):not(.page-esg):not(.page-social):not(.page-governance) th:nth-child(7),
-body:not(.page-rankings):not(.page-esg):not(.page-social):not(.page-governance) td:nth-child(7) {
-  min-width: 130px;
+  min-width: 200px;
 }
 
 

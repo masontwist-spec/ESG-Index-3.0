@@ -601,6 +601,101 @@ const MASTER_COMPANY_LIST = {
   }
 };
 
+const DIRECTORY_IR_EMAILS = {
+  "III": "investor.relations@3i.com",
+  "ADM": "investorrelationssupport@admiralgroup.co.uk",
+  "AAF": "Investor.relations@africa.airtel.com",
+  "ALW": "investor@alliancewitan.com",
+  "AAL": "tyler.broda@angloamerican.com",
+  "ANTO": "investorrelations@antofagasta.co.uk",
+  "AHT": "kevin.powers@sunbeltrentals.com",
+  "AZN": "ir@astrazeneca.com",
+  "AUTO": "ir@autotrader.co.uk",
+  "BARC": "marina.shchukina@barclays.com",
+  "BDEV": "john.messenger@barrattredrow.co.uk",
+  "BEZ": "sarah.booth@beazley.com",
+  "BKG": "shareholderenquiries@cm.mpms.mufg.com",
+  "BP": "ir@bp.com",
+  "BATS": "IR_team@bat.com",
+  "BLND": "investor.relations@britishland.com",
+  "BT.A": "ir@bt.com",
+  "BNZL": "investor@bunzl.com",
+  "BRBY": "investor.relations@burberry.com",
+  "CNA": "ir@centrica.com",
+  "CCH": "investor.relations@cchellenic.com",
+  "CPG": "investor.relations@compass-group.com",
+  "CTEC": "ir@convatec.com",
+  "CRDA": "investor.relations@croda.com",
+  "DCC": "investorrelations@dcc.ie",
+  "DGE": "investor.relations@diageo.com",
+  "DPLM": "investors@diplomaplc.com",
+  "EDV": "investor@endeavourmining.com",
+  "ENT": "investors@entaingroup.com",
+  "EZJ": "investor.relations@easyJet.com",
+  "EXPN": "investors@experian.com",
+  "FCIT": "campbell.hood@columbiathreadneedle.com",
+  "FRES": "ir@fresnilloplc.com",
+  "GAW": "investorrelations@gwplc.com",
+  "GLEN": "martin.fewings@glencore.com",
+  "GSK": "GSK.Investor-Relations@gsk.com",
+  "HLN": "investor-relations@haleon.com",
+  "HLMA": "investor.relations@halma.com",
+  "HSX": "yana.osullivan@hiscox.com",
+  "HWDN": "IR@howdens.com",
+  "HSBC": "investorrelations@hsbc.com",
+  "IMI": "edward.hann@imiplc.com",
+  "IMB": "ir@impbrands.com",
+  "INF": "investorrelations@informa.com",
+  "IHG": "investors@ihg.com",
+  "ICG": "shareholder.relations@icgam.com",
+  "ITRK": "investor@intertek.com",
+  "IAG": "investor.relations@iairgroup.com",
+  "JD": "investor.relations@jdplc.com",
+  "KGF": "investorenquiries@kingfisher.com",
+  "LAND": "ShareholderEnquiries@landsec.com",
+  "LGEN": "Investor.Relations@group.landg.com",
+  "LLOY": "investor.relations@lloydsbanking.com",
+  "LMP": "info@londonmetric.com",
+  "LSEG": "ir@lseg.com",
+  "MNG": "luca.gagliardi@mandg.com",
+  "MKS": "mandsinvestorrelations@marks-and-spencer.com",
+  "MRO": "ir@melroseplc.net",
+  "MNDI": "ir@mondigroup.com",
+  "NG": "investor.relations@nationalgrid.com",
+  "NWG": "investor.relations@natwest.com",
+  "NXT": "investors@next.co.uk",
+  "PSON": "ir@pearson.com",
+  "PSN": "feedback@persimmonhomes.com",
+  "RKT": "IR@reckitt.com",
+  "REL": "investor.relations@relx.com",
+  "RTO": "investor@rentokil-initial.com",
+  "RMV": "investor.relations@rightmove.co.uk",
+  "RIO": "investorenquiries@riotinto.com",
+  "RR": "investor.relations@rolls-royce.com",
+  "SGE": "investor.relations@sage.com",
+  "SBRY": "sainsburys@cm.mpms.mufg.com",
+  "SDR": "investorrelations@schroders.com",
+  "SMT": "enquiries@bailliegifford.com",
+  "SGRO": "SEGRO.Investor.Relations@segro.com",
+  "SVT": "investorrelations@severntrent.co.uk",
+  "SHEL": "ir-europe@shell.com",
+  "SN": "InvestorRelations.Global@smith-nephew.com",
+  "SMIN": "investor.relations@smiths.com",
+  "SPX": "Mal.Patel@spiraxgroup.com",
+  "SSE": "ir@sse.com",
+  "STJ": "hugh.taylor@sjp.co.uk",
+  "STAN": "Investor.Relations@sc.com",
+  "TW": "TaylorWimpey-LON@fgsglobal.com",
+  "TSCO": "Investor.Relations@tesco.com",
+  "ULVR": "investor.relations@unilever.com",
+  "UTG": "ir@unitestudents.com",
+  "UU": "chris.laybutt@uuplc.co.uk",
+  "VOD": "ir@vodafone.co.uk",
+  "WEIR": "investor-relations@weir.co.uk",
+  "WTB": "investorrelations@whitbread.com",
+  "WPP": "irteam@wpp.com"
+};
+
 function getCompanyMetadata(row) {
   const direct = MASTER_COMPANY_LIST[row.Company];
   if (direct) return direct;
@@ -629,9 +724,8 @@ function buildCompanyDirectoryRows() {
       Ticker: row.Ticker,
       Sector: row.Sector,
       Website: meta.Website || "",
-      Annual_Report_URL: meta.Annual_Report_URL || "",
-      Sustainability_Report_URL: meta.Sustainability_Report_URL || "",
-      Reporting_Year: meta.Reporting_Year || ""
+      IR_Email: DIRECTORY_IR_EMAILS[row.Ticker] || "",
+      HQ_Address: ""
     };
   });
 }
@@ -639,13 +733,8 @@ function buildCompanyDirectoryRows() {
 let sortCol = "Company";
 let sortAsc = true;
 
-function uniqueReportYears(rows) {
-  return [...new Set(rows.map(r => r.Reporting_Year).filter(Boolean))].sort((a, b) => String(b).localeCompare(String(a)));
-}
-
 function populateFilters(rows) {
   const sectorSel = document.getElementById("sectorFilter");
-  const yearSel = document.getElementById("yearFilter");
 
   uniqueSectors().forEach(s => {
     const opt = document.createElement("option");
@@ -653,31 +742,24 @@ function populateFilters(rows) {
     opt.textContent = s;
     sectorSel.appendChild(opt);
   });
-
-  uniqueReportYears(rows).forEach(y => {
-    const opt = document.createElement("option");
-    opt.value = y;
-    opt.textContent = y;
-    yearSel.appendChild(opt);
-  });
 }
 
 function currentRows(rows) {
   const q = document.getElementById("searchInput").value.toLowerCase().trim();
   const sector = document.getElementById("sectorFilter").value;
-  const year = document.getElementById("yearFilter").value;
 
   let filtered = rows.filter(r => {
     const matchQ =
       !q ||
       r.Company.toLowerCase().includes(q) ||
       r.Ticker.toLowerCase().includes(q) ||
-      (r.Website && r.Website.toLowerCase().includes(q));
+      (r.Website && r.Website.toLowerCase().includes(q)) ||
+      (r.IR_Email && r.IR_Email.toLowerCase().includes(q)) ||
+      (r.HQ_Address && r.HQ_Address.toLowerCase().includes(q));
 
     const matchSector = !sector || r.Sector === sector;
-    const matchYear = !year || r.Reporting_Year === year;
 
-    return matchQ && matchSector && matchYear;
+    return matchQ && matchSector;
   });
 
   filtered.sort((a, b) => {
@@ -708,6 +790,13 @@ function safeLink(url, label) {
   return `<a href="${trimmed}" target="_blank" rel="noopener noreferrer" class="section-link">${label}</a>`;
 }
 
+function safeEmail(email) {
+  if (!email) return `<span class="sector-name">-</span>`;
+
+  const trimmed = String(email).trim();
+  return `<a href="mailto:${trimmed}" class="section-link">${trimmed}</a>`;
+}
+
 function renderTable(rows) {
   const body = document.getElementById("tableBody");
   const current = currentRows(rows);
@@ -723,9 +812,8 @@ function renderTable(rows) {
       <td><span class="ticker-badge">${r.Ticker}</span></td>
       <td><span class="sector-name">${r.Sector}</span></td>
       <td>${safeLink(r.Website, "Website")}</td>
-      <td>${safeLink(r.Annual_Report_URL, "Annual Report")}</td>
-      <td>${safeLink(r.Sustainability_Report_URL, "Sustainability Report")}</td>
-      <td><span class="sector-name">${r.Reporting_Year || "—"}</span></td>
+      <td>${safeEmail(r.IR_Email)}</td>
+      <td><span class="sector-name">${r.HQ_Address || "-"}</span></td>
     </tr>
   `).join("");
 }
@@ -750,5 +838,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("searchInput").addEventListener("input", () => renderTable(rows));
   document.getElementById("sectorFilter").addEventListener("change", () => renderTable(rows));
-  document.getElementById("yearFilter").addEventListener("change", () => renderTable(rows));
 });
+
+
+

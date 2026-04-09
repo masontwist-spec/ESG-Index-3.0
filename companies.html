@@ -34,8 +34,8 @@
         <div>
           <h1>Companies</h1>
           <p>
-            Reference directory for FTSE 100 companies included in the index, with source links to company websites,
-            annual reports, sustainability / ESG reports, and reporting year where available.
+            Reference directory for FTSE 100 companies included in the index, with company websites, investor
+            relations emails, and space reserved for HQ addresses.
           </p>
         </div>
       </div>
@@ -44,9 +44,6 @@
         <input class="control" id="searchInput" placeholder="Search company or ticker..." />
         <select class="control" id="sectorFilter">
           <option value="">All sectors</option>
-        </select>
-        <select class="control" id="yearFilter">
-          <option value="">All reporting years</option>
         </select>
       </div>
 
@@ -59,9 +56,8 @@
                 <th data-sort="Ticker">Ticker</th>
                 <th data-sort="Sector">Sector</th>
                 <th data-sort="Website">Website</th>
-                <th data-sort="Annual_Report_URL">Annual Report</th>
-                <th data-sort="Sustainability_Report_URL">Sustainability / ESG Report</th>
-                <th data-sort="Reporting_Year">Reporting Year</th>
+                <th data-sort="IR_Email">IR Email</th>
+                <th data-sort="HQ_Address">HQ Address</th>
               </tr>
             </thead>
             <tbody id="tableBody"></tbody>
