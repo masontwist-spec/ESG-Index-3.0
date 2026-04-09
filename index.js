@@ -256,6 +256,8 @@ function renderLeaderboard(data) {
 
 function renderDistributionChart(data) {
   const chartEl = document.getElementById("overviewDistributionChart");
+  const chartTitleEl = document.getElementById("overviewDistributionTitle");
+  const chartSubtitleEl = document.getElementById("overviewDistributionSubtitle");
   if (!chartEl) return;
 
   const scores = data.map(d => Number(d.ESG_Score) || 0);
@@ -268,6 +270,9 @@ function renderDistributionChart(data) {
   const meanAndMedianAreClose = Math.abs(avgScore - medianScore) < 0.08;
   const avgLabelY = maxCount + 0.42;
   const medianLabelY = meanAndMedianAreClose ? Math.max(maxCount - 1.2, 0.95) : Math.max(maxCount - 0.4, 1);
+
+  if (chartTitleEl) chartTitleEl.textContent = "Distribution of ESG Exposure";
+  if (chartSubtitleEl) chartSubtitleEl.innerHTML = subtitle;
 
   Plotly.react(
     chartEl,
@@ -294,34 +299,7 @@ function renderDistributionChart(data) {
       }
     ],
     {
-      title: {
-        text: "Distribution of ESG Exposure",
-        x: 0,
-        xanchor: "left",
-        y: 0.995,
-        yanchor: "top",
-        font: {
-          family: 'Georgia, "Times New Roman", serif',
-          size: sizing.titleSize,
-          color: "#171b24"
-        }
-      },
       annotations: [
-        {
-          xref: "paper",
-          yref: "paper",
-          x: 0,
-          y: 0.86,
-          xanchor: "left",
-          yanchor: "top",
-          align: "left",
-          showarrow: false,
-          text: subtitle,
-          font: {
-            size: sizing.subtitleSize,
-            color: "#667085"
-          }
-        },
         {
           x: avgScore,
           y: avgLabelY,
@@ -384,7 +362,7 @@ function renderDistributionChart(data) {
       paper_bgcolor: "rgba(0,0,0,0)",
       plot_bgcolor: "rgba(0,0,0,0)",
       height: sizing.height,
-      margin: { l: 56, r: 18, t: Math.max(sizing.topMargin + 6, 108), b: 56 },
+      margin: { l: 56, r: 18, t: 28, b: 56 },
       bargap: 0.06,
       hoverlabel: {
         bgcolor: "#ffffff",

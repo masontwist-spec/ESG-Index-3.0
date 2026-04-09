@@ -1553,6 +1553,28 @@ body.page-social .score-table th:nth-child(8) .header-cell {
   min-height: 360px;
 }
 
+.overview-distribution-head {
+  margin-bottom: 10px;
+}
+
+.overview-distribution-head h3 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 24px;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.overview-distribution-head p {
+  margin: 8px 0 0;
+  max-width: 720px;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
 /* =========================
    Footer
 ========================= */
@@ -1661,6 +1683,10 @@ body.page-social .score-table th:nth-child(8) .header-cell {
   .overview-distribution-chart {
     min-height: 320px;
   }
+
+  .overview-distribution-head h3 {
+    font-size: 22px;
+  }
 }
 
 @media (max-width: 720px) {
@@ -1707,6 +1733,14 @@ body.page-social .score-table th:nth-child(8) .header-cell {
 
   .overview-distribution-chart {
     min-height: 280px;
+  }
+
+  .overview-distribution-head h3 {
+    font-size: 20px;
+  }
+
+  .overview-distribution-head p {
+    font-size: 13px;
   }
 }
 
