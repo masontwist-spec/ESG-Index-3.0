@@ -295,7 +295,7 @@ function renderDistributionChart(data) {
     ],
     {
       title: {
-        text: "Distribution of ESG Expoosure",
+        text: "Distribution of ESG Exposure",
         x: 0,
         xanchor: "left",
         y: 0.995,
@@ -311,7 +311,7 @@ function renderDistributionChart(data) {
           xref: "paper",
           yref: "paper",
           x: 0,
-          y: 0.94,
+          y: 0.86,
           xanchor: "left",
           yanchor: "top",
           align: "left",
@@ -384,7 +384,7 @@ function renderDistributionChart(data) {
       paper_bgcolor: "rgba(0,0,0,0)",
       plot_bgcolor: "rgba(0,0,0,0)",
       height: sizing.height,
-      margin: { l: 56, r: 18, t: Math.max(sizing.topMargin - 10, 92), b: 56 },
+      margin: { l: 56, r: 18, t: Math.max(sizing.topMargin + 6, 108), b: 56 },
       bargap: 0.06,
       hoverlabel: {
         bgcolor: "#ffffff",
