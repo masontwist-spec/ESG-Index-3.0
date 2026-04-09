@@ -58,7 +58,7 @@ function buildDistributionSubtitle(bins) {
     .filter(bin => bin.end <= 0.2 || bin.start >= 0.8)
     .reduce((sum, bin) => sum + bin.count, 0);
 
-  return `${fmtWholePct(clusterStart)}-${fmtWholePct(clusterEnd)} holds the main cluster; only ${outlierCount} companies sit below 20% or above 80%.`;
+  return `${fmtWholePct(clusterStart)}-${fmtWholePct(clusterEnd)} holds the main cluster.<br>Only ${outlierCount} companies sit below 20% or above 80%.`;
 }
 
 function getDistributionChartSizing() {
@@ -309,7 +309,7 @@ function renderDistributionChart(data) {
           xref: "paper",
           yref: "paper",
           x: 0,
-          y: 1.1,
+          y: 1.16,
           xanchor: "left",
           yanchor: "bottom",
           align: "left",
@@ -382,7 +382,7 @@ function renderDistributionChart(data) {
       paper_bgcolor: "rgba(0,0,0,0)",
       plot_bgcolor: "rgba(0,0,0,0)",
       height: sizing.height,
-      margin: { l: 56, r: 18, t: Math.max(sizing.topMargin - 18, 92), b: 56 },
+      margin: { l: 56, r: 18, t: sizing.topMargin + 12, b: 56 },
       bargap: 0.06,
       hoverlabel: {
         bgcolor: "#ffffff",
