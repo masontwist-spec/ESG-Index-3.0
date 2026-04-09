@@ -1292,12 +1292,14 @@ body.page-governance .score-table td:nth-child(8) {
 }
 
 body.page-rankings .score-table thead th,
+body.page-social .score-table thead th,
 body.page-governance .score-table thead th {
   padding-top: 20px;
   padding-bottom: 20px;
 }
 
 body.page-rankings .table-header .header-cell,
+body.page-social .table-header .header-cell,
 body.page-governance .table-header .header-cell {
   font-size: 12px;
 }
