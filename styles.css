@@ -1015,16 +1015,35 @@ body:not(.page-rankings):not(.page-esg):not(.page-social):not(.page-governance) 
 }
 
 
-tbody tr {
-  transition: background 0.15s ease;
+.score-table tbody tr {
+  transition: transform 0.2s ease, filter 0.2s ease;
 }
 
-tbody tr:hover td {
-  background: #fbfcfa;
+.score-table tbody tr:hover {
+  transform: translateX(2px);
+  filter: drop-shadow(0 4px 12px rgba(47, 139, 87, 0.1));
 }
 
 .ranking-row {
   cursor: pointer;
+}
+
+.score-table tbody tr:hover td {
+  background: linear-gradient(180deg, #fff, #f0f3ee);
+  border-top: 1px solid rgba(47, 139, 87, 0.4);
+  border-bottom: 1px solid rgba(47, 139, 87, 0.4);
+}
+
+.score-table tbody tr:hover td:first-child {
+  border-left: 1px solid rgba(47, 139, 87, 0.4);
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+}
+
+.score-table tbody tr:hover td:last-child {
+  border-right: 1px solid rgba(47, 139, 87, 0.4);
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
 }
 
 tbody tr:nth-child(even) {
