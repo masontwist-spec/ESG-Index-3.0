@@ -947,7 +947,8 @@ a:hover .lb-row {
   text-transform: uppercase;
   text-align: left;
   cursor: pointer;
-  white-space: nowrap;
+  white-space: normal;
+  line-height: 1.2;
   transition: color 0.15s ease, background 0.15s ease;
 }
 
@@ -1276,7 +1277,7 @@ body.page-governance .score-table th:nth-child(6),
 body.page-governance .score-table td:nth-child(6),
 body.page-governance .score-table th:nth-child(7),
 body.page-governance .score-table td:nth-child(7) {
-  width: 150px;
+  width: 168px;
 }
 
 body.page-rankings .score-table th:nth-child(9),
@@ -1288,6 +1289,17 @@ body.page-esg .score-table td:nth-child(8),
 body.page-governance .score-table th:nth-child(8),
 body.page-governance .score-table td:nth-child(8) {
   width: 126px;
+}
+
+body.page-rankings .score-table thead th,
+body.page-governance .score-table thead th {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+body.page-rankings .table-header .header-cell,
+body.page-governance .table-header .header-cell {
+  font-size: 12px;
 }
 
 /* =========================
