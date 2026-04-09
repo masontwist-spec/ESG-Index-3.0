@@ -36,6 +36,9 @@ function sectorRankOfTicker(scoreKey, ticker, sector) {
 }
 
 function renderProfileHeader(company) {
+  const logo = document.getElementById("profileLogo");
+  const logoShell = document.getElementById("profileLogoShell");
+
   document.getElementById("profileCompanyName").textContent = company.Company;
   document.getElementById("profileTicker").textContent = company.Ticker;
   document.getElementById("profileIntro").textContent =
@@ -43,6 +46,18 @@ function renderProfileHeader(company) {
 
   document.getElementById("profileMetaText").textContent =
     `${company.Company} · ${company.Ticker} · ${company.Sector}`;
+
+  if (logo && logoShell) {
+    logo.src = `assets/logos/${String(company.Ticker).toUpperCase()}.png`;
+    logo.alt = `${company.Company} logo`;
+    logo.onload = () => {
+      logoShell.hidden = false;
+    };
+    logo.onerror = () => {
+      logoShell.hidden = true;
+    };
+    logoShell.hidden = false;
+  }
 
   const overallRank = rankOfTicker("ESG_Score", company.Ticker);
   const envRank = rankOfTicker("Environment_Score", company.Ticker);
