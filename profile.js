@@ -7,6 +7,46 @@ function fmtPct(num) {
   return (Number(num) * 100).toFixed(1) + '%';
 }
 
+const PROFILE_CONTACTS = {
+  "III": { irEmail: "investor.relations@3i.com" },
+  "ADM": { irEmail: "investorrelationssupport@admiralgroup.co.uk" },
+  "AAF": { irEmail: "Investor.relations@africa.airtel.com" },
+  "ALW": { irEmail: "investor@alliancewitan.com" },
+  "AAL": { irEmail: "tyler.broda@angloamerican.com" },
+  "ANTO": { irEmail: "investorrelations@antofagasta.co.uk" },
+  "AHT": { irEmail: "kevin.powers@sunbeltrentals.com" },
+  "AZN": { irEmail: "ir@astrazeneca.com" },
+  "AUTO": { irEmail: "ir@autotrader.co.uk" },
+  "BARC": { irEmail: "marina.shchukina@barclays.com" },
+  "BDEV": { irEmail: "john.messenger@barrattredrow.co.uk" },
+  "BEZ": { irEmail: "sarah.booth@beazley.com" },
+  "BKG": { irEmail: "shareholderenquiries@cm.mpms.mufg.com" },
+  "BP": { irEmail: "ir@bp.com" },
+  "BATS": { irEmail: "IR_team@bat.com" },
+  "BLND": { irEmail: "investor.relations@britishland.com" },
+  "BT.A": { irEmail: "ir@bt.com" },
+  "BNZL": { irEmail: "investor@bunzl.com" },
+  "BRBY": { irEmail: "investor.relations@burberry.com" },
+  "CNA": { irEmail: "ir@centrica.com" },
+  "CCH": { irEmail: "investor.relations@cchellenic.com" },
+  "CPG": { irEmail: "investor.relations@compass-group.com" },
+  "CTEC": { irEmail: "ir@convatec.com" },
+  "CRDA": { irEmail: "investor.relations@croda.com" },
+  "DCC": { irEmail: "investorrelations@dcc.ie" },
+  "DGE": { irEmail: "investor.relations@diageo.com" },
+  "DPLM": { irEmail: "investors@diplomaplc.com" },
+  "EDV": { irEmail: "investor@endeavourmining.com" },
+  "ENT": { irEmail: "investors@entaingroup.com" },
+  "EZJ": { irEmail: "investor.relations@easyJet.com" },
+  "EXPN": { irEmail: "investors@experian.com" },
+  "FCIT": { irEmail: "campbell.hood@columbiathreadneedle.com" },
+  "FRES": { irEmail: "ir@fresnilloplc.com" },
+  "GAW": { irEmail: "investorrelations@gwplc.com" },
+  "GLEN": { irEmail: "martin.fewings@glencore.com" },
+  "GSK": { irEmail: "GSK.Investor-Relations@gsk.com" },
+  "HLN": { irEmail: "investor-relations@haleon.com" }
+};
+
 function getProfileTicker() {
   const params = new URLSearchParams(window.location.search);
   return params.get("ticker");
@@ -35,6 +75,29 @@ function sectorRankOfTicker(scoreKey, ticker, sector) {
   return idx >= 0 ? idx + 1 : null;
 }
 
+function getProfileContact(ticker) {
+  return PROFILE_CONTACTS[String(ticker).toUpperCase()] || null;
+}
+
+function renderProfileContacts(company) {
+  const contactBlock = document.getElementById("profileContactBlock");
+  const irEmailLink = document.getElementById("profileIrEmail");
+  const contact = getProfileContact(company.Ticker);
+
+  if (!contactBlock || !irEmailLink) return;
+
+  if (!contact || !contact.irEmail) {
+    contactBlock.hidden = true;
+    irEmailLink.textContent = "";
+    irEmailLink.removeAttribute("href");
+    return;
+  }
+
+  irEmailLink.textContent = contact.irEmail;
+  irEmailLink.href = `mailto:${contact.irEmail}`;
+  contactBlock.hidden = false;
+}
+
 function renderProfileHeader(company) {
   const logo = document.getElementById("profileLogo");
   const logoShell = document.getElementById("profileLogoShell");
@@ -58,6 +121,8 @@ function renderProfileHeader(company) {
     };
     logoShell.hidden = false;
   }
+
+  renderProfileContacts(company);
 
   const overallRank = rankOfTicker("ESG_Score", company.Ticker);
   const envRank = rankOfTicker("Environment_Score", company.Ticker);

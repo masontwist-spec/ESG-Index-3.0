@@ -279,6 +279,47 @@ header {
   min-width: 0;
 }
 
+.profile-contact-block {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.profile-contact-block[hidden] {
+  display: none;
+}
+
+.profile-contact-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  max-width: 100%;
+}
+
+.profile-contact-label {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.profile-contact-link {
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+  word-break: break-word;
+}
+
+.profile-contact-link:hover {
+  color: #9fe3b7;
+}
+
 .profile-logo-shell {
   width: 112px;
   height: 112px;
@@ -1628,6 +1669,11 @@ body.page-social .score-table th:nth-child(8) .header-cell {
     flex-basis: 88px;
     padding: 14px;
     border-radius: 22px;
+  }
+
+  .profile-contact-item {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .hero h1 {
