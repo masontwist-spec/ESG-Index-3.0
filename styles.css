@@ -655,6 +655,10 @@ header {
   gap: 0;
 }
 
+#profileStatsGrid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .stat {
   padding: 28px 12px;
   text-align: center;
@@ -1586,6 +1590,10 @@ body.page-social .score-table th:nth-child(8) .header-cell {
   .stats-grid {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  #profileStatsGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 980px) {
@@ -1623,6 +1631,10 @@ body.page-social .score-table th:nth-child(8) .header-cell {
 
   .nav-links {
     justify-content: flex-start;
+  }
+
+  #profileStatsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -1711,6 +1723,10 @@ body.page-social .score-table th:nth-child(8) .header-cell {
 
   .btn {
     width: 100%;
+  }
+
+  #profileStatsGrid {
+    grid-template-columns: 1fr;
   }
 }
 /* =========================
