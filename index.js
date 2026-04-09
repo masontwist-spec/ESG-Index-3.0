@@ -3,9 +3,104 @@ function mean(arr) {
   return arr.reduce((sum, val) => sum + val, 0) / arr.length;
 }
 
+function median(arr) {
+  if (!arr.length) return 0;
+  const sorted = [...arr].sort((a, b) => a - b);
+  const middle = Math.floor(sorted.length / 2);
+  return sorted.length % 2 === 0
+    ? (sorted[middle - 1] + sorted[middle]) / 2
+    : sorted[middle];
+}
+
 function fmtPct(num) {
   return (Number(num) * 100).toFixed(1) + '%';
 }
+
+function fmtWholePct(num) {
+  return Math.round(Number(num) * 100) + '%';
+}
+
+function buildDistributionBins(values, start = 0, end = 1, binCount = 10) {
+  const binSize = (end - start) / binCount;
+  const bins = Array.from({ length: binCount }, (_, index) => {
+    const binStart = start + index * binSize;
+    const binEnd = binStart + binSize;
+    return {
+      start: binStart,
+      end: binEnd,
+      center: binStart + binSize / 2,
+      count: 0
+    };
+  });
+
+  values.forEach((value) => {
+    const clamped = Math.min(end, Math.max(start, Number(value) || 0));
+    const rawIndex = Math.floor((clamped - start) / binSize);
+    const index = Math.min(binCount - 1, Math.max(0, rawIndex));
+    bins[index].count += 1;
+  });
+
+  return bins;
+}
+
+function buildDistributionSubtitle(bins) {
+  if (!bins.length) return "";
+
+  let bestWindow = { start: 0, total: -1 };
+  for (let i = 0; i <= bins.length - 3; i += 1) {
+    const total = bins[i].count + bins[i + 1].count + bins[i + 2].count;
+    if (total > bestWindow.total) bestWindow = { start: i, total };
+  }
+
+  const clusterStart = bins[bestWindow.start]?.start ?? 0;
+  const clusterEnd = bins[Math.min(bestWindow.start + 2, bins.length - 1)]?.end ?? 1;
+  const outlierCount = bins
+    .filter(bin => bin.end <= 0.2 || bin.start >= 0.8)
+    .reduce((sum, bin) => sum + bin.count, 0);
+
+  return `Most companies cluster between ${fmtWholePct(clusterStart)}-${fmtWholePct(clusterEnd)}, with ${outlierCount} at the extremes below 20% or above 80%.`;
+}
+
+function getDistributionChartSizing() {
+  const width = window.innerWidth;
+
+  if (width <= 640) {
+    return {
+      height: 280,
+      titleSize: 18,
+      subtitleSize: 12,
+      axisTitleSize: 12,
+      axisTickSize: 11,
+      annotationSize: 11,
+      topMargin: 104
+    };
+  }
+
+  if (width <= 980) {
+    return {
+      height: 320,
+      titleSize: 21,
+      subtitleSize: 13,
+      axisTitleSize: 13,
+      axisTickSize: 12,
+      annotationSize: 11,
+      topMargin: 114
+    };
+  }
+
+  return {
+    height: 360,
+    titleSize: 24,
+    subtitleSize: 14,
+    axisTitleSize: 14,
+    axisTickSize: 12,
+    annotationSize: 12,
+    topMargin: 126
+  };
+}
+
+let distributionResizeBound = false;
+let distributionResizeTimer = null;
 
 function buildSectorAverages(data) {
   const grouped = {};
@@ -160,31 +255,192 @@ function renderLeaderboard(data) {
 }
 
 function renderDistributionChart(data) {
-  Plotly.newPlot(
-    "overviewDistributionChart",
+  const chartEl = document.getElementById("overviewDistributionChart");
+  if (!chartEl) return;
+
+  const scores = data.map(d => Number(d.ESG_Score) || 0);
+  const avgScore = mean(scores);
+  const medianScore = median(scores);
+  const bins = buildDistributionBins(scores, 0, 1, 10);
+  const subtitle = buildDistributionSubtitle(bins);
+  const sizing = getDistributionChartSizing();
+  const maxCount = Math.max(...bins.map(bin => bin.count), 0);
+
+  Plotly.react(
+    chartEl,
     [
       {
-        type: "histogram",
-        x: data.map(d => d.ESG_Score),
-        nbinsx: 10,
+        type: "bar",
+        x: bins.map(bin => bin.center),
+        y: bins.map(bin => bin.count),
+        width: bins.map(() => 0.092),
+        customdata: bins.map(bin => [
+          fmtWholePct(bin.start),
+          fmtWholePct(bin.end),
+          bin.count
+        ]),
         marker: {
-          color: "#2e8b57"
+          color: bins.map(bin => (bin.center >= avgScore ? "#246847" : "#2f8b57")),
+          opacity: 0.85,
+          line: {
+            color: "rgba(16, 25, 43, 0.12)",
+            width: 1
+          }
         },
-        hovertemplate: "ESG score bin: %{x:.3f}<br>Count: %{y}<extra></extra>"
+        hovertemplate: "%{customdata[0]}-%{customdata[1]} ESG exposure<br>%{customdata[2]} companies<extra></extra>"
       }
     ],
     {
+      title: {
+        text: "Distribution of ESG Exposure Across FTSE 100 Companies",
+        x: 0,
+        xanchor: "left",
+        font: {
+          family: 'Georgia, "Times New Roman", serif',
+          size: sizing.titleSize,
+          color: "#171b24"
+        }
+      },
+      annotations: [
+        {
+          xref: "paper",
+          yref: "paper",
+          x: 0,
+          y: 1.16,
+          xanchor: "left",
+          yanchor: "bottom",
+          align: "left",
+          showarrow: false,
+          text: subtitle,
+          font: {
+            size: sizing.subtitleSize,
+            color: "#667085"
+          }
+        },
+        {
+          x: avgScore,
+          y: maxCount + 0.35,
+          xanchor: "left",
+          yanchor: "bottom",
+          showarrow: false,
+          text: `Average: ${fmtPct(avgScore)}`,
+          font: {
+            size: sizing.annotationSize,
+            color: "#24553a"
+          },
+          bgcolor: "rgba(220, 236, 223, 0.96)",
+          bordercolor: "rgba(47, 139, 87, 0.22)",
+          borderwidth: 1,
+          borderpad: 5
+        },
+        {
+          x: medianScore,
+          y: Math.max(maxCount - 0.65, 0.8),
+          xanchor: "left",
+          yanchor: "bottom",
+          showarrow: false,
+          text: `Median: ${fmtPct(medianScore)}`,
+          font: {
+            size: sizing.annotationSize,
+            color: "#4e5b72"
+          },
+          bgcolor: "rgba(255, 255, 255, 0.96)",
+          bordercolor: "rgba(152, 162, 179, 0.35)",
+          borderwidth: 1,
+          borderpad: 5
+        }
+      ],
+      shapes: [
+        {
+          type: "line",
+          x0: avgScore,
+          x1: avgScore,
+          y0: 0,
+          y1: maxCount + 0.75,
+          line: {
+            color: "#2f8b57",
+            width: 2,
+            dash: "solid"
+          }
+        },
+        {
+          type: "line",
+          x0: medianScore,
+          x1: medianScore,
+          y0: 0,
+          y1: maxCount + 0.75,
+          line: {
+            color: "#98a2b3",
+            width: 2,
+            dash: "dot"
+          }
+        }
+      ],
       paper_bgcolor: "rgba(0,0,0,0)",
       plot_bgcolor: "rgba(0,0,0,0)",
-      margin: { l: 50, r: 20, t: 10, b: 40 },
-      xaxis: { title: "Composite ESG Score" },
-      yaxis: { title: "Number of Companies" }
+      height: sizing.height,
+      margin: { l: 56, r: 18, t: sizing.topMargin, b: 56 },
+      bargap: 0.06,
+      hoverlabel: {
+        bgcolor: "#ffffff",
+        bordercolor: "rgba(16, 25, 43, 0.08)",
+        font: {
+          color: "#171b24",
+          size: sizing.axisTickSize
+        }
+      },
+      xaxis: {
+        title: {
+          text: "ESG Exposure Score",
+          font: {
+            size: sizing.axisTitleSize,
+            color: "#667085"
+          }
+        },
+        range: [0, 1],
+        tickvals: [0, 0.2, 0.4, 0.6, 0.8, 1],
+        tickformat: ".0%",
+        tickfont: {
+          size: sizing.axisTickSize,
+          color: "#344054"
+        },
+        showgrid: false,
+        zeroline: false,
+        linecolor: "rgba(16, 25, 43, 0.12)",
+        ticks: "outside"
+      },
+      yaxis: {
+        title: {
+          text: "Number of Companies",
+          font: {
+            size: sizing.axisTitleSize,
+            color: "#667085"
+          }
+        },
+        rangemode: "tozero",
+        range: [0, maxCount + 1.2],
+        tickfont: {
+          size: sizing.axisTickSize,
+          color: "#344054"
+        },
+        gridcolor: "rgba(16, 25, 43, 0.08)",
+        griddash: "dot",
+        zeroline: false
+      }
     },
     {
       responsive: true,
       displayModeBar: false
     }
   );
+
+  if (!distributionResizeBound) {
+    window.addEventListener("resize", () => {
+      window.clearTimeout(distributionResizeTimer);
+      distributionResizeTimer = window.setTimeout(() => renderDistributionChart(data), 120);
+    });
+    distributionResizeBound = true;
+  }
 }
 
 function initOverviewPage() {
@@ -201,4 +457,3 @@ function initOverviewPage() {
 }
 
 document.addEventListener("DOMContentLoaded", initOverviewPage);
-``

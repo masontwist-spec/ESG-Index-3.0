@@ -1503,6 +1503,11 @@ body.page-social .score-table th:nth-child(8) .header-cell {
   max-width: 100% !important;
 }
 
+.overview-distribution-chart {
+  width: 100%;
+  min-height: 360px;
+}
+
 /* =========================
    Footer
 ========================= */
@@ -1599,6 +1604,10 @@ body.page-social .score-table th:nth-child(8) .header-cell {
   .sector-panel-card {
     padding: 16px;
   }
+
+  .overview-distribution-chart {
+    min-height: 320px;
+  }
 }
 
 @media (max-width: 720px) {
@@ -1636,6 +1645,10 @@ body.page-social .score-table th:nth-child(8) .header-cell {
 
   .company-name {
     font-size: 15px;
+  }
+
+  .overview-distribution-chart {
+    min-height: 280px;
   }
 }
 
