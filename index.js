@@ -58,7 +58,7 @@ function buildDistributionSubtitle(bins) {
     .filter(bin => bin.end <= 0.2 || bin.start >= 0.8)
     .reduce((sum, bin) => sum + bin.count, 0);
 
-  return `Most companies cluster between ${fmtWholePct(clusterStart)}-${fmtWholePct(clusterEnd)}, with ${outlierCount} at the extremes below 20% or above 80%.`;
+  return `${fmtWholePct(clusterStart)}-${fmtWholePct(clusterEnd)} holds the main cluster; only ${outlierCount} companies sit below 20% or above 80%.`;
 }
 
 function getDistributionChartSizing() {
@@ -265,6 +265,9 @@ function renderDistributionChart(data) {
   const subtitle = buildDistributionSubtitle(bins);
   const sizing = getDistributionChartSizing();
   const maxCount = Math.max(...bins.map(bin => bin.count), 0);
+  const meanAndMedianAreClose = Math.abs(avgScore - medianScore) < 0.08;
+  const avgLabelY = maxCount + 0.42;
+  const medianLabelY = meanAndMedianAreClose ? Math.max(maxCount - 1.2, 0.95) : Math.max(maxCount - 0.4, 1);
 
   Plotly.react(
     chartEl,
@@ -292,7 +295,7 @@ function renderDistributionChart(data) {
     ],
     {
       title: {
-        text: "Distribution of ESG Exposure Across FTSE 100 Companies",
+        text: "Distribution of ESG Expoosure",
         x: 0,
         xanchor: "left",
         font: {
@@ -306,7 +309,7 @@ function renderDistributionChart(data) {
           xref: "paper",
           yref: "paper",
           x: 0,
-          y: 1.16,
+          y: 1.1,
           xanchor: "left",
           yanchor: "bottom",
           align: "left",
@@ -319,8 +322,8 @@ function renderDistributionChart(data) {
         },
         {
           x: avgScore,
-          y: maxCount + 0.35,
-          xanchor: "left",
+          y: avgLabelY,
+          xanchor: meanAndMedianAreClose ? "right" : "left",
           yanchor: "bottom",
           showarrow: false,
           text: `Average: ${fmtPct(avgScore)}`,
@@ -335,7 +338,7 @@ function renderDistributionChart(data) {
         },
         {
           x: medianScore,
-          y: Math.max(maxCount - 0.65, 0.8),
+          y: medianLabelY,
           xanchor: "left",
           yanchor: "bottom",
           showarrow: false,
@@ -379,7 +382,7 @@ function renderDistributionChart(data) {
       paper_bgcolor: "rgba(0,0,0,0)",
       plot_bgcolor: "rgba(0,0,0,0)",
       height: sizing.height,
-      margin: { l: 56, r: 18, t: sizing.topMargin, b: 56 },
+      margin: { l: 56, r: 18, t: Math.max(sizing.topMargin - 18, 92), b: 56 },
       bargap: 0.06,
       hoverlabel: {
         bgcolor: "#ffffff",
