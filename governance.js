@@ -65,7 +65,7 @@ function metricMarkup(v, bold = false) {
   const color = metricColor(value);
 
   return `
-    <div class="metric-cell">
+    <div class="metric-stack">
       <div class="tiny-track">
         <div class="tiny-fill" style="width:${value * 100}%; background:${color};"></div>
       </div>

@@ -953,23 +953,20 @@ body.page-governance .table-header {
   color: var(--ink);
 }
 
-/* Match header labels to the visible text start inside ticker badges. */
-body.page-rankings .table-header .header-cell:nth-child(3),
-body.page-esg .table-header .header-cell:nth-child(3),
-body.page-social .table-header .header-cell:nth-child(3),
-body.page-governance .table-header .header-cell:nth-child(3) {
-  padding-left: 8px;
+body.page-rankings {
+  --table-columns: minmax(72px, 84px) minmax(320px, 2.25fr) minmax(110px, 0.8fr) minmax(170px, 1.05fr) repeat(4, minmax(132px, 0.95fr)) fit-content(124px);
 }
 
-/* Increase column widths for metric headers to prevent smushing */
-body.page-rankings .table-header .header-row,
-body.page-rankings .row-content {
-  grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(4, minmax(155px, 1.1fr)) fit-content(112px);
+body.page-esg {
+  --table-columns: minmax(72px, 84px) minmax(320px, 2.25fr) minmax(110px, 0.8fr) minmax(170px, 1.05fr) repeat(3, minmax(150px, 1fr)) fit-content(124px);
 }
 
-body.page-governance .table-header .header-row,
-body.page-governance .row-content {
-  grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(3, minmax(165px, 1.1fr)) fit-content(112px);
+body.page-social {
+  --table-columns: minmax(72px, 84px) minmax(320px, 2.25fr) minmax(110px, 0.8fr) minmax(170px, 1.05fr) repeat(4, minmax(132px, 0.95fr)) fit-content(124px);
+}
+
+body.page-governance {
+  --table-columns: minmax(72px, 84px) minmax(320px, 2.25fr) minmax(110px, 0.8fr) minmax(170px, 1.05fr) repeat(3, minmax(150px, 1fr)) fit-content(124px);
 }
 
 .table-body {
@@ -992,25 +989,9 @@ body.page-governance .table-wrap table {
   display: none;
 }
 
-/* Header column templates */
-body.page-rankings .table-header .header-row,
-body.page-rankings .row-content {
-  grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(4, minmax(155px, 1.1fr)) fit-content(112px);
-}
-
-body.page-esg .table-header .header-row,
-body.page-esg .row-content {
-  grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(3, minmax(140px, 1.1fr)) fit-content(112px);
-}
-
-body.page-social .table-header .header-row,
-body.page-social .row-content {
-  grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(4, minmax(155px, 1.1fr)) fit-content(112px);
-}
-
-body.page-governance .table-header .header-row,
-body.page-governance .row-content {
-  grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(3, minmax(165px, 1.1fr)) fit-content(112px);
+.table-header .header-row,
+.row-content {
+  grid-template-columns: var(--table-columns);
 }
 
 tbody td {
@@ -1097,29 +1078,14 @@ tbody tr:not(.ranking-row):hover {
 
 .row-content {
   display: grid;
-  gap: 14px;
+  gap: 16px;
   align-items: center;
   padding: 18px 20px;
 }
 
-/* Rankings page - 9 columns */
-body.page-rankings .row-content {
-  grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(4, minmax(155px, 1.1fr)) fit-content(112px);
-}
-
-/* ESG page - 8 columns */
-body.page-esg .row-content {
-  grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(3, minmax(140px, 1.1fr)) fit-content(112px);
-}
-
-/* Social page - 9 columns */
-body.page-social .row-content {
-  grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(4, minmax(155px, 1.1fr)) fit-content(112px);
-}
-
-/* Governance page - 8 columns */
-body.page-governance .row-content {
-  grid-template-columns: minmax(68px, 88px) minmax(260px, 2.2fr) minmax(92px, 1fr) minmax(120px, 1.1fr) repeat(3, minmax(165px, 1.1fr)) fit-content(112px);
+.row-content > *,
+.table-header .header-cell {
+  min-width: 0;
 }
 
 body.page-rankings tbody,
@@ -1150,6 +1116,7 @@ body.page-governance tbody td {
 }
 
 .rank-cell,
+.company-cell,
 .ticker-cell,
 .sector-cell,
 .metric-cell,
@@ -1160,7 +1127,7 @@ body.page-governance tbody td {
 }
 
 .company-cell {
-  min-width: 280px;
+  min-width: 0;
 }
 
 tbody tr:nth-child(even) {
@@ -1185,6 +1152,9 @@ tbody tr:nth-child(even):hover {
 
 .ticker-badge {
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 52px;
   padding: 5px 8px;
   border-radius: 8px;
   background: var(--surface-muted);
@@ -1197,31 +1167,50 @@ tbody tr:nth-child(even):hover {
 .company-name {
   font-weight: 700;
   font-size: 16px;
-  min-width: 240px;
   display: flex;
   align-items: center;
+  gap: 10px;
+  min-width: 0;
+  width: 100%;
+}
+
+.company-name span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .company-logo {
+  flex: 0 0 32px;
   width: 32px;
   height: 32px;
-  margin-right: 8px;
   vertical-align: middle;
   border-radius: 4px;
 }
 
 .sector-name {
   color: var(--ink-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .metric-cell {
   display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.metric-stack {
+  display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 6px;
+  width: max-content;
 }
 
-.metric-cell .pct {
+.metric-stack .pct {
   min-width: 54px;
   text-align: left;
   color: var(--ink-soft);
@@ -1250,10 +1239,15 @@ tbody tr:nth-child(even):hover {
 }
 
 .score-value {
+  text-align: left;
   font-size: 17px;
   font-weight: 800;
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
+}
+
+.tier-cell {
+  justify-content: flex-start;
 }
 
 .tier-pill {
@@ -1559,7 +1553,7 @@ tbody tr:nth-child(even):hover {
   }
 
   .company-name {
-    min-width: 180px;
+    font-size: 15px;
   }
 }
 
@@ -1598,7 +1592,6 @@ body.page-social tbody td {
 }
 
 body.page-social .company-name {
-  min-width: 150px;
   font-size: 15px;
 }
 
@@ -1606,7 +1599,7 @@ body.page-social .sector-name {
   font-size: 13px;
 }
 
-body.page-social .metric-cell {
+body.page-social .metric-stack {
   gap: 8px;
 }
 
@@ -1614,7 +1607,7 @@ body.page-social .tiny-track {
   width: 64px;
 }
 
-body.page-social .metric-cell .pct {
+body.page-social .metric-stack .pct {
   min-width: 40px;
   font-size: 12px;
 }
@@ -1639,7 +1632,7 @@ body.page-social .tier-pill {
   }
 
   body.page-social .company-name {
-    min-width: 135px;
+    font-size: 14px;
   }
 
   body.page-social .tiny-track {
@@ -1662,7 +1655,6 @@ body.page-social .tier-pill {
   }
 
   body.page-social .company-name {
-    min-width: 120px;
     font-size: 14px;
   }
 
@@ -1670,7 +1662,7 @@ body.page-social .tier-pill {
     width: 52px;
   }
 
-  body.page-social .metric-cell .pct {
+  body.page-social .metric-stack .pct {
     min-width: 36px;
     font-size: 11px;
   }
