@@ -126,6 +126,15 @@ function rankOfTicker(scoreKey, ticker) {
   return row ? row.rank : null;
 }
 
+function profileRankTone(rank, total = cappedData.length) {
+  if (!rank || total <= 1) return "rank-medium";
+
+  const ratio = (Number(rank) - 1) / Math.max(1, total - 1);
+  if (ratio < 1 / 3) return "rank-good";
+  if (ratio < 2 / 3) return "rank-medium";
+  return "rank-bad";
+}
+
 function sectorRankOfTicker(scoreKey, ticker, sector) {
   const rows = getSectorRows(sector)
     .slice()
@@ -191,15 +200,15 @@ function renderProfileHeader(company) {
   document.getElementById("profileSignalList").innerHTML = `
     <div class="signal">
       <span class="name">Overall ESG rank</span>
-      <span class="tag">#${overallRank}</span>
+      <span class="tag ${profileRankTone(overallRank)}">#${overallRank}</span>
     </div>
     <div class="signal">
       <span class="name">Environment rank</span>
-      <span class="tag">#${envRank}</span>
+      <span class="tag ${profileRankTone(envRank)}">#${envRank}</span>
     </div>
     <div class="signal">
       <span class="name">Social rank</span>
-      <span class="tag">#${socRank}</span>
+      <span class="tag ${profileRankTone(socRank)}">#${socRank}</span>
     </div>
   `;
 }

@@ -639,6 +639,21 @@ header {
   font-weight: 700;
 }
 
+.signal .tag.rank-good {
+  background: #e8f5ea;
+  color: #1f7a46;
+}
+
+.signal .tag.rank-medium {
+  background: #f8edd8;
+  color: #b7811f;
+}
+
+.signal .tag.rank-bad {
+  background: #f9e3e3;
+  color: #c94b4b;
+}
+
 /* =========================
    Stats Strip
 ========================= */
