@@ -298,6 +298,8 @@ function renderDistributionChart(data) {
         text: "Distribution of ESG Expoosure",
         x: 0,
         xanchor: "left",
+        y: 0.995,
+        yanchor: "top",
         font: {
           family: 'Georgia, "Times New Roman", serif',
           size: sizing.titleSize,
@@ -309,7 +311,7 @@ function renderDistributionChart(data) {
           xref: "paper",
           yref: "paper",
           x: 0,
-          y: 1.16,
+          y: 1.08,
           xanchor: "left",
           yanchor: "bottom",
           align: "left",
@@ -382,7 +384,7 @@ function renderDistributionChart(data) {
       paper_bgcolor: "rgba(0,0,0,0)",
       plot_bgcolor: "rgba(0,0,0,0)",
       height: sizing.height,
-      margin: { l: 56, r: 18, t: sizing.topMargin + 12, b: 56 },
+      margin: { l: 56, r: 18, t: Math.max(sizing.topMargin - 10, 92), b: 56 },
       bargap: 0.06,
       hoverlabel: {
         bgcolor: "#ffffff",
@@ -409,6 +411,7 @@ function renderDistributionChart(data) {
         },
         showgrid: false,
         zeroline: false,
+        showline: false,
         linecolor: "rgba(16, 25, 43, 0.12)",
         ticks: "outside"
       },
