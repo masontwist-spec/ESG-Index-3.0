@@ -1304,6 +1304,10 @@ body.page-governance .table-header .header-cell {
   font-size: 12px;
 }
 
+body.page-social .score-table th:nth-child(8) .header-cell {
+  max-width: 72px;
+}
+
 /* =========================
    Optional Domain Utility Classes
    (Can be used later without breaking anything now)
