@@ -953,6 +953,21 @@ body.page-governance .table-header {
   color: var(--ink);
 }
 
+/* Match header labels to the visible text start inside company and ticker cells. */
+body.page-rankings .table-header .header-cell:nth-child(2),
+body.page-esg .table-header .header-cell:nth-child(2),
+body.page-social .table-header .header-cell:nth-child(2),
+body.page-governance .table-header .header-cell:nth-child(2) {
+  padding-left: 40px;
+}
+
+body.page-rankings .table-header .header-cell:nth-child(3),
+body.page-esg .table-header .header-cell:nth-child(3),
+body.page-social .table-header .header-cell:nth-child(3),
+body.page-governance .table-header .header-cell:nth-child(3) {
+  padding-left: 8px;
+}
+
 /* Increase column widths for metric headers to prevent smushing */
 body.page-rankings .table-header .header-row,
 body.page-rankings .row-content {
