@@ -108,13 +108,8 @@ header {
 .brand-mark {
   width: 40px;
   height: 40px;
-  border-radius: 14px;
-  display: grid;
-  place-items: center;
-  background: var(--green);
-  color: white;
-  box-shadow: 0 8px 24px rgba(47, 139, 87, 0.2);
-  font-size: 18px;
+  display: block;
+  object-fit: contain;
   flex: 0 0 auto;
 }
 
